@@ -1,0 +1,7 @@
+/* Minimal custom styles for 11-3 */
+body{background:linear-gradient(180deg,#f8fafc,#eef2ff);}
+.card-custom{border-radius:12px;border:1px solid #e6eefc}
+.card-header-custom{border-radius:0 0 0 0}
+.btn-primary-custom{background:linear-gradient(135deg,#3b82f6,#06b6d4);color:#fff;padding:.6rem 1rem;border-radius:8px;border:none}
+.stat-card{padding:1.5rem;border-radius:10px}
+#calendar{max-width:100%}

@@ -1,0 +1,5 @@
+[
+  { "id": "A001", "name": "Carlos Pérez", "points": 120, "progress": 55, "goals": { "icfes": "65%", "sena": "Curso informático" } },
+  { "id": "A002", "name": "Laura Gómez", "points": 150, "progress": 70, "goals": { "icfes": "72%", "sena": "Técnico en redes" } },
+  { "id": "A003", "name": "María Ruiz", "points": 85, "progress": 40, "goals": { "icfes": "60%", "sena": "---" } }
+]
