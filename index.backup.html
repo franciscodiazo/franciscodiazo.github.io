@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Francisco Díaz | Educación & Tecnología</title>
+    <meta name="description" content="Portafolio y espacio educativo de Francisco Díaz — gamificación, calendario 11-3, recursos y preparación ICFES.">
+    <meta property="og:title" content="Francisco Díaz | Educación & Tecnología">
+    <meta property="og:description" content="Portafolio y espacio educativo: gamificación, calendario 11-3, recursos y preparación ICFES.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://franciscodiazo.github.io/">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #f59e0b;
+            --unad-color: #003366;
+            --inmaculada-color: #dc2626;
+            --gamification-color: #7c3aed;
+            --bg-light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            overflow-x: hidden;
+        }
+        
+        /* Navbar Custom */
+        .navbar {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95) !important;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-color), var(--gamification-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* ... (estilos permanecen iguales) */
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-mortarboard-fill me-2"></i>Francisco Díaz
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#instituciones">Instituciones</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#grado11-3"><strong>11-3 🎮</strong></a></li>
+                    <li class="nav-item"><a class="nav-link" href="#calendario">Calendario</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#recursos">Recursos</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="container position-relative">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-3 fw-bold mb-4 animate__animated animate__fadeInUp">
+                        Transformando la Educación <br>
+                        <span class="text-warning">Un Clic a la Vez</span>
+                    </h1>
+                    <p class="lead mb-4 animate__animated animate__fadeInUp animate__delay-1s">
+                        Docente de Ingeniería Multimedia & Ciencias Exactas. <br>
+                        Apasionado por la gamificación, la tecnología educativa y el desarrollo del pensamiento computacional.
+                    </p>
+                    <div class="d-flex gap-3 animate__animated animate__fadeInUp animate__delay-2s">
+                        <a href="#grado11-3" class="btn btn-warning btn-lg rounded-pill px-4 fw-bold">
+                            <i class="bi bi-rocket-takeoff me-2"></i>Ir a 11-3
+                        </a>
+                        <a href="#instituciones" class="btn btn-outline-light btn-lg rounded-pill px-4">
+                            Ver Cursos
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 d-none d-lg-block">
+                    <div class="text-center">
+                        <i class="bi bi-laptop display-1 opacity-50"></i>
+                        <i class="bi bi-calculator display-1 opacity-50 ms-3"></i>
+                        <i class="bi bi-database display-1 opacity-50 ms-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Institution Selector -->
+    <section id="instituciones" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold">Selecciona tu Institución</h2>
+            <div class="row g-4">
+                <!-- UNAD -->
+                <div class="col-md-4">
+                    <div class="card inst-card inst-unad" onclick="showSection('unad')">
+                        <div class="card-body p-5 text-center">
+                            <i class="bi bi-building display-1 mb-3 opacity-75"></i>
+                            <h3 class="card-title fw-bold">UNAD</h3>
+                            <p class="card-text">Ingeniería Multimedia</p>
+                            <ul class="list-unstyled mt-3 text-start small">
+                                <li><i class="bi bi-check-circle me-2"></i>Bases de Datos Multimedia</li>
+                                <li><i class="bi bi-check-circle me-2"></i>Seguridad Informática</li>
+                                <li><i class="bi bi-check-circle me-2"></i>Gestión del Desarrollo Multimedia</li>
+                            </ul>
+                            <button class="btn btn-light mt-3 rounded-pill">Acceder <i class="bi bi-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INMACULADA -->
+                <div class="col-md-4">
+                    <div class="card inst-card inst-inmaculada" onclick="showSection('inmaculada')">
+                        <div class="card-body p-5 text-center">
+                            <i class="bi bi-book display-1 mb-3 opacity-75"></i>
+                            <h3 class="card-title fw-bold">La Inmaculada</h3>
+                            <p class="card-text">Secundaria & Media</p>
+                            <ul class="list-unstyled mt-3 text-start small">
+                                <li><i class="bi bi-check-circle me-2"></i>Matemáticas (7°)</li>
+                                <li><i class="bi bi-check-circle me-2"></i>Estadística & Geometría (7°-9°)</li>
+                                <li><i class="bi bi-check-circle me-2"></i>Tecnología (11°)</li>
+                            </ul>
+                            <button class="btn btn-light mt-3 rounded-pill">Acceder <i class="bi bi-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 11-3 -->
+                <div class="col-md-4">
+                    <div class="card inst-card inst-11-3" onclick="showSection('grado11-3')">
+                        <div class="card-body p-5 text-center">
+                            <i class="bi bi-trophy display-1 mb-3 opacity-75"></i>
+                            <h3 class="card-title fw-bold">Grado 11-3</h3>
+                            <p class="card-text">¡Espacio Especial!</p>
+                            <div class="mt-3">
+                                <span class="badge-gamified">ICFES 2026</span>
+                                <span class="badge-gamified">SENA</span>
+                                <span class="badge-gamified">Gamificación</span>
+                            </div>
+                            <button class="btn btn-light mt-3 rounded-pill fw-bold">Entrar al Juego <i class="bi bi-controller"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Especial 11-3 (Gamificada) -->
+    <section id="grado11-3" class="py-5" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); color: white;">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="badge bg-warning text-dark fs-6 mb-2 px-3 py-2 rounded-pill">AÑO ESCOLAR 2026</span>
+                <h2 class="display-4 fw-bold mb-3">Grado 11-3 <i class="bi bi-rocket-takeoff text-warning"></i></h2>
+                <p class="lead">Dirección de Grupo | Misión ICFES & SENA</p>
+                
+                <!-- Countdown ICFES -->
+                <div class="row justify-content-center mt-4 g-3">
+                    <div class="col-6 col-md-3">
+                        <div class="countdown-box">
+                            <span class="countdown-number text-warning" id="days">00</span>
+                            <span class="countdown-label">Días para ICFES</span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="countdown-box">
+                            <span class="countdown-number text-info" id="current-week">1</span>
+                            <span class="countdown-label">Semana Actual</span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="countdown-box">
+                            <span class="countdown-number text-success" id="progress-total">0%</span>
+                            <span class="countdown-label">Progreso Año</span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="countdown-box">
+                            <span class="countdown-number text-danger">Nov 30</span>
+                            <span class="countdown-label">Fin de Año</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- XP Bar del Grado -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <div class="bg-white bg-opacity-10 p-4 rounded-4">
+                        <h4 class="mb-3"><i class="bi bi-trophy-fill text-warning me-2"></i>Nivel del Grado: <span id="grade-level">Guerreros del Saber</span></h4>
+                        <div class="xp-bar">
+                            <div class="xp-progress" id="xp-progress" style="width: 0%">0%</div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2 small">
+                            <span>Inicio: 26 Ene</span>
+                            <span>ICFES: Julio</span>
+                            <span>Grado: Nov</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calendario Semanal ICFES -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h3 class="mb-4"><i class="bi bi-calendar-week me-2"></i>Mapa de Misiones Semanales (40 Semanas)</h3>
+                    <div class="bg-white bg-opacity-10 p-4 rounded-4">
+                        <div class="week-grid" id="week-grid">
+                            <!-- Generado por JS -->
+                        </div>
+                        <div class="mt-3 d-flex gap-3 justify-content-center flex-wrap">
+                            <span class="badge bg-success">Completada</span>
+                            <span class="badge bg-primary">Actual</span>
+                            <span class="badge bg-warning text-dark">Vacaciones (Jun 26)</span>
+                            <span class="badge bg-danger">ICFES</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline del Año -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h3 class="mb-4 text-center">Línea de Tiempo del Año</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot bg-success"></div>
+                            <div class="timeline-content">
+                                <h5 class="fw-bold text-success">Periodo 1 (14 semanas)</h5>
+                                <p class="mb-1"><strong>Inicio:</strong> 26 de Enero</strong></p>
+                                <p class="small text-muted">Fundamentos, diagnóstico ICFES, primeras misiones SENA.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot bg-warning"></div>
+                            <div class="timeline-content">
+                                <h5 class="fw-bold text-warning">Vacaciones de Mitad de Año</h5>
+                                <p class="mb-1"><strong>26 de Junio - 3 semanas</strong></p>
+                                <p class="small text-muted">Descanso estratégico antes del ICFES. Preparación intensiva opcional.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot bg-danger"></div>
+                            <div class="timeline-content">
+                                <h5 class="fw-bold text-danger">ICFES 2026</h5>
+                                <p class="mb-1"><strong>Julio (Fecha exacta por confirmar)</strong></p>
+                                <p class="small text-muted">¡El gran día! Presentación de la prueba de estado.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot bg-info"></div>
+                            <div class="timeline-content">
+                                <h5 class="fw-bold text-info">Periodos 2 & 3 (13 semanas c/u)</h5>
+                                <p class="mb-1"><strong>Hasta 30 de Noviembre</strong></p>
+                                <p class="small text-muted">Profundización SENA, proyectos de grado, cierre de año.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot" style="background: gold; box-shadow: 0 0 20px gold;"></div>
+                            <div class="timeline-content">
+                                <h5 class="fw-bold" style="color: gold;">Ceremonia de Grado</h5>
+                                <p class="mb-1"><strong>Fecha por definir (Nov/Dic)</strong></p>
+                                <p class="small text-muted">¡Celebración de su logro! Cierre de la misión 11°.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Perfiles de Estudiantes -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h3 class="mb-4 text-center">🏆 Tabla de Líderes 11-3</h3>
+                    <div class="row g-4" id="student-grid">
+                        <!-- Estudiantes generados por JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Metas y Recursos -->
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="bg-white text-dark p-4 rounded-4 h-100">
+                        <h4 class="fw-bold mb-3"><i class="bi bi-bullseye text-danger me-2"></i>Metas del Grado</h4>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span><i class="bi bi-check-square me-2 text-primary"></i>Presentación ICFES</span>
+                                <span class="badge bg-primary rounded-pill">Jul 2026</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span><i class="bi bi-check-square me-2 text-success"></i>Certificación SENA</span>
+                                <span class="badge bg-success rounded-pill">En progreso</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span><i class="bi bi-check-square me-2 text-warning"></i>Proyecto de Vida</span>
+                                <span class="badge bg-warning text-dark rounded-pill">Pendiente</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span><i class="bi bi-check-square me-2 text-info"></i>Investigación Formativa</span>
+                                <span class="badge bg-info rounded-pill">Activa</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="bg-white text-dark p-4 rounded-4 h-100">
+                        <h4 class="fw-bold mb-3"><i class="bi bi-controller text-purple me-2"></i>Zona de Poder</h4>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-outline-primary" onclick="showModal('simuladores')">
+                                <i class="bi bi-laptop me-2"></i>Simuladores ICFES
+                            </button>
+                            <button class="btn btn-outline-success" onclick="showModal('gamificacion')">
+                                <i class="bi bi-trophy me-2"></i>Sistema de Puntos
+                            </button>
+                            <button class="btn btn-outline-warning" onclick="showModal('rubricas')">
+                                <i class="bi bi-file-text me-2"></i>Rúbricas de Evaluación
+                            </button>
+                            <button class="btn btn-outline-info" onclick="showModal('recursos')">
+                                <i class="bi bi-folder me-2"></i>Material de Apoyo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cumpleaños - Espacio moderno para el grado -->
+    <section id="cumpleanos" class="py-5 bg-white">
+        <div class="container">
+            <div class="text-center mb-4">
+                <h2 class="fw-bold">🎂 Cumpleaños 11-3</h2>
+                <p class="text-muted">Un espacio moderno para celebrar a nuestros compañeros. Busca por apellido o nombre.</p>
+            </div>
+            <div class="row mb-4 justify-content-center">
+                <div class="col-md-6">
+                    <input id="birthday-search" class="form-control form-control-lg rounded-pill shadow-sm" type="search" placeholder="Buscar por apellidos o nombres...">
+                </div>
+            </div>
+            <div class="row g-3" id="birthday-grid">
+                <!-- Birthday cards generados por JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Calendario General -->
+    <section id="calendario" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold">Calendario Académico 2026</h2>
+            <div class="row g-4">
+                <div class="col-md-8 mx-auto">
+                    <div class="card border-0 shadow-lg rounded-4">
+                        <div class="card-body p-4">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="table-primary">
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Evento</th>
+                                            <th>Tipo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="table-success">
+                                            <td>26 Enero</td>
+                                            <td>Inicio Año Escolar - Periodo 1</td>
+                                            <td><span class="badge bg-success">Inicio</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ene - Abr</td>
+                                            <td>Periodo 1 (14 semanas)</td>
+                                            <td><span class="badge bg-primary">Académico</span></td>
+                                        </tr>
+                                        <tr class="table-warning">
+                                            <td>26 Junio</td>
+                                            <td>Inicio Vacaciones (3 semanas)</td>
+                                            <td><span class="badge bg-warning text-dark">Vacaciones</span></td>
+                                        </tr>
+                                        <tr class="table-danger">
+                                            <td>Julio 2026</td>
+                                            <td>Presentación ICFES</td>
+                                            <td><span class="badge bg-danger">Examen</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jul - Nov</td>
+                                            <td>Periodos 2 y 3 (13 semanas c/u)</td>
+                                            <td><span class="badge bg-primary">Académico</span></td>
+                                        </tr>
+                                        <tr class="table-info">
+                                            <td>30 Noviembre</td>
+                                            <td>Último día de clases</td>
+                                            <td><span class="badge bg-info">Cierre</span></td>
+                                        </tr>
+                                        <tr class="table-dark">
+                                            <td>Por definir</td>
+                                            <td>Ceremonia de Grado 11-3</td>
+                                            <td><span class="badge bg-dark">Graduación</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recursos -->
+    <section id="recursos" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold">Centro de Recursos</h2>
+            <div class="row g-4">
+                <div class="col-md-3 col-6">
+                    <div class="resource-card text-center">
+                        <i class="bi bi-file-earmark-text display-4 text-primary mb-3"></i>
+                        <h5>Plan de Área</h5>
+                        <button class="btn btn-sm btn-outline-primary mt-2">Descargar PDF</button>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="resource-card text-center">
+                        <i class="bi bi-calendar-check display-4 text-success mb-3"></i>
+                        <h5>Plan de Clase</h5>
+                        <button class="btn btn-sm btn-outline-success mt-2">Ver Detalles</button>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="resource-card text-center">
+                        <i class="bi bi-clipboard-check display-4 text-warning mb-3"></i>
+                        <h5>Rúbricas</h5>
+                        <button class="btn btn-sm btn-outline-warning mt-2">Ver Rúbricas</button>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="resource-card text-center">
+                        <i class="bi bi-controller display-4 text-danger mb-3"></i>
+                        <h5>Simuladores</h5>
+                        <button class="btn btn-sm btn-outline-danger mt-2">Jugar Ahora</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <h4 class="fw-bold">Francisco Díaz</h4>
+                    <p class="mb-1">Docente de Ingeniería Multimedia - UNAD</p>
+                    <p class="mb-1">Docente de Ciencias y Tecnología - La Inmaculada Concepción</p>
+                    <p class="mb-0">Director de Grado 11-3</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <h5>Contacto</h5>
+                    <p class="mb-1"><i class="bi bi-envelope me-2"></i>francisco.diaz@unad.edu.co</p>
+                    <p class="mb-0"><i class="bi bi-geo-alt me-2"></i>Colombia</p>
+                    <div class="mt-3">
+                        <a href="#" class="text-white me-3"><i class="bi bi-github fs-4"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-linkedin fs-4"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-globe fs-4"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center small opacity-75">
+                &copy; 2026 Francisco Díaz. Sitio alojado en GitHub Pages.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Action Button -->
+    <button class="fab" onclick="scrollToTop()" title="Volver arriba">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <!-- Modals -->
+    <div class="modal fade" id="infoModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold" id="modalTitle">Información</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <!-- Contenido dinámico -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Descargar PDF</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Datos de estudiantes 11-3 (ejemplo - puedes expandir)
+        const students = [
+            { name: "Estudiante 1", xp: 850, level: "Explorador", avatar: "E1" },
+            { name: "Estudiante 2", xp: 1200, level: "Guerrero", avatar: "E2" },
+            { name: "Estudiante 3", xp: 950, level: "Explorador", avatar: "E3" },
+            { name: "Estudiante 4", xp: 1500, level: "Maestro", avatar: "E4" },
+            { name: "Estudiante 5", xp: 1100, level: "Guerrero", avatar: "E5" },
+            { name: "Estudiante 6", xp: 1300, level: "Guerrero", avatar: "E6" },
+            { name: "Estudiante 7", xp: 2000, level: "Leyenda", avatar: "E7" },
+            { name: "Estudiante 8", xp: 900, level: "Explorador", avatar: "E8" }
+        ];
+
+        // Lista de cumpleaños (Apellidos, Nombres, Fecha)
+        const birthdays = [
+            { last: "Arango Reina", name: "Emmanuel", date: "17 de Diciembre" },
+            { last: "Benachi Gomez", name: "Lucia", date: "30 de Julio" },
+            { last: "Betancur Beltran", name: "Natalia", date: "14 de Agosto" },
+            { last: "Castillo Plaza", name: "Mariana", date: "26 de Febrero" },
+            { last: "Ceron Lopez", name: "Danna Sofia", date: "28 de Julio" },
+            { last: "Delgado Sanchez", name: "Linda Nicolle", date: "14 de Marzo" },
+            { last: "Diaz Esguerra", name: "Mariana", date: "26 de Septiembre" },
+            { last: "Diaz Murillo", name: "Maria Jose", date: "24 de Mayo" },
+            { last: "Escudero Hernandez", name: "Ana Gabriela", date: "14 de Agosto" },
+            { last: "Garcia Arcos", name: "Isabel Cristina", date: "25 de Febrero" },
+            { last: "Gomez Nuñez", name: "Isabella", date: "5 de Septiembre" },
+            { last: "Gutierrez Trujillo", name: "Valery", date: "24 de Abril" },
+            { last: "Hernandez Alvarez", name: "Jessica Alejandra", date: "17 de Octubre" },
+            { last: "Lerma Millan", name: "Derly Nathalia", date: "8 de Mayo" },
+            { last: "Mejias Acosta", name: "Joneisi Deilibet", date: "29 de Noviembre" },
+            { last: "Mendes Ramirez", name: "Juan Manuel", date: "11 de Marzo" },
+            { last: "Mingan Bermudez", name: "Sara Lucia", date: "17 de Diciembre" },
+            { last: "Orejuela Arce", name: "Daniel Esteban", date: "9 de Septiembre" },
+            { last: "Perez Alarcon", name: "Oscarjulian", date: "29 de Septiembre" },
+            { last: "Porras Hurtado", name: "Valentina", date: "4 de Febrero" },
+            { last: "Quesada Delgado", name: "Madeline Sofia", date: "19 de Diciembre" },
+            { last: "Rodriguez Medina", name: "Laura Sofia", date: "8 de Mayo" },
+            { last: "Rojas Moya", name: "Oscar David", date: "29 de Diciembre" },
+            { last: "Roldan Jimenez", name: "Cristian", date: "10 de Junio" },
+            { last: "Saavedra Castañeda", name: "Samuel", date: "15 de Febrero" },
+            { last: "Salazar Reina", name: "Luis David", date: "29 de Diciembre" },
+            { last: "Sanchez Delgado", name: "Mariana", date: "11 de Enero" },
+            { last: "Vazquez Madera", name: "Kristy Paulina", date: "26 de Septiembre" },
+            { last: "Velazco Chivata", name: "Laura Valentina", date: "18 de Junio" },
+            { last: "Velez Vazquez", name: "Ana Sofia", date: "21 de Mayo" },
+            { last: "Volveras Garces", name: "Luis Esteban", date: "23 de Abril" }
+        ];
+
+        // Construir la cuadrícula de cumpleaños
+        function generateBirthdayGrid(filter = '') {
+            const container = document.getElementById('birthday-grid');
+            container.innerHTML = '';
+            const q = filter.trim().toLowerCase();
+
+            birthdays.forEach(b => {
+                const text = (b.last + ' ' + b.name).toLowerCase();
+                if (q && !text.includes(q)) return;
+
+                const initials = b.name.split(' ').map(n => n[0]).join('') + b.last.split(' ')[0][0];
+                const col = document.createElement('div');
+                col.className = 'col-md-3 col-6';
+                col.innerHTML = `
+                    <div class="resource-card text-center shadow-sm" style="border-radius:14px;">
+                        <div class="student-avatar mb-3" style="width:70px;height:70px;border-radius:14px;font-size:1.25rem;">${initials}</div>
+                        <h6 class="fw-bold mb-1">${b.name}</h6>
+                        <small class="text-muted d-block mb-2">${b.last}</small>
+                        <div class="badge bg-primary">${b.date}</div>
+                    </div>
+                `;
+                container.appendChild(col);
+            });
+        }
+
+        // Buscador
+        function initBirthdaySearch() {
+            const input = document.getElementById('birthday-search');
+            if (!input) return;
+            input.addEventListener('input', e => generateBirthdayGrid(e.target.value));
+        }
+
+        // Generar grid de semanas
+        function generateWeekGrid() {
+            const grid = document.getElementById('week-grid');
+            const totalWeeks = 40;
+            const currentWeek = getCurrentWeek();
+            
+            for (let i = 1; i <= totalWeeks; i++) {
+                const week = document.createElement('div');
+                week.className = 'week-item';
+                week.textContent = i;
+                week.title = `Semana ${i}`;
+                
+                // Lógica de colores según calendario
+                if (i === currentWeek) {
+                    week.classList.add('active');
+                } else if (i >= 21 && i <= 23) { // Vacaciones aprox (semana 21-23)
+                    week.classList.add('vacation');
+                } else if (i === 24) { // ICFES
+                    week.classList.add('icfes');
+                }
+                
+                week.onclick = () => showWeekDetails(i);
+                grid.appendChild(week);
+            }
+        }
+
+        // Calcular semana actual (simulado desde 26 Ene 2026)
+        function getCurrentWeek() {
+            const startDate = new Date('2026-01-26');
+            const currentDate = new Date();
+            const diffTime = Math.abs(currentDate - startDate);
+            const diffWeeks = Math.ceil(diffTime / (1000 * 60 * 60 * 24 * 7));
+            return Math.min(diffWeeks, 40);
+        }
+
+        // ... el resto del JS permanece igual ...
+
+        document.addEventListener('DOMContentLoaded', function() {
+            generateWeekGrid();
+            if (typeof generateStudentProfiles === 'function') generateStudentProfiles();
+            if (typeof updateCountdown === 'function') updateCountdown();
+            // Inicializar y mostrar cumpleaños
+            generateBirthdayGrid();
+            initBirthdaySearch();
+            // Resto de inicialización
+        });
+    </script>
+</body>
+</html>
