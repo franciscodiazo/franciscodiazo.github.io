@@ -1,490 +1,333 @@
-<!DOCTYPE HTML>
-<!--
--->
-<html>
-	<head>
-		<title>Francisco J, Díaz.</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<!-- Bootstrap CSS -->
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<!-- Theme overrides -->
-		<link rel="stylesheet" href="assets/css/theme.css" />
-		<!-- Font Awesome -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-p1CmVZJd3Eo3kz+YJ1YxA1tLk3x6x8JYfVd4q9sjR3uCq3Vt2ZMc2l9fLQ0p3f6yQ8p1+5X1WJvI6d2k6/3Zxw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-	</head>
-	<body class="is-preload">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Francisco Díaz | Educación & Tecnología</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #f59e0b;
+            --unad-color: #003366;
+            --inmaculada-color: #dc2626;
+            --gamification-color: #7c3aed;
+            --bg-light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            overflow-x: hidden;
+        }
+        
+        /* Navbar Custom */
+        .navbar {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95) !important;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-color), var(--gamification-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        /* Institution Cards */
+        .inst-card {
+            transition: all 0.3s ease;
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            height: 100%;
+        }
+        
+        .inst-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .inst-unad {
+            background: linear-gradient(135deg, var(--unad-color), #004080);
+            color: white;
+        }
+        
+        .inst-inmaculada {
+            background: linear-gradient(135deg, var(--inmaculada-color), #b91c1c);
+            color: white;
+        }
+        
+        .inst-11-3 {
+            background: linear-gradient(135deg, var(--gamification-color), #ec4899);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
 
-<!-- Navbar -->
-		<nav class="navbar navbar-expand-lg site-navbar">
-		  <div class="container">
-		    <a class="navbar-brand" href="/">Francisco Díaz</a>
-		    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-		      <span class="navbar-toggler-icon"></span>
-		    </button>
-		    <div class="collapse navbar-collapse" id="mainNav">
-		      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-		        <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
-		        <li class="nav-item"><a class="nav-link" href="/11-3/">11-3</a></li>
-		        <li class="nav-item"><a class="nav-link" href="/11-3/rubricas.html">Rúbricas</a></li>
-		        <li class="nav-item"><a class="nav-link" href="/11-3/resources/plan_area.pdf">Plan de Área</a></li>
-		      </ul>
-		    </div>
-		  </div>
-		</nav>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-mortarboard-fill me-2"></i>Francisco Díaz
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#instituciones">Instituciones</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#grado11-3"><strong>11-3 🎮</strong></a></li>
+                    <li class="nav-item"><a class="nav-link" href="#calendario">Calendario</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#recursos">Recursos</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-		<!-- Hero -->
-		<section class="hero">
-		  <div class="container d-flex align-items-center gap-3">
-		    <img src="images/avatar.jpg" class="avatar" alt="Francisco Díaz">
-		    <div>
-		      <h1><strong>Soy Francisco Díaz</strong></h1>
-		      <p class="lead">Ingeniero Informático, docente y apasionado por la innovación y la transformación digital. Profesor de Ingeniería Multimedia y Matemáticas en secundaria.</p>
-		      <p class="mb-0"><a class="btn btn-primary" href="/11-3/">Espacio 11-3</a> <a class="btn btn-outline-primary ms-2" href="/11-3/students.html">Estudiantes</a></p>
-		    </div>
-		  </div>
-		</section>
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="container position-relative">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-3 fw-bold mb-4 animate__animated animate__fadeInUp">
+                        Transformando la Educación <br>
+                        <span class="text-warning">Un Clic a la Vez</span>
+                    </h1>
+                    <p class="lead mb-4 animate__animated animate__fadeInUp animate__delay-1s">
+                        Docente de Ingeniería Multimedia & Ciencias Exactas. <br>
+                        Apasionado por la gamificación, la tecnología educativa y el desarrollo del pensamiento computacional.
+                    </p>
+                    <div class="d-flex gap-3 animate__animated animate__fadeInUp animate__delay-2s">
+                        <a href="#grado11-3" class="btn btn-warning btn-lg rounded-pill px-4 fw-bold">
+                            <i class="bi bi-rocket-takeoff me-2"></i>Ir a 11-3
+                        </a>
+                        <a href="#instituciones" class="btn btn-outline-light btn-lg rounded-pill px-4">
+                            Ver Cursos
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 d-none d-lg-block">
+                    <div class="text-center">
+                        <i class="bi bi-laptop display-1 opacity-50"></i>
+                        <i class="bi bi-calculator display-1 opacity-50 ms-3"></i>
+                        <i class="bi bi-database display-1 opacity-50 ms-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-		<!-- Main -->
-			<main id="main" class="section">
+    <section id="instituciones" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold">Selecciona tu Institución</h2>
+            <div class="row g-4">
+                <!-- UNAD -->
+                <div class="col-md-4">
+                    <div class="card inst-card inst-unad" onclick="showSection('unad')">
+                        <div class="card-body p-5 text-center">
+                            <i class="bi bi-building display-1 mb-3 opacity-75"></i>
+                            <h3 class="card-title fw-bold">UNAD</h3>
+                            <p class="card-text">Ingeniería Multimedia</p>
+                            <ul class="list-unstyled mt-3 text-start small">
+                                <li><i class="bi bi-check-circle me-2"></i>Bases de Datos Multimedia</li>
+                                <li><i class="bi bi-check-circle me-2"></i>Seguridad Informática</li>
+                                <li><i class="bi bi-check-circle me-2"></i>Gestión del Desarrollo Multimedia</li>
+                            </ul>
+                            <button class="btn btn-light mt-3 rounded-pill">Acceder <i class="bi bi-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
 
-				<!-- One -->
-					<section id="one">
-						<header class="major">
-							<h2>Francisco J. Díaz Obando.</h2>
-						</header>
-						<p>Soy Ingeniero Informático, Especialista en Gerencia Informática y Especialista en Seguridad Informática. 
-						con una trayectoria profesional de más de 10 años, en diferentes sectores y en especial el sector académico. 
-						constante en procesos de formación y actualización profesional. Mi perfil se ajusta a 3 áreas de trabajo:
-						Ejecutivo de empresas del sector tecnológico, Docente Universitario en las áreas de Ing. Sistemas. y Gestor TI</p>
-						<ul class="actions">
-							<li><a href="#" class="button">Learn More</a></li>
-						</ul>
-					</section>
+                <!-- INMACULADA -->
+                <div class="col-md-4">
+                    <div class="card inst-card inst-inmaculada" onclick="showSection('inmaculada')">
+                        <div class="card-body p-5 text-center">
+                            <i class="bi bi-house-fill display-1 mb-3 opacity-75"></i>
+                            <h3 class="card-title fw-bold">Inmaculada</h3>
+                            <p class="card-text">Matemáticas & Ciencias</p>
+                            <ul class="list-unstyled mt-3 text-start small">
+                                <li><i class="bi bi-check-circle me-2"></i>Matemáticas I, II</li>
+                                <li><i class="bi bi-check-circle me-2"></i>Física</li>
+                                <li><i class="bi bi-check-circle me-2"></i>Preparación ICFES</li>
+                            </ul>
+                            <button class="btn btn-light mt-3 rounded-pill">Acceder <i class="bi bi-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
 
-				<!-- Two -->
-					<section id="two">
-						<h2>Recent Work</h2>
-						<div class="row">
-							<article class="col-6 col-12-xsmall work-item">
-								<a href="images/fulls/01.jpg" class="image fit thumb"><img src="images/thumbs/01.jpg" alt="" /></a>
-								<h3>Magna sed consequat tempus</h3>
-								<p>Lorem ipsum dolor sit amet nisl sed nullam feugiat.</p>
-							</article>
-							<article class="col-6 col-12-xsmall work-item">
-								<a href="images/fulls/02.jpg" class="image fit thumb"><img src="images/thumbs/02.jpg" alt="" /></a>
-								<h3>Ultricies lacinia interdum</h3>
-								<p>Lorem ipsum dolor sit amet nisl sed nullam feugiat.</p>
-							</article>
-							<article class="col-6 col-12-xsmall work-item">
-								<a href="images/fulls/03.jpg" class="image fit thumb"><img src="images/thumbs/03.jpg" alt="" /></a>
-								<h3>Tortor metus commodo</h3>
-								<p>Lorem ipsum dolor sit amet nisl sed nullam feugiat.</p>
-							</article>
-							<article class="col-6 col-12-xsmall work-item">
-								<a href="images/fulls/04.jpg" class="image fit thumb"><img src="images/thumbs/04.jpg" alt="" /></a>
-								<h3>Quam neque phasellus</h3>
-								<p>Lorem ipsum dolor sit amet nisl sed nullam feugiat.</p>
-							</article>
-							<article class="col-6 col-12-xsmall work-item">
-								<a href="images/fulls/05.jpg" class="image fit thumb"><img src="images/thumbs/05.jpg" alt="" /></a>
-								<h3>Nunc enim commodo aliquet</h3>
-								<p>Lorem ipsum dolor sit amet nisl sed nullam feugiat.</p>
-							</article>
-							<article class="col-6 col-12-xsmall work-item">
-								<a href="images/fulls/06.jpg" class="image fit thumb"><img src="images/thumbs/06.jpg" alt="" /></a>
-								<h3>Risus ornare lacinia</h3>
-								<p>Lorem ipsum dolor sit amet nisl sed nullam feugiat.</p>
-							</article>
-						</div>
-						<ul class="actions">
-							<li><a href="#" class="button">Full Portfolio</a></li>
-						</ul>
-					</section>
+                <!-- 11-3 -->
+                <div class="col-md-4">
+                    <div class="card inst-card inst-11-3" onclick="location.href='/11-3/'">
+                        <div class="card-body p-5 text-center">
+                            <i class="bi bi-joystick display-1 mb-3 opacity-75"></i>
+                            <h3 class="card-title fw-bold">Grado 11-3</h3>
+                            <p class="card-text">Espacio de gamificación y recursos</p>
+                            <ul class="list-unstyled mt-3 text-start small">
+                                <li><i class="bi bi-check-circle me-2"></i>Calendario</li>
+                                <li><i class="bi bi-check-circle me-2"></i>Rubricas</li>
+                                <li><i class="bi bi-check-circle me-2"></i>Recursos</li>
+                            </ul>
+                            <button class="btn btn-light mt-3 rounded-pill">Acceder <i class="bi bi-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-				<!-- Three -->
-					<section id="three">
-						<h2>Get In Touch</h2>
-						<p>Accumsan pellentesque commodo blandit enim arcu non at amet id arcu magna. Accumsan orci faucibus id eu lorem semper nunc nisi lorem vulputate lorem neque lorem ipsum dolor.</p>
-						<div class="row">
-							<div class="col-8 col-12-small">
-								<form method="post" action="#">
-									<div class="row gtr-uniform gtr-50">
-										<div class="col-6 col-12-xsmall"><input type="text" name="name" id="name" placeholder="Name" /></div>
-										<div class="col-6 col-12-xsmall"><input type="email" name="email" id="email" placeholder="Email" /></div>
-										<div class="col-12"><textarea name="message" id="message" placeholder="Message" rows="4"></textarea></div>
-									</div>
-								</form>
-								<ul class="actions">
-									<li><input type="submit" value="Send Message" /></li>
-								</ul>
-							</div>
-							<div class="col-4 col-12-small">
-								<ul class="labeled-icons">
-									<li>
-										<h3 class="icon solid fa-home"><span class="label">Address</span></h3>
-										Colombia<br />
-										Valle del Cauca<br />
-										
-									</li>
-									<li>
-										<h3 class="icon solid fa-mobile-alt"><span class="label">Phone</span></h3>
-										319-393-7260
-									</li>
-									<li>
-										<h3 class="icon solid fa-envelope"><span class="label">Email</span></h3>
-										<a href="#">profefranciscodiaz@gmail.com</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</section>
+    <section id="grado11-3" class="py-5 bg-white">
+        <div class="container">
+            <h2 class="text-center mb-4 fw-bold">11-3 - Gamificación y Recursos</h2>
+            <div class="row g-4 align-items-stretch">
+                <div class="col-md-4">
+                    <div class="mission-card">
+                        <h5>Misiones Activas</h5>
+                        <p class="mb-0">Completa las actividades y gana XP para el tablero de líderes.</p>
+                        <div class="mt-3">
+                            <span class="badge-gamified">+50 XP</span>
+                            <span class="badge bg-secondary">Proyecto</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mission-card">
+                        <h5>Calendario de Clases</h5>
+                        <p class="mb-0">Fechas de entrega, parciales y ICFES.</p>
+                        <a href="/11-3/" class="btn btn-outline-primary mt-3">Ver Calendario</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mission-card mission-completed">
+                        <h5>Rúbricas</h5>
+                        <p class="mb-0">Rúbricas y criterios de evaluación.</p>
+                        <a href="/11-3/rubricas.html" class="btn btn-outline-success mt-3">Ver Rúbricas</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-				<!-- Four -->
-				<!--
-					<section id="four">
-						<h2>Elements</h2>
+    <section id="calendario" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4 fw-bold">Calendario</h2>
+            <p class="text-center text-muted mb-4">Fechas importantes y preparación para evaluaciones.</p>
+            <div class="row">
+                <div class="col-md-8">
+                    <div id="calendarPlaceholder" class="bg-white p-4 rounded shadow-sm" style="min-height:300px;">
+                        <!-- Calendar embed placeholder - links to /11-3/ calendar -->
+                        <p class="text-muted">Visita <a href="/11-3/">el espacio 11-3</a> para ver el calendario interactivo.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="countdown-box text-white bg-gradient rounded p-4">
+                        <h5 class="mb-3">Próxima Evaluación</h5>
+                        <span class="countdown-number">12</span>
+                        <span class="countdown-label">días restantes</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-						<section>
-							<h4>Text</h4>
-							<p>This is <b>bold</b> and this is <strong>strong</strong>. This is <i>italic</i> and this is <em>emphasized</em>.
-							This is <sup>superscript</sup> text and this is <sub>subscript</sub> text.
-							This is <u>underlined</u> and this is code: <code>for (;;) { ... }</code>. Finally, <a href="#">this is a link</a>.</p>
-							<hr />
-							<header>
-								<h4>Heading with a Subtitle</h4>
-								<p>Lorem ipsum dolor sit amet nullam id egestas urna aliquam</p>
-							</header>
-							<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat eu sed ante lacinia sapien lorem accumsan varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
-							<header>
-								<h5>Heading with a Subtitle</h5>
-								<p>Lorem ipsum dolor sit amet nullam id egestas urna aliquam</p>
-							</header>
-							<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat eu sed ante lacinia sapien lorem accumsan varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
-							<hr />
-							<h2>Heading Level 2</h2>
-							<h3>Heading Level 3</h3>
-							<h4>Heading Level 4</h4>
-							<h5>Heading Level 5</h5>
-							<h6>Heading Level 6</h6>
-							<hr />
-							<h5>Blockquote</h5>
-							<blockquote>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan faucibus. Vestibulum ante ipsum primis in faucibus lorem ipsum dolor sit amet nullam adipiscing eu felis.</blockquote>
-							<h5>Preformatted</h5>
-							<pre><code>i = 0;
+    <section id="recursos" class="py-5 bg-white">
+        <div class="container">
+            <h2 class="text-center mb-4 fw-bold">Recursos</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="resource-card text-center">
+                        <div class="icon-box bg-primary text-white rounded mb-3"><i class="bi bi-file-earmark-pdf"></i></div>
+                        <h5>Plan de Área</h5>
+                        <p class="small text-muted">Descarga el plan de área oficial.</p>
+                        <a href="/11-3/resources/plan_area.pdf" class="btn btn-outline-primary btn-sm">Descargar</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="resource-card text-center">
+                        <div class="icon-box bg-success text-white rounded mb-3"><i class="bi bi-book"></i></div>
+                        <h5>Guía ICFES</h5>
+                        <p class="small text-muted">Material para preparación y simulacros.</p>
+                        <a href="#" class="btn btn-outline-success btn-sm">Ver</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="resource-card text-center">
+                        <div class="icon-box bg-warning text-white rounded mb-3"><i class="bi bi-people"></i></div>
+                        <h5>Rubricas</h5>
+                        <p class="small text-muted">Criterios y formatos de evaluación.</p>
+                        <a href="/11-3/rubricas.html" class="btn btn-outline-warning btn-sm">Abrir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-while (!deck.isInOrder()) {
-print 'Iteration ' + i;
-deck.shuffle();
-i++;
-}
+    <footer id="footer" class="site-footer py-4 bg-white border-top">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0 font-weight-bold">Sistema de Francisco Díaz</p>
+                    <small class="text-muted">Gestión educativa y recursos</small>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item"><a href="#" class="text-muted"><i class="fab fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="#" class="text-muted"><i class="fab fa-github"></i></a></li>
+                        <li class="list-inline-item"><a href="#" class="text-muted"><i class="fab fa-dribbble"></i></a></li>
+                        <li class="list-inline-item"><a href="#" class="text-muted"><i class="fas fa-envelope"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
-						</section>
-
-						<section>
-							<h4>Lists</h4>
-							<div class="row">
-								<div class="col-6 col-12-xsmall">
-									<h5>Unordered</h5>
-									<ul>
-										<li>Dolor pulvinar etiam magna etiam.</li>
-										<li>Sagittis adipiscing lorem eleifend.</li>
-										<li>Felis enim feugiat dolore viverra.</li>
-									</ul>
-									<h5>Alternate</h5>
-									<ul class="alt">
-										<li>Dolor pulvinar etiam magna etiam.</li>
-										<li>Sagittis adipiscing lorem eleifend.</li>
-										<li>Felis enim feugiat dolore viverra.</li>
-									</ul>
-								</div>
-								<div class="col-6 col-12-xsmall">
-									<h5>Ordered</h5>
-									<ol>
-										<li>Dolor pulvinar etiam magna etiam.</li>
-										<li>Etiam vel felis at lorem sed viverra.</li>
-										<li>Felis enim feugiat dolore viverra.</li>
-										<li>Dolor pulvinar etiam magna etiam.</li>
-										<li>Etiam vel felis at lorem sed viverra.</li>
-										<li>Felis enim feugiat dolore viverra.</li>
-									</ol>
-									<h5>Icons</h5>
-									<ul class="icons">
-										<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-										<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
-										<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
-										<li><a href="#" class="icon brands fa-tumblr"><span class="label">Tumblr</span></a></li>
-									</ul>
-								</div>
-							</div>
-							<h5>Actions</h5>
-							<ul class="actions">
-								<li><a href="#" class="button primary">Default</a></li>
-								<li><a href="#" class="button">Default</a></li>
-							</ul>
-							<ul class="actions small">
-								<li><a href="#" class="button primary small">Small</a></li>
-								<li><a href="#" class="button small">Small</a></li>
-							</ul>
-							<div class="row">
-								<div class="col-6 col-12-small">
-									<ul class="actions stacked">
-										<li><a href="#" class="button primary">Default</a></li>
-										<li><a href="#" class="button">Default</a></li>
-									</ul>
-								</div>
-								<div class="col-6 col-12-small">
-									<ul class="actions stacked">
-										<li><a href="#" class="button primary small">Small</a></li>
-										<li><a href="#" class="button small">Small</a></li>
-									</ul>
-								</div>
-								<div class="col-6 col-12-small">
-									<ul class="actions stacked">
-										<li><a href="#" class="button primary fit">Default</a></li>
-										<li><a href="#" class="button fit">Default</a></li>
-									</ul>
-								</div>
-								<div class="col-6 col-12-small">
-									<ul class="actions stacked">
-										<li><a href="#" class="button primary small fit">Small</a></li>
-										<li><a href="#" class="button small fit">Small</a></li>
-									</ul>
-								</div>
-							</div>
-						</section>
-
-						<section>
-							<h4>Table</h4>
-							<h5>Default</h5>
-							<div class="table-wrapper">
-								<table>
-									<thead>
-										<tr>
-											<th>Name</th>
-											<th>Description</th>
-											<th>Price</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>Item One</td>
-											<td>Ante turpis integer aliquet porttitor.</td>
-											<td>29.99</td>
-										</tr>
-										<tr>
-											<td>Item Two</td>
-											<td>Vis ac commodo adipiscing arcu aliquet.</td>
-											<td>19.99</td>
-										</tr>
-										<tr>
-											<td>Item Three</td>
-											<td> Morbi faucibus arcu accumsan lorem.</td>
-											<td>29.99</td>
-										</tr>
-										<tr>
-											<td>Item Four</td>
-											<td>Vitae integer tempus condimentum.</td>
-											<td>19.99</td>
-										</tr>
-										<tr>
-											<td>Item Five</td>
-											<td>Ante turpis integer aliquet porttitor.</td>
-											<td>29.99</td>
-										</tr>
-									</tbody>
-									<tfoot>
-										<tr>
-											<td colspan="2"></td>
-											<td>100.00</td>
-										</tr>
-									</tfoot>
-								</table>
-							</div>
-
-							<h5>Alternate</h5>
-							<div class="table-wrapper">
-								<table class="alt">
-									<thead>
-										<tr>
-											<th>Name</th>
-											<th>Description</th>
-											<th>Price</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>Item One</td>
-											<td>Ante turpis integer aliquet porttitor.</td>
-											<td>29.99</td>
-										</tr>
-										<tr>
-											<td>Item Two</td>
-											<td>Vis ac commodo adipiscing arcu aliquet.</td>
-											<td>19.99</td>
-										</tr>
-										<tr>
-											<td>Item Three</td>
-											<td> Morbi faucibus arcu accumsan lorem.</td>
-											<td>29.99</td>
-										</tr>
-										<tr>
-											<td>Item Four</td>
-											<td>Vitae integer tempus condimentum.</td>
-											<td>19.99</td>
-										</tr>
-										<tr>
-											<td>Item Five</td>
-											<td>Ante turpis integer aliquet porttitor.</td>
-											<td>29.99</td>
-										</tr>
-									</tbody>
-									<tfoot>
-										<tr>
-											<td colspan="2"></td>
-											<td>100.00</td>
-										</tr>
-									</tfoot>
-								</table>
-							</div>
-						</section>
-
-						<section>
-							<h4>Buttons</h4>
-							<ul class="actions">
-								<li><a href="#" class="button primary">Primary</a></li>
-								<li><a href="#" class="button">Default</a></li>
-							</ul>
-							<ul class="actions">
-								<li><a href="#" class="button large">Large</a></li>
-								<li><a href="#" class="button">Default</a></li>
-								<li><a href="#" class="button small">Small</a></li>
-							</ul>
-							<ul class="actions fit">
-								<li><a href="#" class="button primary fit">Fit</a></li>
-								<li><a href="#" class="button fit">Fit</a></li>
-							</ul>
-							<ul class="actions fit small">
-								<li><a href="#" class="button primary fit small">Fit + Small</a></li>
-								<li><a href="#" class="button fit small">Fit + Small</a></li>
-							</ul>
-							<ul class="actions">
-								<li><a href="#" class="button primary icon solid fa-download">Icon</a></li>
-								<li><a href="#" class="button icon solid fa-download">Icon</a></li>
-							</ul>
-							<ul class="actions">
-								<li><span class="button primary disabled">Primary</span></li>
-								<li><span class="button disabled">Default</span></li>
-							</ul>
-						</section>
-
-						<section>
-							<h4>Form</h4>
-							<form method="post" action="#">
-								<div class="row gtr-uniform gtr-50">
-									<div class="col-6 col-12-xsmall">
-										<input type="text" name="demo-name" id="demo-name" value="" placeholder="Name" />
-									</div>
-									<div class="col-6 col-12-xsmall">
-										<input type="email" name="demo-email" id="demo-email" value="" placeholder="Email" />
-									</div>
-									<div class="col-12">
-										<select name="demo-category" id="demo-category">
-											<option value="">- Category -</option>
-											<option value="1">Manufacturing</option>
-											<option value="1">Shipping</option>
-											<option value="1">Administration</option>
-											<option value="1">Human Resources</option>
-										</select>
-									</div>
-									<div class="col-4 col-12-small">
-										<input type="radio" id="demo-priority-low" name="demo-priority" checked>
-										<label for="demo-priority-low">Low Priority</label>
-									</div>
-									<div class="col-4 col-12-small">
-										<input type="radio" id="demo-priority-normal" name="demo-priority">
-										<label for="demo-priority-normal">Normal Priority</label>
-									</div>
-									<div class="col-4 col-12-small">
-										<input type="radio" id="demo-priority-high" name="demo-priority">
-										<label for="demo-priority-high">High Priority</label>
-									</div>
-									<div class="col-6 col-12-small">
-										<input type="checkbox" id="demo-copy" name="demo-copy">
-										<label for="demo-copy">Email me a copy of this message</label>
-									</div>
-									<div class="col-6 col-12-small">
-										<input type="checkbox" id="demo-human" name="demo-human" checked>
-										<label for="demo-human">I am a human and not a robot</label>
-									</div>
-									<div class="col-12">
-										<textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
-									</div>
-									<div class="col-12">
-										<ul class="actions">
-											<li><input type="submit" value="Send Message" class="primary" /></li>
-											<li><input type="reset" value="Reset" /></li>
-										</ul>
-									</div>
-								</div>
-							</form>
-						</section>
-
-						<section>
-							<h4>Image</h4>
-							<h5>Fit</h5>
-							<div class="box alt">
-								<div class="row gtr-50 gtr-uniform">
-									<div class="col-12"><span class="image fit"><img src="images/fulls/05.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/thumbs/01.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/thumbs/02.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/thumbs/03.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/thumbs/04.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/thumbs/05.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/thumbs/06.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/thumbs/03.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/thumbs/02.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/thumbs/01.jpg" alt="" /></span></div>
-								</div>
-							</div>
-							<h5>Left &amp; Right</h5>
-							<p><span class="image left"><img src="images/avatar.jpg" alt="" /></span>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent.</p>
-							<p><span class="image right"><img src="images/avatar.jpg" alt="" /></span>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent.</p>
-						</section>
-
-					</section>
-				-->
-
-			</main>
-
-		<!-- Footer -->
-			<footer id="footer" class="site-footer">
-				<div class="container">
-					<div class="row align-items-center">
-						<div class="col-md-6">
-							<p class="mb-0 font-weight-bold">Sistema de Francisco Díaz</p>
-							<small class="text-muted">Gestión educativa y recursos</small>
-						</div>
-						<div class="col-md-6 text-md-end">
-							<ul class="list-inline mb-0">
-								<li class="list-inline-item"><a href="#" class="text-muted"><i class="fab fa-twitter"></i></a></li>
-								<li class="list-inline-item"><a href="#" class="text-muted"><i class="fab fa-github"></i></a></li>
-								<li class="list-inline-item"><a href="#" class="text-muted"><i class="fab fa-dribbble"></i></a></li>
-								<li class="list-inline-item"><a href="#" class="text-muted"><i class="fas fa-envelope"></i></a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</footer>
-
-		<!-- Scripts -->
-			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/main.js"></script>
-
-	</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function showSection(id){
+            if(id === 'unad') alert('UNAD seleccionado - próximamente contenido específico');
+            if(id === 'inmaculada') alert('Inmaculada seleccionado - próximamente contenido específico');
+        }
+    </script>
+</body>
 </html>
