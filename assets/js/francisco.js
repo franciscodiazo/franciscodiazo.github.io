@@ -30,11 +30,12 @@
   // getCurrentWeek
   if (typeof window.getCurrentWeek === 'undefined') {
     window.getCurrentWeek = function() {
-      const startDate = new Date('2025-01-26');
+      // Start date for the 2026 academic year (26 Ene 2026)
+      const startDate = new Date('2026-01-26');
       const currentDate = new Date();
       const diffTime = Math.abs(currentDate - startDate);
       const diffWeeks = Math.ceil(diffTime / (1000 * 60 * 60 * 24 * 7));
-      return Math.min(diffWeeks, 40);
+      return Math.min(Math.max(diffWeeks, 1), 40);
     };
   }
 
@@ -45,10 +46,11 @@
       const modal = new bootstrap.Modal(document.getElementById('infoModal'));
       if (document.getElementById('modalTitle')) document.getElementById('modalTitle').textContent = `Semana ${week} - Misión`;
       let content = '';
-      if (week <= 14) content = `<div class="alert alert-primary">Periodo 1: Fundamentos y diagnóstico ICFES</div>`;
-      else if (week <= 27) content = `<div class="alert alert-info">Periodo 2: Profundización y simulacros</div>`;
-      else content = `<div class="alert alert-warning">Periodo 3: Consolidación y cierre SENA</div>`;
-      if (week >= 21 && week <= 23) content += `<div class="alert alert-warning"><strong>¡Vacaciones!</strong> Descanso obligatorio</div>`;
+      if (week <= 14) content = `<div class="alert alert-primary">Primer periodo (14 semanas): Fundamentos y diagnóstico ICFES</div>`;
+      else if (week <= 27) content = `<div class="alert alert-info">Segundo periodo (13 semanas): Profundización y simulacros</div>`;
+      else content = `<div class="alert alert-warning">Tercer periodo (13 semanas): Consolidación y cierre SENA</div>`;
+      // Vacaciones y ICFES
+      if ((week >= 20 && week <= 22) || (week >= 21 && week <= 23)) content += `<div class="alert alert-warning"><strong>¡Vacaciones!</strong> Descanso estratégico</div>`;
       if (week === 24) content += `<div class="alert alert-danger"><strong>SEMANA ICFES</strong> ¡Todo el poder!</div>`;
       if (document.getElementById('modalBody')) document.getElementById('modalBody').innerHTML = content;
       modal.show();
