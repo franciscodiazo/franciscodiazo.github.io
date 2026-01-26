@@ -31,7 +31,7 @@
     </div>
   </nav>
 
-  <main class="py-5">
+  <main id="main-content" role="main" class="py-5">
     <div class="container">
       <div class="text-center mb-4">
         <h1 class="fw-bold">🎂 Cumpleaños 11-3</h1>
@@ -40,7 +40,9 @@
 
       <div class="row mb-4 justify-content-center">
         <div class="col-md-6 search-wrap">
-          <input id="birthday-search" class="form-control form-control-lg rounded-pill shadow-sm" type="search" placeholder="Buscar por apellidos o nombres...">
+          <label for="birthday-search" class="visually-hidden">Buscar cumpleaños</label>
+          <input id="birthday-search" class="form-control form-control-lg rounded-pill shadow-sm" type="search" placeholder="Buscar por apellidos o nombres..." aria-label="Buscar cumpleaños">
+          <div id="search-live" class="visually-hidden" aria-live="polite"></div>
         </div>
       </div>
 
@@ -93,6 +95,7 @@
       const container = document.getElementById('birthday-grid');
       container.innerHTML = '';
       const q = filter.trim().toLowerCase();
+      let count = 0;
 
       birthdays.forEach(b => {
         const text = (b.last + ' ' + b.name).toLowerCase();
@@ -110,7 +113,14 @@
           </div>
         `;
         container.appendChild(col);
+        count++;
       });
+
+      // Update live region with number of results
+      const live = document.getElementById('search-live');
+      if (live) {
+        live.textContent = count + (count === 1 ? ' resultado' : ' resultados');
+      }
     }
 
     document.getElementById('birthday-search').addEventListener('input', e => generateBirthdayGrid(e.target.value));

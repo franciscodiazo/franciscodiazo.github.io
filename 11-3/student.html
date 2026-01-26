@@ -14,23 +14,24 @@
   <link rel="stylesheet" href="/assets/css/francisco.css">
 </head>
 <body>
+  <a class="skip-link visually-hidden-focusable" href="#main-content">Saltar al contenido</a>
   <nav class="navbar navbar-expand-lg site-navbar">
     <div class="container">
-      <a class="navbar-brand" href="/"><i class="bi bi-mortarboard-fill me-2"></i>Francisco Díaz</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <a class="navbar-brand" href="/"><i class="bi bi-mortarboard-fill me-2" aria-hidden="true"></i>Francisco Díaz</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Alternar navegación">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="mainNav">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
-          <li class="nav-item"><a class="nav-link active" href="/11-3/">11-3</a></li>
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="/11-3/">11-3</a></li>
           <li class="nav-item"><a class="nav-link" href="/11-3/students.html">Estudiantes</a></li>
           <li class="nav-item"><a class="nav-link" href="/11-3/rubricas.html">Rúbricas</a></li>
         </ul>
       </div>
     </div>
   </nav>
-  <main class="container">
+  <main id="main-content" role="main" class="container">
     <div id="student-area">Cargando...</div>
   </main>
 
