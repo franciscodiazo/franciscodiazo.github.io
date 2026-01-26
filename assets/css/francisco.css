@@ -426,11 +426,23 @@ body {
 .visually-hidden-focusable:focus, .visually-hidden-focusable:active {
     position: static !important; height: auto; width: auto; overflow: visible; clip: auto;
 }
-
 :focus-visible {
     outline: 3px solid var(--primary-color);
     outline-offset: 3px;
 }
 
 a[aria-current="page"] { font-weight: 700; }
+
+/* Birthday gamification styles */
+.birthday-card .wish-btn {
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.birthday-card .wish-btn:active { transform: scale(0.98); }
+.birthday-card.birthday-today { border: 2px solid var(--secondary-color); box-shadow: 0 8px 24px rgba(245,158,11,0.12); }
+.xp-badge { background: linear-gradient(90deg,#f59e0b,#fbbf24); color: #fff; padding: 4px 8px; border-radius: 999px; font-weight:700; font-size:0.85rem; }
+.leaderboard { background: white; border-radius: 12px; padding: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.06); }
+.leaderboard .item { display:flex; align-items:center; justify-content:space-between; padding:6px 0; border-bottom:1px dashed #eef2ff; }
+.leaderboard .item:last-child { border-bottom: none; }
+.confetti { animation: pop 700ms ease-out; }
+@keyframes pop { 0% { transform: scale(0.8); opacity: 0; } 60% { transform: scale(1.05); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
 
