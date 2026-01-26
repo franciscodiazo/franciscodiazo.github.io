@@ -6,22 +6,48 @@
 		<title>Francisco J, Díaz.</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!-- Bootstrap CSS -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<!-- Theme overrides -->
+		<link rel="stylesheet" href="assets/css/theme.css" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-p1CmVZJd3Eo3kz+YJ1YxA1tLk3x6x8JYfVd4q9sjR3uCq3Vt2ZMc2l9fLQ0p3f6yQ8p1+5X1WJvI6d2k6/3Zxw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	</head>
 	<body class="is-preload">
 
-		<!-- Header -->
-			<header id="header">
-				<div class="inner">
-					<a href="#" class="image avatar"><img src="images/avatar.jpg" alt="" /></a>
-					<h1><strong>Soy Francisco Díaz</strong>, amante por la<br /> innovación y la transformación digital,
-					 ingeniero Informático, profesor y creativo<br />
-					crafted by <a href="https://ingfranciscodiaz.com"> FD</a>.</h1>
-				</div>
-			</header>
+<!-- Navbar -->
+		<nav class="navbar navbar-expand-lg site-navbar">
+		  <div class="container">
+		    <a class="navbar-brand" href="/">Francisco Díaz</a>
+		    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+		      <span class="navbar-toggler-icon"></span>
+		    </button>
+		    <div class="collapse navbar-collapse" id="mainNav">
+		      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+		        <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+		        <li class="nav-item"><a class="nav-link" href="/11-3/">11-3</a></li>
+		        <li class="nav-item"><a class="nav-link" href="/11-3/rubricas.html">Rúbricas</a></li>
+		        <li class="nav-item"><a class="nav-link" href="/11-3/resources/plan_area.pdf">Plan de Área</a></li>
+		      </ul>
+		    </div>
+		  </div>
+		</nav>
+
+		<!-- Hero -->
+		<section class="hero">
+		  <div class="container d-flex align-items-center gap-3">
+		    <img src="images/avatar.jpg" class="avatar" alt="Francisco Díaz">
+		    <div>
+		      <h1><strong>Soy Francisco Díaz</strong></h1>
+		      <p class="lead">Ingeniero Informático, docente y apasionado por la innovación y la transformación digital. Profesor de Ingeniería Multimedia y Matemáticas en secundaria.</p>
+		      <p class="mb-0"><a class="btn btn-primary" href="/11-3/">Espacio 11-3</a> <a class="btn btn-outline-primary ms-2" href="/11-3/students.html">Estudiantes</a></p>
+		    </div>
+		  </div>
+		</section>
 
 		<!-- Main -->
-			<div id="main">
+			<main id="main" class="section">
 
 				<!-- One -->
 					<section id="one">
@@ -433,29 +459,31 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 					</section>
 				-->
 
-			</div>
+			</main>
 
 		<!-- Footer -->
-			<footer id="footer">
-				<div class="inner">
-					<ul class="icons">
-						<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
-						<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
-						<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-					</ul>
-					<ul class="copyright">
-						<li>&copy; </li><li>Design: <a href="https://ingfranciscodiaz.com">Francisco Díaz</a></li>
-					</ul>
+			<footer id="footer" class="site-footer">
+				<div class="container">
+					<div class="row align-items-center">
+						<div class="col-md-6">
+							<p class="mb-0 font-weight-bold">Sistema de Francisco Díaz</p>
+							<small class="text-muted">Gestión educativa y recursos</small>
+						</div>
+						<div class="col-md-6 text-md-end">
+							<ul class="list-inline mb-0">
+								<li class="list-inline-item"><a href="#" class="text-muted"><i class="fab fa-twitter"></i></a></li>
+								<li class="list-inline-item"><a href="#" class="text-muted"><i class="fab fa-github"></i></a></li>
+								<li class="list-inline-item"><a href="#" class="text-muted"><i class="fab fa-dribbble"></i></a></li>
+								<li class="list-inline-item"><a href="#" class="text-muted"><i class="fas fa-envelope"></i></a></li>
+							</ul>
+						</div>
+					</div>
 				</div>
 			</footer>
 
 		<!-- Scripts -->
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.poptrox.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 
 	</body>
