@@ -345,6 +345,24 @@
         </div>
     </section>
 
+    <!-- Cumpleaños - Espacio moderno para el grado -->
+    <section id="cumpleanos" class="py-5 bg-white">
+        <div class="container">
+            <div class="text-center mb-4">
+                <h2 class="fw-bold">🎂 Cumpleaños 11-3</h2>
+                <p class="text-muted">Un espacio moderno para celebrar a nuestros compañeros. Busca por apellido o nombre.</p>
+            </div>
+            <div class="row mb-4 justify-content-center">
+                <div class="col-md-6">
+                    <input id="birthday-search" class="form-control form-control-lg rounded-pill shadow-sm" type="search" placeholder="Buscar por apellidos o nombres...">
+                </div>
+            </div>
+            <div class="row g-3" id="birthday-grid">
+                <!-- Birthday cards generados por JS -->
+            </div>
+        </div>
+    </section>
+
     <!-- Calendario General -->
     <section id="calendario" class="py-5 bg-light">
         <div class="container">
@@ -512,6 +530,73 @@
             { name: "Estudiante 8", xp: 900, level: "Explorador", avatar: "E8" }
         ];
 
+        // Lista de cumpleaños (Apellidos, Nombres, Fecha)
+        const birthdays = [
+            { last: "Arango Reina", name: "Emmanuel", date: "17 de Diciembre" },
+            { last: "Benachi Gomez", name: "Lucia", date: "30 de Julio" },
+            { last: "Betancur Beltran", name: "Natalia", date: "14 de Agosto" },
+            { last: "Castillo Plaza", name: "Mariana", date: "26 de Febrero" },
+            { last: "Ceron Lopez", name: "Danna Sofia", date: "28 de Julio" },
+            { last: "Delgado Sanchez", name: "Linda Nicolle", date: "14 de Marzo" },
+            { last: "Diaz Esguerra", name: "Mariana", date: "26 de Septiembre" },
+            { last: "Diaz Murillo", name: "Maria Jose", date: "24 de Mayo" },
+            { last: "Escudero Hernandez", name: "Ana Gabriela", date: "14 de Agosto" },
+            { last: "Garcia Arcos", name: "Isabel Cristina", date: "25 de Febrero" },
+            { last: "Gomez Nuñez", name: "Isabella", date: "5 de Septiembre" },
+            { last: "Gutierrez Trujillo", name: "Valery", date: "24 de Abril" },
+            { last: "Hernandez Alvarez", name: "Jessica Alejandra", date: "17 de Octubre" },
+            { last: "Lerma Millan", name: "Derly Nathalia", date: "8 de Mayo" },
+            { last: "Mejias Acosta", name: "Joneisi Deilibet", date: "29 de Noviembre" },
+            { last: "Mendes Ramirez", name: "Juan Manuel", date: "11 de Marzo" },
+            { last: "Mingan Bermudez", name: "Sara Lucia", date: "17 de Diciembre" },
+            { last: "Orejuela Arce", name: "Daniel Esteban", date: "9 de Septiembre" },
+            { last: "Perez Alarcon", name: "Oscarjulian", date: "29 de Septiembre" },
+            { last: "Porras Hurtado", name: "Valentina", date: "4 de Febrero" },
+            { last: "Quesada Delgado", name: "Madeline Sofia", date: "19 de Diciembre" },
+            { last: "Rodriguez Medina", name: "Laura Sofia", date: "8 de Mayo" },
+            { last: "Rojas Moya", name: "Oscar David", date: "29 de Diciembre" },
+            { last: "Roldan Jimenez", name: "Cristian", date: "10 de Junio" },
+            { last: "Saavedra Castañeda", name: "Samuel", date: "15 de Febrero" },
+            { last: "Salazar Reina", name: "Luis David", date: "29 de Diciembre" },
+            { last: "Sanchez Delgado", name: "Mariana", date: "11 de Enero" },
+            { last: "Vazquez Madera", name: "Kristy Paulina", date: "26 de Septiembre" },
+            { last: "Velazco Chivata", name: "Laura Valentina", date: "18 de Junio" },
+            { last: "Velez Vazquez", name: "Ana Sofia", date: "21 de Mayo" },
+            { last: "Volveras Garces", name: "Luis Esteban", date: "23 de Abril" }
+        ];
+
+        // Construir la cuadrícula de cumpleaños
+        function generateBirthdayGrid(filter = '') {
+            const container = document.getElementById('birthday-grid');
+            container.innerHTML = '';
+            const q = filter.trim().toLowerCase();
+
+            birthdays.forEach(b => {
+                const text = (b.last + ' ' + b.name).toLowerCase();
+                if (q && !text.includes(q)) return;
+
+                const initials = b.name.split(' ').map(n => n[0]).join('') + b.last.split(' ')[0][0];
+                const col = document.createElement('div');
+                col.className = 'col-md-3 col-6';
+                col.innerHTML = `
+                    <div class="resource-card text-center shadow-sm" style="border-radius:14px;">
+                        <div class="student-avatar mb-3" style="width:70px;height:70px;border-radius:14px;font-size:1.25rem;">${initials}</div>
+                        <h6 class="fw-bold mb-1">${b.name}</h6>
+                        <small class="text-muted d-block mb-2">${b.last}</small>
+                        <div class="badge bg-primary">${b.date}</div>
+                    </div>
+                `;
+                container.appendChild(col);
+            });
+        }
+
+        // Buscador
+        function initBirthdaySearch() {
+            const input = document.getElementById('birthday-search');
+            if (!input) return;
+            input.addEventListener('input', e => generateBirthdayGrid(e.target.value));
+        }
+
         // Generar grid de semanas
         function generateWeekGrid() {
             const grid = document.getElementById('week-grid');
@@ -551,6 +636,11 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             generateWeekGrid();
+            if (typeof generateStudentProfiles === 'function') generateStudentProfiles();
+            if (typeof updateCountdown === 'function') updateCountdown();
+            // Inicializar y mostrar cumpleaños
+            generateBirthdayGrid();
+            initBirthdaySearch();
             // Resto de inicialización
         });
     </script>
