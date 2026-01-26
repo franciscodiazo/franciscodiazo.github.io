@@ -1,0 +1,5 @@
+[
+  { "id": "T001", "title": "Ensayo ICFES - Matemáticas", "due": "2026-07-12", "assigned": ["A001","A002"], "points": 20 },
+  { "id": "T002", "title": "Proyecto: Simulador de consumo", "due": "2026-05-20", "assigned": ["A001","A003"], "points": 40 },
+  { "id": "T003", "title": "Rúbrica: Presentación oral", "due": "2026-03-30", "assigned": ["A002","A003"], "points": 15 }
+]

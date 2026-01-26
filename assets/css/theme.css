@@ -1,0 +1,29 @@
+/* Theme overrides: modern, minimal, Bootstrap-friendly */
+:root{
+  --brand: #0ea5e9; /* cyan-500 */
+  --dark:#0f172a;
+  --muted:#64748b;
+}
+body{
+  background: linear-gradient(180deg,#f8fafc,#eef2ff);
+  color: #0f172a;
+}
+/* Navbar */
+.site-navbar{background:linear-gradient(90deg,var(--dark),#111827);}
+.site-navbar .navbar-brand{font-weight:800;color:var(--brand)!important}
+.site-navbar .nav-link{color:#cbd5e1!important}
+.site-navbar .nav-link:hover{color:var(--brand)!important}
+/* Hero */
+.hero{background:transparent;padding:3rem 0}
+.hero .avatar{width:96px;height:96px;border-radius:12px;object-fit:cover;border:4px solid rgba(14,165,233,0.12)}
+.hero h1{font-size:1.6rem;font-weight:700}
+.hero p.lead{color:var(--muted)}
+/* Cards */
+.card{border-radius:12px;border:1px solid #e6eefc}
+.card .card-header{background:linear-gradient(90deg,var(--brand),#0369a1);color:#fff}
+/* Footer */
+.site-footer{background:#0b1220;color:#9ca3af;padding:2rem 0;margin-top:3rem}
+/* Responsive spacing for main sections */
+.section{padding:2rem 0}
+/* Utilities */
+.btn-primary{background:linear-gradient(90deg,var(--brand),#0369a1);border:none}
