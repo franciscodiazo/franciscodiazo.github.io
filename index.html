@@ -413,6 +413,7 @@
             }
         }
     </style>
+<base target="_blank">
 </head>
 <body>
 
@@ -491,3 +492,662 @@
                         </div>
                     </div>
                 </div>
+                
+                <!-- Inmaculada General -->
+                <div class="col-md-4">
+                    <div class="card inst-card inst-inmaculada" onclick="showSection('inmaculada')">
+                        <div class="card-body p-5 text-center">
+                            <i class="bi bi-book display-1 mb-3 opacity-75"></i>
+                            <h3 class="card-title fw-bold">La Inmaculada</h3>
+                            <p class="card-text">Secundaria & Media</p>
+                            <ul class="list-unstyled mt-3 text-start small">
+                                <li><i class="bi bi-check-circle me-2"></i>Matemáticas (7°)</li>
+                                <li><i class="bi bi-check-circle me-2"></i>Estadística & Geometría (7°-9°)</li>
+                                <li><i class="bi bi-check-circle me-2"></i>Tecnología (11°)</li>
+                            </ul>
+                            <button class="btn btn-light mt-3 rounded-pill">Acceder <i class="bi bi-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 11-3 Especial -->
+                <div class="col-md-4">
+                    <div class="card inst-card inst-11-3" onclick="showSection('grado11-3')">
+                        <div class="card-body p-5 text-center">
+                            <i class="bi bi-trophy display-1 mb-3 opacity-75"></i>
+                            <h3 class="card-title fw-bold">Grado 11-3</h3>
+                            <p class="card-text">¡Espacio Especial!</p>
+                            <div class="mt-3">
+                                <span class="badge-gamified">ICFES 2025</span>
+                                <span class="badge-gamified">SENA</span>
+                                <span class="badge-gamified">Gamificación</span>
+                            </div>
+                            <button class="btn btn-light mt-3 rounded-pill fw-bold">Entrar al Juego <i class="bi bi-controller"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección UNAD (Hidden by default) -->
+    <section id="unad-section" class="py-5 bg-light" style="display: none;">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="fw-bold text-primary"><i class="bi bi-building me-2"></i>UNAD - Ingeniería Multimedia</h2>
+                <button class="btn btn-outline-secondary btn-sm" onclick="hideSections()"><i class="bi bi-arrow-left"></i> Volver</button>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="resource-card">
+                        <div class="icon-box bg-primary bg-opacity-10 text-primary">
+                            <i class="bi bi-database"></i>
+                        </div>
+                        <h4>Bases de Datos Multimedia</h4>
+                        <p>Diseño, implementación y gestión de bases de datos para entornos multimedia.</p>
+                        <button class="btn btn-primary btn-sm rounded-pill" onclick="showModal('bd')">Ver Plan de Clase</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="resource-card">
+                        <div class="icon-box bg-danger bg-opacity-10 text-danger">
+                            <i class="bi bi-shield-lock"></i>
+                        </div>
+                        <h4>Seguridad Informática</h4>
+                        <p>Protección de información, criptografía y seguridad en redes.</p>
+                        <button class="btn btn-danger btn-sm rounded-pill" onclick="showModal('seguridad')">Ver Plan de Clase</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="resource-card">
+                        <div class="icon-box bg-success bg-opacity-10 text-success">
+                            <i class="bi bi-kanban"></i>
+                        </div>
+                        <h4>Gestión del Desarrollo Multimedia</h4>
+                        <p>Metodologías ágiles, gestión de proyectos y producción digital.</p>
+                        <button class="btn btn-success btn-sm rounded-pill" onclick="showModal('gestion')">Ver Plan de Clase</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Inmaculada (Hidden by default) -->
+    <section id="inmaculada-section" class="py-5 bg-light" style="display: none;">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="fw-bold text-danger"><i class="bi bi-book me-2"></i>La Inmaculada Concepción</h2>
+                <button class="btn btn-outline-secondary btn-sm" onclick="hideSections()"><i class="bi bi-arrow-left"></i> Volver</button>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="resource-card border-start border-4 border-warning">
+                        <h5 class="fw-bold">Grado 7</h5>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-calculator text-warning me-2"></i>Matemáticas</li>
+                            <li><i class="bi bi-bar-chart text-warning me-2"></i>Estadística</li>
+                            <li><i class="bi bi-triangle text-warning me-2"></i>Geometría</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="resource-card border-start border-4 border-info">
+                        <h5 class="fw-bold">Grado 9</h5>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-bar-chart text-info me-2"></i>Estadística</li>
+                            <li><i class="bi bi-triangle text-info me-2"></i>Geometría</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="resource-card border-start border-4 border-success">
+                        <h5 class="fw-bold">Grado 11</h5>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-laptop text-success me-2"></i>Tecnología e Informática</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="resource-card border-start border-4 border-primary bg-primary bg-opacity-10">
+                        <h5 class="fw-bold">Documentos</h5>
+                        <button class="btn btn-primary btn-sm w-100 mb-2" onclick="showModal('plan-area')">Plan de Área</button>
+                        <button class="btn btn-outline-primary btn-sm w-100" onclick="showModal('plan-clase')">Plan de Clase</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Especial 11-3 (Gamificada) -->
+    <section id="grado11-3" class="py-5" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); color: white;">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="badge bg-warning text-dark fs-6 mb-2 px-3 py-2 rounded-pill">AÑO ESCOLAR 2025</span>
+                <h2 class="display-4 fw-bold mb-3">Grado 11-3 <i class="bi bi-rocket-takeoff text-warning"></i></h2>
+                <p class="lead">Dirección de Grupo | Misión ICFES & SENA</p>
+                
+                <!-- Countdown ICFES -->
+                <div class="row justify-content-center mt-4 g-3">
+                    <div class="col-6 col-md-3">
+                        <div class="countdown-box">
+                            <span class="countdown-number text-warning" id="days">00</span>
+                            <span class="countdown-label">Días para ICFES</span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="countdown-box">
+                            <span class="countdown-number text-info" id="current-week">1</span>
+                            <span class="countdown-label">Semana Actual</span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="countdown-box">
+                            <span class="countdown-number text-success" id="progress-total">0%</span>
+                            <span class="countdown-label">Progreso Año</span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="countdown-box">
+                            <span class="countdown-number text-danger">Nov 30</span>
+                            <span class="countdown-label">Fin de Año</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- XP Bar del Grado -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <div class="bg-white bg-opacity-10 p-4 rounded-4">
+                        <h4 class="mb-3"><i class="bi bi-trophy-fill text-warning me-2"></i>Nivel del Grado: <span id="grade-level">Guerreros del Saber</span></h4>
+                        <div class="xp-bar">
+                            <div class="xp-progress" id="xp-progress" style="width: 0%">0%</div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2 small">
+                            <span>Inicio: 26 Ene</span>
+                            <span>ICFES: Julio</span>
+                            <span>Grado: Nov</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calendario Semanal ICFES -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h3 class="mb-4"><i class="bi bi-calendar-week me-2"></i>Mapa de Misiones Semanales (40 Semanas)</h3>
+                    <div class="bg-white bg-opacity-10 p-4 rounded-4">
+                        <div class="week-grid" id="week-grid">
+                            <!-- Generado por JS -->
+                        </div>
+                        <div class="mt-3 d-flex gap-3 justify-content-center flex-wrap">
+                            <span class="badge bg-success">Completada</span>
+                            <span class="badge bg-primary">Actual</span>
+                            <span class="badge bg-warning text-dark">Vacaciones (Jun 26)</span>
+                            <span class="badge bg-danger">ICFES</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline del Año -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h3 class="mb-4 text-center">Línea de Tiempo del Año</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot bg-success"></div>
+                            <div class="timeline-content">
+                                <h5 class="fw-bold text-success">Periodo 1 (14 semanas)</h5>
+                                <p class="mb-1"><strong>Inicio:</strong> 26 de Enero</strong></p>
+                                <p class="small text-muted">Fundamentos, diagnóstico ICFES, primeras misiones SENA.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot bg-warning"></div>
+                            <div class="timeline-content">
+                                <h5 class="fw-bold text-warning">Vacaciones de Mitad de Año</h5>
+                                <p class="mb-1"><strong>26 de Junio - 3 semanas</strong></p>
+                                <p class="small text-muted">Descanso estratégico antes del ICFES. Preparación intensiva opcional.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot bg-danger"></div>
+                            <div class="timeline-content">
+                                <h5 class="fw-bold text-danger">ICFES 2025</h5>
+                                <p class="mb-1"><strong>Julio (Fecha exacta por confirmar)</strong></p>
+                                <p class="small text-muted">¡El gran día! Presentación de la prueba de estado.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot bg-info"></div>
+                            <div class="timeline-content">
+                                <h5 class="fw-bold text-info">Periodos 2 & 3 (13 semanas c/u)</h5>
+                                <p class="mb-1"><strong>Hasta 30 de Noviembre</strong></p>
+                                <p class="small text-muted">Profundización SENA, proyectos de grado, cierre de año.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot" style="background: gold; box-shadow: 0 0 20px gold;"></div>
+                            <div class="timeline-content">
+                                <h5 class="fw-bold" style="color: gold;">Ceremonia de Grado</h5>
+                                <p class="mb-1"><strong>Fecha por definir (Nov/Dic)</strong></p>
+                                <p class="small text-muted">¡Celebración de su logro! Cierre de la misión 11°.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Perfiles de Estudiantes -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h3 class="mb-4 text-center">🏆 Tabla de Líderes 11-3</h3>
+                    <div class="row g-4" id="student-grid">
+                        <!-- Estudiantes generados por JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Metas y Recursos -->
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="bg-white text-dark p-4 rounded-4 h-100">
+                        <h4 class="fw-bold mb-3"><i class="bi bi-bullseye text-danger me-2"></i>Metas del Grado</h4>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span><i class="bi bi-check-square me-2 text-primary"></i>Presentación ICFES</span>
+                                <span class="badge bg-primary rounded-pill">Jul 2025</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span><i class="bi bi-check-square me-2 text-success"></i>Certificación SENA</span>
+                                <span class="badge bg-success rounded-pill">En progreso</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span><i class="bi bi-check-square me-2 text-warning"></i>Proyecto de Vida</span>
+                                <span class="badge bg-warning text-dark rounded-pill">Pendiente</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span><i class="bi bi-check-square me-2 text-info"></i>Investigación Formativa</span>
+                                <span class="badge bg-info rounded-pill">Activa</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="bg-white text-dark p-4 rounded-4 h-100">
+                        <h4 class="fw-bold mb-3"><i class="bi bi-controller text-purple me-2"></i>Zona de Poder</h4>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-outline-primary" onclick="showModal('simuladores')">
+                                <i class="bi bi-laptop me-2"></i>Simuladores ICFES
+                            </button>
+                            <button class="btn btn-outline-success" onclick="showModal('gamificacion')">
+                                <i class="bi bi-trophy me-2"></i>Sistema de Puntos
+                            </button>
+                            <button class="btn btn-outline-warning" onclick="showModal('rubricas')">
+                                <i class="bi bi-file-text me-2"></i>Rúbricas de Evaluación
+                            </button>
+                            <button class="btn btn-outline-info" onclick="showModal('recursos')">
+                                <i class="bi bi-folder me-2"></i>Material de Apoyo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calendario General -->
+    <section id="calendario" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold">Calendario Académico 2025</h2>
+            <div class="row g-4">
+                <div class="col-md-8 mx-auto">
+                    <div class="card border-0 shadow-lg rounded-4">
+                        <div class="card-body p-4">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="table-primary">
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Evento</th>
+                                            <th>Tipo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="table-success">
+                                            <td>26 Enero</td>
+                                            <td>Inicio Año Escolar - Periodo 1</td>
+                                            <td><span class="badge bg-success">Inicio</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ene - Abr</td>
+                                            <td>Periodo 1 (14 semanas)</td>
+                                            <td><span class="badge bg-primary">Académico</span></td>
+                                        </tr>
+                                        <tr class="table-warning">
+                                            <td>26 Junio</td>
+                                            <td>Inicio Vacaciones (3 semanas)</td>
+                                            <td><span class="badge bg-warning text-dark">Vacaciones</span></td>
+                                        </tr>
+                                        <tr class="table-danger">
+                                            <td>Julio 2025</td>
+                                            <td>Presentación ICFES</td>
+                                            <td><span class="badge bg-danger">Examen</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jul - Nov</td>
+                                            <td>Periodos 2 y 3 (13 semanas c/u)</td>
+                                            <td><span class="badge bg-primary">Académico</span></td>
+                                        </tr>
+                                        <tr class="table-info">
+                                            <td>30 Noviembre</td>
+                                            <td>Último día de clases</td>
+                                            <td><span class="badge bg-info">Cierre</span></td>
+                                        </tr>
+                                        <tr class="table-dark">
+                                            <td>Por definir</td>
+                                            <td>Ceremonia de Grado 11-3</td>
+                                            <td><span class="badge bg-dark">Graduación</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recursos -->
+    <section id="recursos" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold">Centro de Recursos</h2>
+            <div class="row g-4">
+                <div class="col-md-3 col-6">
+                    <div class="resource-card text-center">
+                        <i class="bi bi-file-earmark-text display-4 text-primary mb-3"></i>
+                        <h5>Plan de Área</h5>
+                        <button class="btn btn-sm btn-outline-primary mt-2">Descargar PDF</button>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="resource-card text-center">
+                        <i class="bi bi-calendar-check display-4 text-success mb-3"></i>
+                        <h5>Plan de Clase</h5>
+                        <button class="btn btn-sm btn-outline-success mt-2">Ver Detalles</button>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="resource-card text-center">
+                        <i class="bi bi-clipboard-check display-4 text-warning mb-3"></i>
+                        <h5>Rúbricas</h5>
+                        <button class="btn btn-sm btn-outline-warning mt-2">Ver Rúbricas</button>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="resource-card text-center">
+                        <i class="bi bi-controller display-4 text-danger mb-3"></i>
+                        <h5>Simuladores</h5>
+                        <button class="btn btn-sm btn-outline-danger mt-2">Jugar Ahora</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <h4 class="fw-bold">Francisco Díaz</h4>
+                    <p class="mb-1">Docente de Ingeniería Multimedia - UNAD</p>
+                    <p class="mb-1">Docente de Ciencias y Tecnología - La Inmaculada Concepción</p>
+                    <p class="mb-0">Director de Grado 11-3</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <h5>Contacto</h5>
+                    <p class="mb-1"><i class="bi bi-envelope me-2"></i>francisco.diaz@unad.edu.co</p>
+                    <p class="mb-0"><i class="bi bi-geo-alt me-2"></i>Colombia</p>
+                    <div class="mt-3">
+                        <a href="#" class="text-white me-3"><i class="bi bi-github fs-4"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-linkedin fs-4"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-globe fs-4"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center small opacity-75">
+                &copy; 2025 Francisco Díaz. Sitio alojado en GitHub Pages.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Action Button -->
+    <button class="fab" onclick="scrollToTop()" title="Volver arriba">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <!-- Modals -->
+    <div class="modal fade" id="infoModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold" id="modalTitle">Información</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <!-- Contenido dinámico -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Descargar PDF</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Datos de estudiantes 11-3 (ejemplo - puedes expandir)
+        const students = [
+            { name: "Estudiante 1", xp: 850, level: "Explorador", avatar: "E1" },
+            { name: "Estudiante 2", xp: 1200, level: "Guerrero", avatar: "E2" },
+            { name: "Estudiante 3", xp: 950, level: "Explorador", avatar: "E3" },
+            { name: "Estudiante 4", xp: 1500, level: "Maestro", avatar: "E4" },
+            { name: "Estudiante 5", xp: 1100, level: "Guerrero", avatar: "E5" },
+            { name: "Estudiante 6", xp: 1300, level: "Guerrero", avatar: "E6" },
+            { name: "Estudiante 7", xp: 2000, level: "Leyenda", avatar: "E7" },
+            { name: "Estudiante 8", xp: 900, level: "Explorador", avatar: "E8" }
+        ];
+
+        // Generar grid de semanas
+        function generateWeekGrid() {
+            const grid = document.getElementById('week-grid');
+            const totalWeeks = 40;
+            const currentWeek = getCurrentWeek();
+            
+            for (let i = 1; i <= totalWeeks; i++) {
+                const week = document.createElement('div');
+                week.className = 'week-item';
+                week.textContent = i;
+                week.title = `Semana ${i}`;
+                
+                // Lógica de colores según calendario
+                if (i === currentWeek) {
+                    week.classList.add('active');
+                } else if (i >= 21 && i <= 23) { // Vacaciones aprox (semana 21-23)
+                    week.classList.add('vacation');
+                } else if (i === 24) { // ICFES
+                    week.classList.add('icfes');
+                }
+                
+                week.onclick = () => showWeekDetails(i);
+                grid.appendChild(week);
+            }
+        }
+
+        // Calcular semana actual (simulado desde 26 Ene 2025)
+        function getCurrentWeek() {
+            const startDate = new Date('2025-01-26');
+            const currentDate = new Date();
+            const diffTime = Math.abs(currentDate - startDate);
+            const diffWeeks = Math.ceil(diffTime / (1000 * 60 * 60 * 24 * 7));
+            return Math.min(diffWeeks, 40);
+        }
+
+        // Mostrar detalles de semana
+        function showWeekDetails(week) {
+            const modal = new bootstrap.Modal(document.getElementById('infoModal'));
+            document.getElementById('modalTitle').textContent = `Semana ${week} - Misión`;
+            
+            let content = '';
+            if (week <= 14) {
+                content = `<div class="alert alert-primary">Periodo 1: Fundamentos y diagnóstico ICFES</div>`;
+            } else if (week <= 27) {
+                content = `<div class="alert alert-info">Periodo 2: Profundización y simulacros</div>`;
+            } else {
+                content = `<div class="alert alert-warning">Periodo 3: Consolidación y cierre SENA</div>`;
+            }
+            
+            if (week >= 21 && week <= 23) {
+                content += `<div class="alert alert-warning"><strong>¡Vacaciones!</strong> Descanso obligatorio</div>`;
+            }
+            if (week === 24) {
+                content += `<div class="alert alert-danger"><strong>SEMANA ICFES</strong> ¡Todo el poder!</div>`;
+            }
+            
+            content += `
+                <h6>Actividades programadas:</h6>
+                <ul>
+                    <li>Simulacro tipo ICFES (Matemáticas)</li>
+                    <li>Lectura crítica - Análisis de textos</li>
+                    <li>Ciencias naturales - Laboratorio virtual</li>
+                    <li>Sociales - Estudio de caso</li>
+                    <li>Inglés - Práctica de comprensión</li>
+                </ul>
+            `;
+            
+            document.getElementById('modalBody').innerHTML = content;
+            modal.show();
+        }
+
+        // Generar perfiles de estudiantes
+        function generateStudentProfiles() {
+            const container = document.getElementById('student-grid');
+            
+            students.sort((a, b) => b.xp - a.xp).forEach((student, index) => {
+                const card = document.createElement('div');
+                card.className = 'col-md-3 col-6';
+                card.innerHTML = `
+                    <div class="student-card">
+                        <div class="student-avatar">${student.avatar}</div>
+                        <h6 class="fw-bold mb-1">${student.name}</h6>
+                        <span class="badge bg-primary mb-2">${student.level}</span>
+                        <div class="progress" style="height: 10px;">
+                            <div class="progress-bar bg-warning" style="width: ${(student.xp/2000)*100}%"></div>
+                        </div>
+                        <small class="text-muted">${student.xp} XP</small>
+                        ${index < 3 ? '<div class="mt-2">🏆</div>' : ''}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Countdown para ICFES (aproximadamente julio 2025)
+        function updateCountdown() {
+            const icfesDate = new Date('2025-07-15'); // Fecha estimada
+            const now = new Date();
+            const diff = icfesDate - now;
+            
+            const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+            document.getElementById('days').textContent = days > 0 ? days : 0;
+            
+            // Actualizar semana actual
+            document.getElementById('current-week').textContent = getCurrentWeek();
+            
+            // Progreso total del año (40 semanas)
+            const progress = Math.min((getCurrentWeek() / 40) * 100, 100);
+            document.getElementById('progress-total').textContent = Math.round(progress) + '%';
+            document.getElementById('xp-progress').style.width = progress + '%';
+            document.getElementById('xp-progress').textContent = Math.round(progress) + '%';
+        }
+
+        // Navegación entre secciones
+        function showSection(section) {
+            hideSections();
+            if (section === 'unad') {
+                document.getElementById('unad-section').style.display = 'block';
+                document.getElementById('unad-section').scrollIntoView({ behavior: 'smooth' });
+            } else if (section === 'inmaculada') {
+                document.getElementById('inmaculada-section').style.display = 'block';
+                document.getElementById('inmaculada-section').scrollIntoView({ behavior: 'smooth' });
+            } else if (section === 'grado11-3') {
+                document.getElementById('grado11-3').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function hideSections() {
+            document.getElementById('unad-section').style.display = 'none';
+            document.getElementById('inmaculada-section').style.display = 'none';
+        }
+
+        // Modal genérico
+        function showModal(type) {
+            const modal = new bootstrap.Modal(document.getElementById('infoModal'));
+            const titles = {
+                'bd': 'Bases de Datos Multimedia - Plan de Clase',
+                'seguridad': 'Seguridad Informática - Plan de Clase',
+                'gestion': 'Gestión del Desarrollo Multimedia',
+                'plan-area': 'Plan de Área - Tecnología',
+                'plan-clase': 'Plan de Clase Semanal',
+                'simuladores': 'Simuladores ICFES Interactivos',
+                'gamificacion': 'Sistema de Gamificación 11-3',
+                'rubricas': 'Rúbricas de Evaluación',
+                'recursos': 'Material de Apoyo y Biblioteca'
+            };
+            
+            const contents = {
+                'bd': '<p><strong>Unidad 1:</strong> Modelado de datos multimedia<br><strong>Unidad 2:</strong> Bases de datos NoSQL para contenido digital<br><strong>Unidad 3:</strong> Optimización y consultas avanzadas</p><div class="alert alert-info">Próxima clase: Normalización de bases de datos audiovisuales</div>',
+                'seguridad': '<p><strong>Módulo 1:</strong> Principios de seguridad de la información<br><strong>Módulo 2:</strong> Criptografía aplicada<br><strong>Módulo 3:</strong> Ethical Hacking básico</p>',
+                'simuladores': '<div class="list-group"><a href="#" class="list-group-item list-group-item-action">Simulacro Matemáticas - Semana 5</a><a href="#" class="list-group-item list-group-item-action">Simulacro Lectura Crítica - Semana 8</a><a href="#" class="list-group-item list-group-item-action">Simulacro Completo - Semana 20</a></div>',
+                'gamificacion': '<h6>Sistema de Puntos:</h6><ul><li>Asistencia: +10 XP</li><li>Tareas: +50 XP</li><li>Participación: +20 XP</li><li>Simulacros: +100 XP</li><li>Bonus ICFES: +500 XP</li></ul><div class="alert alert-warning">Niveles: Explorador → Guerrero → Maestro → Leyenda</div>'
+            };
+            
+            document.getElementById('modalTitle').textContent = titles[type] || 'Información';
+            document.getElementById('modalBody').innerHTML = contents[type] || '<p>Contenido en desarrollo...</p>';
+            modal.show();
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            generateWeekGrid();
+            generateStudentProfiles();
+            updateCountdown();
+            setInterval(updateCountdown, 86400000); // Actualizar cada día
+            
+            // Animación de entrada para cards
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate__animated', 'animate__fadeInUp');
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.resource-card, .student-card').forEach((el) => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
