@@ -127,5 +127,37 @@
     try{ if (window.students && document.getElementById('student-grid')) window.generateStudentProfiles(window.students); }catch(e){}
     try{ if (document.getElementById('days')) { window.updateCountdown(); setInterval(window.updateCountdown, 86400000); } }catch(e){}
     try{ const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('animate__animated','animate__fadeInUp'); }); }); document.querySelectorAll('.resource-card, .student-card').forEach((el)=>observer.observe(el)); }catch(e){}
+
+    // Fetch and render next birthdays in 11-3 index
+    try{
+      async function renderNextBirthdays(){
+        const el = document.getElementById('next-birthdays');
+        if (!el) return;
+        try{
+          const r = await fetch('/11-3/data/birthdays.json');
+          if (!r.ok) { el.textContent = 'No se pudieron cargar.'; return; }
+          const data = await r.json();
+          const today = new Date();
+          function parseDateStr(dateStr){
+            const parts = dateStr.trim().toLowerCase().split(' de ');
+            const day = parseInt(parts[0],10);
+            const months = { 'enero':0,'febrero':1,'marzo':2,'abril':3,'mayo':4,'junio':5,'julio':6,'agosto':7,'septiembre':8,'octubre':9,'noviembre':10,'diciembre':11 };
+            return { day, month: months[parts[1]] ?? 0 };
+          }
+          function nextOcc(dateStr){
+            const d = parseDateStr(dateStr);
+            const cur = new Date();
+            let cand = new Date(cur.getFullYear(), d.month, d.day);
+            if (cand < new Date(cur.getFullYear(), cur.getMonth(), cur.getDate())) cand = new Date(cur.getFullYear()+1, d.month, d.day);
+            return cand;
+          }
+          const withNext = data.map(b=>({ ...b, next: nextOcc(b.date) }));
+          withNext.sort((a,b)=> a.next - b.next);
+          const top = withNext.slice(0,3);
+          el.innerHTML = top.map(t=>`<div><strong>${t.name}</strong> <span class="text-muted">${t.date}</span></div>`).join('');
+        }catch(e){ el.textContent='Error'; }
+      }
+      renderNextBirthdays();
+    }catch(e){}
   });
 })();
