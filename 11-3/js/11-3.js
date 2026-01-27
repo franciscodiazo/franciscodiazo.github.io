@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function(){
     // upcoming
     const up = document.getElementById('upcoming');
     const upcoming = activities.filter(a=>new Date(a.due) >= new Date()).sort((a,b)=>new Date(a.due)-new Date(b.due)).slice(0,6);
-    up.innerHTML = upcoming.map(a=>`<div class="col-md-6"><div class="card p-3"><strong>${a.title}</strong><p class="mb-0">Entrega: ${a.due}</p></div></div>`).join('');
+    up.innerHTML = upcoming.map((a,i)=>`<div class="col-md-6 animate__animated animate__fadeInUp" style="animation-delay:${i*70}ms"><div class="card p-3"><strong>${a.title}</strong><p class="mb-0">Entrega: ${a.due}</p></div></div>`).join('');
 
     // Next birthdays widget (interactive)
     try{
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function(){
           list.sort((a,b)=>a.next - b.next);
           const slice = list.slice(0,6);
           birthdaysEl.innerHTML = '';
-          slice.forEach(b=>{
+          slice.forEach((b, i)=>{
             const days = Math.ceil((b.next - new Date(today.getFullYear(), today.getMonth(), today.getDate()))/(1000*60*60*24));
             const isToday = (new Date().toDateString() === b.next.toDateString());
             const item = document.createElement('div'); item.className = 'd-flex align-items-center justify-content-between py-2 birthday-item';
@@ -49,6 +49,9 @@ document.addEventListener('DOMContentLoaded', function(){
                 <button class="btn btn-sm btn-outline-primary send-wish" data-key="${b.key}">🎉 Deseo</button>
               </div>
             `;
+            // animate with a small stagger using Animate.css classes
+            item.classList.add('animate__animated');
+            setTimeout(()=> item.classList.add('animate__fadeInUp'), i * 80);
             birthdaysEl.appendChild(item);
             const btn = item.querySelector('.send-wish');
             btn.addEventListener('click', function(){
@@ -68,7 +71,10 @@ document.addEventListener('DOMContentLoaded', function(){
     try{ const xpEl = document.getElementById('course-xp'); if (xpEl){ const keys = Object.keys(localStorage).filter(k=>k.startsWith('11-3:student-points:')); const total = keys.reduce((acc,k)=> acc + parseInt(localStorage.getItem(k)||'0',10),0); xpEl.textContent = total; } }catch(e){}
 
     // hero days update to keep it consistent with other countdown routines
-    try{ const daysHero = document.getElementById('days-to-graduation-hero'); if (daysHero){ const grad = new Date('2026-12-04T00:00:00'); function u(){ const diff=Math.ceil((grad - new Date())/(1000*60*60*24)); daysHero.textContent = diff>0?diff:0; } u(); setInterval(u, 60*60*1000); } }catch(e){}
+    try{ const daysHero = document.getElementById('days-to-graduation-hero'); if (daysHero){ const grad = new Date('2026-12-04T00:00:00'); function u(){ const diff=Math.ceil((grad - new Date())/(1000*60*60*24)); daysHero.textContent = diff>0?diff:0; } u(); setInterval(u, 60*60*1000); }
+      // animate hero on load
+      const heroEl = document.getElementById('page-hero-el'); if (heroEl){ setTimeout(()=> heroEl.classList.add('animate__fadeInDown'), 80); }
+    }catch(e){}
 
     // Calendar
     const calendarEl = document.getElementById('calendar');
