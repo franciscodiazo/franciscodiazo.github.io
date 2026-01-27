@@ -66,9 +66,19 @@
   <script>
     fetch('/11-3/data/students.json').then(r=>r.json()).then(students=>{
       const container=document.getElementById('students-list');
+      // load birthdays to compute wishXP per student
+      const birthdaysResp = await fetch('/11-3/data/birthdays.json');
+      const birthdaysList = birthdaysResp.ok ? await birthdaysResp.json() : [];
+
       students.forEach(s=>{
+        // find matching birthday entry (by full name or first name)
+        const match = birthdaysList.find(b => b.name.toLowerCase() === s.name.split(' ')[0].toLowerCase() || b.name.toLowerCase() === s.name.toLowerCase());
+        const wishKey = match ? window.keyFor({ last: match.last, name: match.name }) : null;
+        const wishXP = wishKey ? window.loadXP(wishKey) : (s.wishXP || 0);
+        const totalPoints = (s.points || 0) + (wishXP || 0);
+
         const col=document.createElement('div');col.className='col-md-6';
-        col.innerHTML=`<div class="card card-custom p-3"><div class="d-flex align-items-center"><div class="student-avatar me-3">${s.name.split(' ').map(n=>n[0]).slice(0,2).join('')}</div><div><h5 class="mb-0">${s.name}</h5><small class="text-muted">ID: ${s.id}</small></div></div><p class="mb-2 mt-2">Puntos: <strong>${s.points}</strong> • Progreso: ${s.progress}%</p><a class="btn btn-outline-primary" href="/11-3/student.html?id=${s.id}">Ver espacio</a></div>`;
+        col.innerHTML=`<div class="card card-custom p-3" data-student-name="${s.name.toLowerCase()}"><div class="d-flex align-items-center"><div class="student-avatar me-3">${s.name.split(' ').map(n=>n[0]).slice(0,2).join('')}</div><div><h5 class="mb-0">${s.name}</h5><small class="text-muted">ID: ${s.id}</small></div></div><p class="mb-2 mt-2">Puntos: <strong class="student-points" id="student-points-${s.id}">${totalPoints}</strong> • Progreso: ${s.progress}%</p><div class="mb-2 small text-muted">Deseos: <span class="wish-count" id="wish-${s.id}">${wishXP}</span> 🎉</div><a class="btn btn-outline-primary" href="/11-3/student.html?id=${s.id}">Ver espacio</a></div>`;
         container.appendChild(col);
       })
     })

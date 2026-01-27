@@ -182,5 +182,28 @@
         }
       }catch(e){}
     }catch(e){}
+
+    // ensure giveBirthdayWish exists (update XP, UI and student points)
+    if (typeof window.giveBirthdayWish === 'undefined'){
+      window.giveBirthdayWish = function(b, root){
+        try{
+          const k = window.keyFor ? window.keyFor(b) : (b.last + '|' + b.name);
+          const xp = (window.loadXP ? window.loadXP(k) : 0) + 1;
+          if (window.saveXP) window.saveXP(k, xp);
+          if (root){ const xpEl = root.querySelector('.xp-badge'); if (xpEl) xpEl.textContent = xp + ' 🎉'; const btn = root.querySelector('.wish-btn'); if (btn){ btn.classList.add('confetti'); setTimeout(()=>btn.classList.remove('confetti'),700); } }
+          if (window.updateBirthdayLeaderboard) window.updateBirthdayLeaderboard('birthday-leaderboard-list');
+          // update matching student card points if present
+          try{
+            const nameKey = b.name.toLowerCase();
+            const studentCard = document.querySelector(`[data-student-name="${nameKey}"]`);
+            if (studentCard){
+              const wishEl = studentCard.querySelector('.wish-count'); if (wishEl) wishEl.textContent = window.loadXP ? window.loadXP(k) : xp;
+              const pointsEl = studentCard.querySelector('.student-points'); if (pointsEl){ const current = parseInt(pointsEl.textContent||'0',10); pointsEl.textContent = current + 1; }
+            }
+          }catch(e){}
+          const live = document.getElementById('search-live'); if (live) live.textContent = `Has enviado un deseo a ${b.name} ${b.last}.`;
+        }catch(e){ console.error('giveBirthdayWish error', e); }
+      };
+    }
   });
 })();
