@@ -458,3 +458,19 @@ a[aria-current="page"] { font-weight: 700; }
 .confetti { animation: pop 700ms ease-out; }
 @keyframes pop { 0% { transform: scale(0.8); opacity: 0; } 60% { transform: scale(1.05); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
 
+/* Visual polish tweaks */
+html { font-size: 16px; }
+body { font-size: 16px; line-height: 1.65; color: #0f172a; }
+img { max-width: 100%; height: auto; display: block; }
+.card, .card-custom, .resource-card, .student-card { border-radius: 14px; box-shadow: 0 8px 28px rgba(15,23,42,0.06); }
+.btn, .btn-primary, .btn-outline-primary { border-radius: 10px; transition: transform 0.12s ease, box-shadow 0.12s ease; }
+.btn:hover { transform: translateY(-3px); }
+.btn-primary { background: linear-gradient(90deg, var(--primary-color), var(--gamification-color)); border: none; color: white; box-shadow: 0 10px 30px rgba(124,58,237,0.08); }
+.lead { font-size: 1.125rem; }
+.container { max-width: 1100px; }
+.site-footer { background: linear-gradient(180deg,#071026,#071826); color: #cbd5e1; padding: 2.5rem 0; }
+.site-footer a { color: rgba(255,255,255,0.92); opacity: 1; }
+.navbar .nav-link { padding: 0.6rem 0.9rem; border-radius: 8px; }
+.navbar .nav-link:hover { background: rgba(37,99,235,0.06); }
+/* Improve focus visibility */
+:focus-visible { outline: 4px solid rgba(37,99,235,0.18); outline-offset: 3px; }
