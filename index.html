@@ -413,7 +413,6 @@
             }
         }
     </style>
-<base target="_blank">
 </head>
 <body>
 
@@ -423,16 +422,20 @@
             <a class="navbar-brand" href="#">
                 <i class="bi bi-mortarboard-fill me-2"></i>Francisco Díaz
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Alternar navegación">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#instituciones">Instituciones</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#grado11-3"><strong>11-3 🎮</strong></a></li>
-                    <li class="nav-item"><a class="nav-link" href="#calendario">Calendario</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#recursos">Recursos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#inicio" target="_self">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#instituciones" target="_self">Instituciones</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#grado11-3" target="_self"><strong>11-3 🎮</strong></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/11-3/" target="_self">11-3 (Página)</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#calendario" target="_self">Calendario</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#recursos" target="_self">Recursos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/cumpleanos.html" target="_self">Cumpleaños</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/11-3/simuladores.html" target="_self">Simuladores</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/11-3/resources/" target="_self">Recursos 11-3</a></li>
                 </ul>
             </div>
         </div>
@@ -885,14 +888,14 @@
                     <div class="resource-card text-center">
                         <i class="bi bi-clipboard-check display-4 text-warning mb-3"></i>
                         <h5>Rúbricas</h5>
-                        <a href="/11-3/rubricas.html" class="btn btn-sm btn-outline-warning mt-2" target="_blank" rel="noopener" aria-label="Abrir Rúbricas"><i class="bi bi-box-arrow-up-right me-1"></i>Ver Rúbricas</a>
+                        <a href="/11-3/rubricas.html" class="btn btn-sm btn-outline-warning mt-2" target="_self" aria-label="Abrir Rúbricas"><i class="bi bi-box-arrow-up-right me-1"></i>Ver Rúbricas</a>
                     </div>
                 </div>
                 <div class="col-md-3 col-6">
                     <div class="resource-card text-center">
                         <i class="bi bi-controller display-4 text-danger mb-3"></i>
                         <h5>Simuladores</h5>
-                        <a href="/11-3/simuladores.html" class="btn btn-sm btn-outline-danger mt-2" target="_blank" rel="noopener" aria-label="Abrir Simuladores"><i class="bi bi-box-arrow-up-right me-1"></i>Abrir Simuladores</a>
+                        <a href="/11-3/simuladores.html" class="btn btn-sm btn-outline-danger mt-2" target="_self" aria-label="Abrir Simuladores"><i class="bi bi-box-arrow-up-right me-1"></i>Abrir Simuladores</a>
                     </div>
                 </div>
             </div>
