@@ -204,6 +204,9 @@
             }
           }catch(e){}
           const live = document.getElementById('search-live'); if (live) live.textContent = `Has enviado un deseo a ${b.name} ${b.last}.`;
+          // also update a dedicated aria-live region for birthdays if present
+          const announce = document.getElementById('birthday-announce');
+          if (announce){ announce.textContent = `Deseo enviado a ${b.name} ${b.last}`; setTimeout(()=>{ if (announce.textContent === `Deseo enviado a ${b.name} ${b.last}`) announce.textContent = ''; }, 2500); }
         }catch(e){ console.error('giveBirthdayWish error', e); }
       };
     }
