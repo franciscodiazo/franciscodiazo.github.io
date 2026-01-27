@@ -14,3 +14,11 @@ body{background:linear-gradient(180deg,#f8fafc,#eef2ff);}
 .xp-badge{background:linear-gradient(90deg,#f59e0b,#fbbf24);color:white;padding:4px 8px;border-radius:999px;font-weight:700}
 .send-wish{min-width:70px}
 @media(max-width:768px){ .hero-stats{display:none} }
+
+/* Month grouped birthdays */
+.birthday-month { border: 1px solid rgba(15,23,42,0.04); border-radius:10px; overflow:hidden; }
+.month-header { background: linear-gradient(90deg, rgba(124,58,237,0.06), rgba(3,105,161,0.04)); padding:10px 12px; }
+.month-grid { padding: 10px; }
+.month-header .month-toggle { min-width: 80px; }
+.birthday-today { border-left: 4px solid #f59e0b !important; }
+

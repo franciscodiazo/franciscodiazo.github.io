@@ -69,8 +69,14 @@
             <button id="export-points-btn" class="btn btn-sm btn-outline-secondary">Exportar puntos (JSON)</button>
             <button id="download-points-btn" class="btn btn-sm btn-outline-primary">Descargar puntos</button>
             <button id="show-sync-instr-btn" class="btn btn-sm btn-outline-info">Instrucciones sincronizar</button>
+            <div class="btn-group ms-auto" role="tablist" aria-label="Vista cumpleaños">
+              <button class="btn btn-sm btn-outline-secondary" id="view-by-month-btn" aria-pressed="true">Por mes</button>
+              <button class="btn btn-sm btn-outline-secondary" id="view-compact-btn" aria-pressed="false">Compacto</button>
+            </div>
           </div>
-          <div id="birthday-grid" class="row g-3 mt-2"></div>
+
+          <div id="birthday-by-month" class="mt-2"></div>
+          <div id="birthday-grid" class="row g-3 mt-2 d-none" aria-hidden="true"></div>
         </div>
 
         <div id="birthday-leaderboard" class="leaderboard mt-2" aria-live="polite" aria-atomic="true">
@@ -106,9 +112,21 @@
           col.innerHTML=`<div class="card card-custom p-3" data-student-name="${s.name.toLowerCase()}"><div class="d-flex align-items-center"><div class="student-avatar me-3">${avatarHtml}</div><div><h5 class="mb-0">${s.name}</h5><small class="text-muted">ID: ${s.id}</small></div></div><p class="mb-2 mt-2">Puntos: <strong class="student-points" id="student-points-${s.id}">${totalPoints}</strong> • Progreso: ${s.progress}%</p><div class="mb-2 small text-muted">Deseos: <span class="wish-count" id="wish-${s.id}">${wishXP}</span> 🎉</div><button class="btn btn-outline-primary open-student-btn" data-id="${s.id}" aria-controls="studentModal">Ver espacio</button></div>`;
           container.appendChild(col);
         });
+        // Default to month grouped view
+        if (window.renderBirthdaysByMonth) window.renderBirthdaysByMonth('birthday-by-month','birthday-leaderboard-list');
         if (window.renderBirthdayWidget) window.renderBirthdayWidget('birthday-grid','birthday-leaderboard-list',config);
         if (window.renderGradoCountdown) window.renderGradoCountdown('grado-countdown','recess-info',config);
         if (window.initThemePicker) window.initThemePicker('theme-picker');
+
+        // view toggles
+        const byMonthBtn = document.getElementById('view-by-month-btn');
+        const compactBtn = document.getElementById('view-compact-btn');
+        const byMonthEl = document.getElementById('birthday-by-month');
+        const compactEl = document.getElementById('birthday-grid');
+        if (byMonthBtn && compactBtn && byMonthEl && compactEl){
+          byMonthBtn.addEventListener('click', ()=>{ byMonthBtn.setAttribute('aria-pressed','true'); compactBtn.setAttribute('aria-pressed','false'); byMonthEl.classList.remove('d-none'); compactEl.classList.add('d-none'); compactEl.setAttribute('aria-hidden','true'); });
+          compactBtn.addEventListener('click', ()=>{ compactBtn.setAttribute('aria-pressed','true'); byMonthBtn.setAttribute('aria-pressed','false'); compactEl.classList.remove('d-none'); byMonthEl.classList.add('d-none'); compactEl.removeAttribute('aria-hidden'); window.renderBirthdayWidget && window.renderBirthdayWidget('birthday-grid','birthday-leaderboard-list',config); });
+        }
       }catch(e){ console.error('students load error',e); }
     })();
 

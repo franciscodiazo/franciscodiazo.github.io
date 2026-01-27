@@ -82,6 +82,71 @@
     }catch(e){ container.innerHTML = '<div class="text-muted small">Error cargando cumpleaños.</div>'; }
   };
 
+  // Group birthdays by month and render an accessible month-list view
+  window.renderBirthdaysByMonth = async function(containerId, leaderboardId){
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    try{
+      const r = await fetch('/11-3/data/birthdays.json');
+      if (!r.ok){ container.innerHTML = '<div class="text-muted small">No se pudieron cargar cumpleaños.</div>'; return; }
+      const data = await r.json();
+      // Normalize entries
+      data.forEach(b=>{ b.meta = window.parseBirthday(b.date); b.key = window.keyFor(b); b.xp = window.loadXP ? window.loadXP(b.key) : 0; b.next = window.nextOccurrence(b.date); });
+      // Group by month number
+      const months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+      const groups = {};
+      data.forEach(b=>{
+        const m = (b.meta && typeof b.meta.month === 'number') ? b.meta.month : 0;
+        if (!groups[m]) groups[m] = [];
+        groups[m].push(b);
+      });
+      // Sort months by next occurrence from today (so upcoming months first)
+      const now = new Date();
+      const monthOrder = Object.keys(groups).map(n=>parseInt(n,10)).sort((a,b)=>{
+        // compare by first upcoming date in that month
+        const dateA = groups[a].reduce((min,x)=> x.next < min ? x.next : min, groups[a][0].next);
+        const dateB = groups[b].reduce((min,x)=> x.next < min ? x.next : min, groups[b][0].next);
+        return dateA - dateB;
+      });
+
+      container.innerHTML = '';
+      monthOrder.forEach((m, idx)=>{
+        const monthDiv = document.createElement('section'); monthDiv.className = 'birthday-month mb-3';
+        const header = document.createElement('div'); header.className = 'month-header d-flex align-items-center justify-content-between p-2 rounded';
+        header.innerHTML = `<div><strong>${months[m]}</strong> <small class="text-muted">(${groups[m].length})</small></div><div><button class="btn btn-sm btn-outline-secondary month-toggle" aria-expanded="true">Ocultar</button></div>`;
+        monthDiv.appendChild(header);
+        const grid = document.createElement('div'); grid.className = 'month-grid mt-2 row g-2';
+        groups[m].sort((a,b)=> a.meta.day - b.meta.day).forEach(b=>{
+          const col = document.createElement('div'); col.className = 'col-12';
+          const isToday = (new Date().toDateString() === b.next.toDateString());
+          col.innerHTML = `
+            <div class="resource-card d-flex align-items-center justify-content-between ${isToday? 'birthday-today':''}">
+              <div class="d-flex align-items-center">
+                <div class="me-3 avatar-sm">${b.avatar? `<img src="${b.avatar}" alt="${b.name}" class="rounded-circle" width="44" height="44">` : b.name.split(' ').map(n=>n[0]).slice(0,2).join('')}</div>
+                <div>
+                  <div class="fw-bold">${b.name} ${b.last}</div>
+                  <div class="small text-muted">${b.date} • ${isToday? 'Hoy 🎂' : 'En ' + Math.ceil((b.next - new Date(now.getFullYear(), now.getMonth(), now.getDate()))/(1000*60*60*24)) + ' días'}</div>
+                </div>
+              </div>
+              <div class="text-end">
+                <div class="mb-1"><span class="xp-badge" data-key="${b.key}">${b.xp} 🎉</span></div>
+                <button class="btn btn-sm btn-outline-primary wish-btn" data-key="${b.key}">🎉 Deseo</button>
+              </div>
+            </div>
+          `;
+          grid.appendChild(col);
+          // bind wish button
+          const btn = col.querySelector('.wish-btn');
+          btn.addEventListener('click', ()=>{ try{ window.giveBirthdayWish && window.giveBirthdayWish(b, col); window.updateBirthdayLeaderboard && window.updateBirthdayLeaderboard(leaderboardId); btn.setAttribute('disabled',''); btn.textContent='Enviado'; setTimeout(()=>{ btn.removeAttribute('disabled'); btn.textContent='🎉 Deseo'; },1200);}catch(e){console.error(e);} });
+        });
+        monthDiv.appendChild(grid);
+        // collapse behavior
+        header.querySelector('.month-toggle').addEventListener('click', function(){ const expanded = this.getAttribute('aria-expanded') === 'true'; this.setAttribute('aria-expanded', String(!expanded)); this.textContent = expanded ? 'Mostrar' : 'Ocultar'; grid.classList.toggle('d-none'); });
+        container.appendChild(monthDiv);
+      });
+    }catch(e){ container.innerHTML = '<div class="text-muted small">Error cargando cumpleaños.</div>'; }
+  };
+
   window.renderGradoCountdown = async function(countdownId, recessInfoId, config){
     const el = document.getElementById(countdownId);
     const info = document.getElementById(recessInfoId);
