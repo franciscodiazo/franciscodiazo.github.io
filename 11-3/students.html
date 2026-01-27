@@ -65,6 +65,11 @@
             <label for="birthday-search-compact" class="visually-hidden">Buscar cumpleaños</label>
             <input id="birthday-search-compact" class="form-control form-control-sm rounded-pill" type="search" placeholder="Buscar por nombre o apellido" aria-label="Buscar cumpleaños">
           </div>
+          <div class="mb-2 d-flex gap-2 align-items-center">
+            <button id="export-points-btn" class="btn btn-sm btn-outline-secondary">Exportar puntos (JSON)</button>
+            <button id="download-points-btn" class="btn btn-sm btn-outline-primary">Descargar puntos</button>
+            <button id="show-sync-instr-btn" class="btn btn-sm btn-outline-info">Instrucciones sincronizar</button>
+          </div>
           <div id="birthday-grid" class="row g-3 mt-2"></div>
         </div>
 
@@ -273,6 +278,37 @@
         if (params.has('id')){ const id = params.get('id'); if (id) renderStudentIntoModal(id); }
       }catch(e){}
     })();
+
+    // Export local student points to clipboard or download, plus show sync instructions
+    document.getElementById('export-points-btn').addEventListener('click', function(){
+      const keys = Object.keys(localStorage).filter(k=>k.startsWith('11-3:student-points:'));
+      const payload = {};
+      keys.forEach(k=>{ const id = k.replace('11-3:student-points:',''); payload[id] = parseInt(localStorage.getItem(k)||'0',10); });
+      const txt = JSON.stringify(payload, null, 2);
+      navigator.clipboard && navigator.clipboard.writeText(txt).then(()=> alert('Puntos copiados al portapapeles.')); 
+    });
+
+    document.getElementById('download-points-btn').addEventListener('click', function(){
+      const keys = Object.keys(localStorage).filter(k=>k.startsWith('11-3:student-points:'));
+      const payload = {};
+      keys.forEach(k=>{ const id = k.replace('11-3:student-points:',''); payload[id] = parseInt(localStorage.getItem(k)||'0',10); });
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = '11-3-points.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    });
+
+    document.getElementById('show-sync-instr-btn').addEventListener('click', function(){
+      const msg = `Para sincronizar automáticamente desde tu máquina o servidor seguro:
+
+1) Copia el JSON exportado (o descarga 11-3-points.json).
+2) Ejecuta este comando (reemplaza YOUR_TOKEN con un PAT con repo scope y OWNER/REPO por tu repo):
+
+curl -X POST -H "Authorization: token YOUR_TOKEN" -H "Accept: application/vnd.github+json" https://api.github.com/repos/OWNER/REPO/actions/workflows/sync-student-points.yml/dispatches -d '{"ref":"main","inputs":{"points": "<PEGA_AQUÍ_EL_JSON_ESCAPED>"}}'
+
+Nota: Para automatizar sin exponer tokens en clientes, crea un pequeño backend seguro que reciba la petición del cliente y haga la llamada anterior desde el servidor.
+`;
+      alert(msg);
+    });
 
     
   </script>
