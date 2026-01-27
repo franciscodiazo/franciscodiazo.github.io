@@ -159,5 +159,28 @@
       }
       renderNextBirthdays();
     }catch(e){}
+
+    // If on the students page, render the full birthday gamified widget
+    try{
+      if (document.getElementById('birthday-grid')){
+        // Use the shared renderBirthdayWidget to populate grid and leaderboard
+        window.renderBirthdayWidget('birthday-grid', 'birthday-leaderboard-list');
+      }
+      // Also, if the students-list exists, we can show a compact next birthdays list there
+      try{
+        const shortEl = document.getElementById('next-birthdays-compact');
+        if (shortEl){
+          const r = await fetch('/11-3/data/birthdays.json');
+          if (r.ok){
+            const data = await r.json();
+            const today = new Date();
+            data.forEach(b=> b.next = window.nextOccurrence(b.date));
+            data.sort((a,b)=>a.next - b.next);
+            const top = data.slice(0,5);
+            shortEl.innerHTML = top.map(t=>`<div><strong>${t.name}</strong> <small class="text-muted">${t.date}</small></div>`).join('');
+          }
+        }
+      }catch(e){}
+    }catch(e){}
   });
 })();

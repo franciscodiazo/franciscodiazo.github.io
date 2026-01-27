@@ -35,8 +35,30 @@
     </div>
   </nav>
   <main id="main-content" role="main" class="container">
-    <h1 class="h4 mb-3">Estudiantes - 11-3</h1>
-    <div id="students-list" class="row g-3"></div>
+    <h1 class="h4 mb-3">Estudiantes & Cumpleaños - 11-3</h1>
+    <div class="row g-4">
+      <div class="col-lg-7">
+        <h5 class="mb-3">Tabla de Estudiantes</h5>
+        <div id="students-list" class="row g-3"></div>
+      </div>
+      <div class="col-lg-5">
+        <div class="card p-3 mb-3">
+          <h5 class="mb-2">Cumpleaños Gamificados</h5>
+          <div class="mb-2">
+            <label for="birthday-search-compact" class="visually-hidden">Buscar cumpleaños</label>
+            <input id="birthday-search-compact" class="form-control form-control-sm rounded-pill" type="search" placeholder="Buscar por nombre o apellido" aria-label="Buscar cumpleaños">
+          </div>
+          <div id="birthday-grid" class="row g-3 mt-2"></div>
+        </div>
+
+        <div id="birthday-leaderboard" class="leaderboard mt-2" aria-live="polite" aria-atomic="true">
+          <strong>Tabla de deseos</strong>
+          <div id="birthday-leaderboard-list" class="mt-2 small text-muted">Sin datos aún</div>
+        </div>
+
+        <div class="mt-3 small text-muted">Los estudiantes que ya cumplieron el año aparecen en <span class="badge bg-success">verde</span>, los demás en <span class="badge bg-warning text-dark">pendiente</span>.</div>
+      </div>
+    </div>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -45,11 +67,64 @@
     fetch('/11-3/data/students.json').then(r=>r.json()).then(students=>{
       const container=document.getElementById('students-list');
       students.forEach(s=>{
-        const col=document.createElement('div');col.className='col-md-4';
-        col.innerHTML=`<div class="card card-custom p-3"><h5>${s.name}</h5><p class="mb-1">${s.id}</p><p class="mb-2">Puntos: <strong>${s.points}</strong></p><a class="btn btn-outline-primary" href="/11-3/student.html?id=${s.id}">Ver espacio</a></div>`;
+        const col=document.createElement('div');col.className='col-md-6';
+        col.innerHTML=`<div class="card card-custom p-3"><div class="d-flex align-items-center"><div class="student-avatar me-3">${s.name.split(' ').map(n=>n[0]).slice(0,2).join('')}</div><div><h5 class="mb-0">${s.name}</h5><small class="text-muted">ID: ${s.id}</small></div></div><p class="mb-2 mt-2">Puntos: <strong>${s.points}</strong> • Progreso: ${s.progress}%</p><a class="btn btn-outline-primary" href="/11-3/student.html?id=${s.id}">Ver espacio</a></div>`;
         container.appendChild(col);
       })
     })
+
+    // Birthday widget: initial render + filtered search
+    document.addEventListener('DOMContentLoaded', function(){
+      if (window.renderBirthdayWidget) window.renderBirthdayWidget('birthday-grid','birthday-leaderboard-list');
+
+      const search = document.getElementById('birthday-search-compact');
+      if (search){
+        let timer = null;
+        search.addEventListener('input', function(e){
+          clearTimeout(timer);
+          timer = setTimeout(()=> renderBirthdayFiltered(e.target.value), 200);
+        });
+      }
+
+      async function renderBirthdayFiltered(q){
+        const container = document.getElementById('birthday-grid');
+        if (!container) return;
+        try{
+          const r = await fetch('/11-3/data/birthdays.json');
+          if (!r.ok){ container.innerHTML = '<div class="text-muted small">No se pudieron cargar cumpleaños.</div>'; return; }
+          const data = await r.json();
+          const today = new Date();
+          const ql = (q||'').trim().toLowerCase();
+          const filtered = data.filter(b=>{ const t=(b.name+' '+b.last+' '+b.date).toLowerCase(); return !ql || t.includes(ql); });
+          filtered.forEach(b=> b.next = window.nextOccurrence(b.date));
+          filtered.sort((a,b)=> a.next - b.next);
+          container.innerHTML = '';
+          filtered.forEach(b=>{
+            const diff = Math.ceil((b.next - new Date(today.getFullYear(), today.getMonth(), today.getDate())) / (1000*60*60*24));
+            const d = window.parseBirthday(b.date);
+            const hasPassed = (new Date(today.getFullYear(), d.month, d.day) < new Date(today.getFullYear(), today.getMonth(), today.getDate()));
+            const card = document.createElement('div'); card.className='col-12 mb-2';
+            card.innerHTML = `
+              <div class="resource-card d-flex align-items-center justify-content-between ${hasPassed? 'bg-success bg-opacity-10':''}">
+                <div>
+                  <div class="fw-bold">${b.name}</div>
+                  <div class="small text-muted">${b.last} • ${b.date} • ${hasPassed? '<span class="text-success">Cumplió</span>':'<span class="text-warning text-dark">Pendiente</span>'}</div>
+                </div>
+                <div class="text-end">
+                  <div class="mb-1"><span class="xp-badge">${window.loadXP(window.keyFor(b))} 🎉</span></div>
+                  <button class="btn btn-sm btn-outline-primary wish-btn">🎉 Deseo +1</button>
+                  <div class="small text-muted mt-1">${hasPassed? '—':'En ' + diff + ' días'}</div>
+                </div>
+              </div>
+            `;
+            container.appendChild(card);
+            card.querySelector('.wish-btn').addEventListener('click', ()=>{ window.giveBirthdayWish(b, card); window.updateBirthdayLeaderboard('birthday-leaderboard-list'); });
+          });
+          window.updateBirthdayLeaderboard('birthday-leaderboard-list');
+        }catch(e){ container.innerHTML = '<div class="text-muted small">Error cargando cumpleaños.</div>'; }
+      }
+
+    });
   </script>
 
   <!-- Footer -->
