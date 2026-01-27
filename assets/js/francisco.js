@@ -199,10 +199,35 @@
             if (studentCard){
               const wishEl = studentCard.querySelector('.wish-count'); if (wishEl) wishEl.textContent = window.loadXP ? window.loadXP(k) : xp;
               const pointsEl = studentCard.querySelector('.student-points'); if (pointsEl){ const current = parseInt(pointsEl.textContent||'0',10); pointsEl.textContent = current + 1; }
+              // visual pop + confetti
+              try{ const cardRoot = studentCard.querySelector('.card') || studentCard; cardRoot.classList.add('pop'); window.launchConfetti(cardRoot); setTimeout(()=>cardRoot.classList.remove('pop'),650);}catch(e){}
             }
           }catch(e){}
           const live = document.getElementById('search-live'); if (live) live.textContent = `Has enviado un deseo a ${b.name} ${b.last}.`;
         }catch(e){ console.error('giveBirthdayWish error', e); }
+      };
+    }
+
+    // lightweight confetti launcher
+    if (typeof window.launchConfetti === 'undefined'){
+      window.launchConfetti = function(root, count = 18){
+        try{
+          const rect = (root && root.getBoundingClientRect) ? root.getBoundingClientRect() : { left:0, top:0, width:100, height:0 };
+          const container = document.createElement('div'); container.className = 'confetti-container';
+          root = root || document.body;
+          root.appendChild(container);
+          const colors = ['#f59e0b','#fbbf24','#7c3aed','#10b981','#ef4444','#06b6d4'];
+          for (let i=0;i<count;i++){
+            const el = document.createElement('div'); el.className = 'confetti-piece';
+            el.style.background = colors[Math.floor(Math.random()*colors.length)];
+            el.style.left = (Math.random()*80 + 10) + '%';
+            el.style.top = (-10 - Math.random()*20) + 'px';
+            el.style.transform = `rotate(${Math.random()*360}deg)`;
+            el.style.animationDelay = (Math.random()*200) + 'ms';
+            container.appendChild(el);
+          }
+          setTimeout(()=>{ container.remove(); },1200);
+        }catch(e){console.error('confetti error',e);}      
       };
     }
   });
