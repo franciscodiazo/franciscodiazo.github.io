@@ -96,7 +96,7 @@
           const wishXP = wishKey ? window.loadXP(wishKey) : (s.wishXP || 0);
           const totalPoints = (s.points || 0) + (wishXP || 0);
           const col=document.createElement('div');col.className='col-md-6';
-          col.innerHTML=`<div class="card card-custom p-3" data-student-name="${s.name.toLowerCase()}"><div class="d-flex align-items-center"><div class="student-avatar me-3">${s.avatar|| s.name.split(' ').map(n=>n[0]).slice(0,2).join('')}</div><div><h5 class="mb-0">${s.name}</h5><small class="text-muted">ID: ${s.id}</small></div></div><p class="mb-2 mt-2">Puntos: <strong class="student-points" id="student-points-${s.id}">${totalPoints}</strong> • Progreso: ${s.progress}%</p><div class="mb-2 small text-muted">Deseos: <span class="wish-count" id="wish-${s.id}">${wishXP}</span> 🎉</div><a class="btn btn-outline-primary" href="/11-3/student.html?id=${s.id}">Ver espacio</a></div>`;
+          col.innerHTML=`<div class="card card-custom p-3" data-student-name="${s.name.toLowerCase()}"><div class="d-flex align-items-center"><div class="student-avatar me-3">${s.avatar|| s.name.split(' ').map(n=>n[0]).slice(0,2).join('')}</div><div><h5 class="mb-0">${s.name}</h5><small class="text-muted">ID: ${s.id}</small></div></div><p class="mb-2 mt-2">Puntos: <strong class="student-points" id="student-points-${s.id}">${totalPoints}</strong> • Progreso: ${s.progress}%</p><div class="mb-2 small text-muted">Deseos: <span class="wish-count" id="wish-${s.id}">${wishXP}</span> 🎉</div><button class="btn btn-outline-primary open-student-btn" data-id="${s.id}" aria-controls="studentModal">Ver espacio</button></div>`;
           container.appendChild(col);
         });
         if (window.renderBirthdayWidget) window.renderBirthdayWidget('birthday-grid','birthday-leaderboard-list',config);
@@ -113,7 +113,7 @@
         const totalPoints = (s.points || 0) + (wishXP || 0);
 
         const col=document.createElement('div');col.className='col-md-6';
-        col.innerHTML=`<div class="card card-custom p-3" data-student-name="${s.name.toLowerCase()}"><div class="d-flex align-items-center"><div class="student-avatar me-3">${s.name.split(' ').map(n=>n[0]).slice(0,2).join('')}</div><div><h5 class="mb-0">${s.name}</h5><small class="text-muted">ID: ${s.id}</small></div></div><p class="mb-2 mt-2">Puntos: <strong class="student-points" id="student-points-${s.id}">${totalPoints}</strong> • Progreso: ${s.progress}%</p><div class="mb-2 small text-muted">Deseos: <span class="wish-count" id="wish-${s.id}">${wishXP}</span> 🎉</div><a class="btn btn-outline-primary" href="/11-3/student.html?id=${s.id}">Ver espacio</a></div>`;
+        col.innerHTML=`<div class="card card-custom p-3" data-student-name="${s.name.toLowerCase()}"><div class="d-flex align-items-center"><div class="student-avatar me-3">${s.name.split(' ').map(n=>n[0]).slice(0,2).join('')}</div><div><h5 class="mb-0">${s.name}</h5><small class="text-muted">ID: ${s.id}</small></div></div><p class="mb-2 mt-2">Puntos: <strong class="student-points" id="student-points-${s.id}">${totalPoints}</strong> • Progreso: ${s.progress}%</p><div class="mb-2 small text-muted">Deseos: <span class="wish-count" id="wish-${s.id}">${wishXP}</span> 🎉</div><button class="btn btn-outline-primary open-student-btn" data-id="${s.id}" aria-controls="studentModal">Ver espacio</button></div>`;
         container.appendChild(col);
       })
     })
@@ -170,7 +170,80 @@
       }
 
     });
+
+    // Student details modal handler: open student details in-page (modal) and support ?id= query param
+    function renderStudentIntoModal(id){
+      const modalEl = document.getElementById('studentModal');
+      const body = document.getElementById('studentModalBody');
+      const title = document.getElementById('studentModalLabel');
+      if (!modalEl || !body || !title) return;
+      body.innerHTML = 'Cargando...';
+      Promise.all([fetch('/11-3/data/students.json').then(r=>r.json()), fetch('/11-3/data/activities.json').then(r=>r.json())])
+      .then(([students, activities])=>{
+        const s = students.find(x=>x.id==id);
+        if(!s){ body.innerHTML = '<div class="alert alert-danger">Estudiante no encontrado</div>'; return; }
+        title.textContent = s.name;
+        body.innerHTML = `
+          <div class="row g-3">
+            <div class="col-md-8">
+              <div class="card card-custom p-3">
+                <h4>${s.name}</h4>
+                <p>ID: ${s.id}</p>
+                <p>Puntos: <strong id="modal-points-${s.id}">${s.points}</strong></p>
+                <h6>Progreso del año</h6>
+                <div class="progress mb-2"><div class="progress-bar" style="width:${s.progress}%">${s.progress}%</div></div>
+                <h6>Actividades asignadas</h6>
+                <ul>${activities.filter(a=>a.assigned.includes(s.id)).slice(0,5).map(a=>`<li>${a.title} — entrega <strong>${a.due}</strong></li>`).join('')}</ul>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card card-custom p-3">
+                <h6>Metas</h6>
+                <ul>
+                  <li>Meta ICFES: <strong>${s.goals?.icfes || '---'}</strong></li>
+                  <li>Meta SENA: <strong>${s.goals?.sena || '---'}</strong></li>
+                </ul>
+                <button class="btn btn-primary ms-auto" id="modal-gain-${s.id}">Ganar puntos</button>
+              </div>
+            </div>
+          </div>
+        `;
+        const modal = new bootstrap.Modal(modalEl);
+        modal.show();
+        // hook the ganar puntos button
+        const gainBtn = document.getElementById(`modal-gain-${s.id}`);
+        if (gainBtn){ gainBtn.addEventListener('click', ()=>{ try{ s.points = (s.points||0)+10; document.getElementById(`modal-points-${s.id}`).textContent = s.points; const card = document.querySelector(`[data-student-name="${s.name.toLowerCase()}"]`); if (card){ const pointsEl = card.querySelector('.student-points'); if(pointsEl) pointsEl.textContent = s.points; } }catch(e){} }); }
+      }).catch(e=>{ body.innerHTML = '<div class="alert alert-danger">Error cargando datos</div>'; });
+    }
+
+    document.addEventListener('click', function(e){
+      const btn = e.target.closest && e.target.closest('.open-student-btn');
+      if (btn){ const id = btn.getAttribute('data-id'); if (id) renderStudentIntoModal(id); }
+    });
+
+    // open modal if ?id=... is present
+    (function(){
+      try{
+        const params = new URLSearchParams(location.search);
+        if (params.has('id')){ const id = params.get('id'); if (id) renderStudentIntoModal(id); }
+      }catch(e){}
+    })();
+
+    
   </script>
+
+  <!-- Student Modal -->
+  <div class="modal fade" id="studentModal" tabindex="-1" aria-labelledby="studentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="studentModalLabel">Estudiante</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body" id="studentModalBody">Cargando...</div>
+      </div>
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer class="site-footer">

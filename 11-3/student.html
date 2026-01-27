@@ -39,43 +39,14 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    function qs(name){
-      return new URLSearchParams(location.search).get(name);
-    }
-    const id = qs('id');
-    if(!id){ document.getElementById('student-area').innerHTML='<div class="alert alert-warning">No se indicó estudiante</div>' }
-    else{
-      Promise.all([fetch('/11-3/data/students.json').then(r=>r.json()), fetch('/11-3/data/activities.json').then(r=>r.json())]).then(([students, activities])=>{
-        const s = students.find(x=>x.id==id);
-        if(!s) return document.getElementById('student-area').innerHTML='<div class="alert alert-danger">Estudiante no encontrado</div>';
-        const area=document.getElementById('student-area');
-        area.innerHTML = `
-          <div class="row g-3">
-            <div class="col-md-8">
-              <div class="card card-custom p-3">
-                <h4>${s.name}</h4>
-                <p>ID: ${s.id}</p>
-                <p>Puntos: <strong>${s.points}</strong></p>
-                <h6>Progreso del año</h6>
-                <div class="progress mb-2"><div class="progress-bar" style="width:${s.progress}%">${s.progress}%</div></div>
-                <h6>Actividades asignadas</h6>
-                <ul>${activities.filter(a=>a.assigned.includes(s.id)).slice(0,5).map(a=>`<li>${a.title} — entrega <strong>${a.due}</strong></li>`).join('')}</ul>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card card-custom p-3">
-                <h6>Metas</h6>
-                <ul>
-                  <li>Meta ICFES: <strong>${s.goals.icfes || '---'}</strong></li>
-                  <li>Meta SENA: <strong>${s.goals.sena || '---'}</strong></li>
-                </ul>
-                <a class="btn btn-primary-custom mt-3" href="#">Ganar puntos</a>
-              </div>
-            </div>
-          </div>
-        `
-      })
-    }
+    // This page is legacy: redirect to the students page which now shows the student view inline (modal)
+    (function(){
+      try{
+        const id = new URLSearchParams(location.search).get('id');
+        if (id){ location.replace(`/11-3/students.html?id=${encodeURIComponent(id)}`); }
+        else { document.getElementById('student-area').innerHTML = '<div class="alert alert-warning">No se indicó estudiante. Serás dirigido al listado.</div>'; setTimeout(()=> location.replace('/11-3/students.html'), 1600); }
+      }catch(e){ document.getElementById('student-area').innerHTML = '<div class="alert alert-danger">Error al redirigir</div>'; }
+    })();
   </script>
 
   <!-- Footer -->
