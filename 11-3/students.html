@@ -48,6 +48,20 @@
         <div class="card p-3 mb-3">
           <h5 class="mb-2">Cumpleaños Gamificados</h5>
           <div class="mb-2">
+            <h6 class="mb-1">Cuenta regresiva a Grado <small class="text-muted">04 Dic 2026</small></h6>
+            <div id="grado-countdown" class="fs-5 fw-bold">Cargando...</div>
+            <div id="recess-info" class="small text-muted mt-1"></div>
+          </div>
+          <div class="mb-2">
+            <h6 class="mb-1">Coles (tema)</h6>
+            <div id="theme-picker" class="d-flex gap-2" role="toolbar" aria-label="Seleccionar tema">
+              <button class="theme-btn btn btn-outline-secondary btn-sm" data-theme="neon" aria-pressed="false">Neón</button>
+              <button class="theme-btn btn btn-outline-secondary btn-sm" data-theme="pastel" aria-pressed="false">Pastel</button>
+              <button class="theme-btn btn btn-outline-secondary btn-sm" data-theme="retro" aria-pressed="false">Retro</button>
+              <button class="theme-btn btn btn-outline-secondary btn-sm" data-theme="space" aria-pressed="false">Space</button>
+            </div>
+          </div>
+          <div class="mb-2">
             <label for="birthday-search-compact" class="visually-hidden">Buscar cumpleaños</label>
             <input id="birthday-search-compact" class="form-control form-control-sm rounded-pill" type="search" placeholder="Buscar por nombre o apellido" aria-label="Buscar cumpleaños">
           </div>
@@ -66,12 +80,30 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/assets/js/francisco.js"></script>
+  <script src="/assets/js/gamification.js"></script>
   <script>
-    fetch('/11-3/data/students.json').then(r=>r.json()).then(students=>{
-      const container=document.getElementById('students-list');
-      // load birthdays to compute wishXP per student
-      const birthdaysResp = await fetch('/11-3/data/birthdays.json');
-      const birthdaysList = birthdaysResp.ok ? await birthdaysResp.json() : [];
+    (async function(){
+      try {
+        const [studentsR, birthdaysR, cfgR] = await Promise.all([fetch('/11-3/data/students.json'), fetch('/11-3/data/birthdays.json'), fetch('/11-3/data/config.json')]);
+        const students = studentsR.ok ? await studentsR.json() : [];
+        const birthdaysList = birthdaysR.ok ? await birthdaysR.json() : [];
+        const config = cfgR.ok ? await cfgR.json() : null;
+        const container=document.getElementById('students-list');
+        if (!container) return;
+        students.forEach(s=>{
+          const match = birthdaysList.find(b => b.name && (b.name.toLowerCase() === s.name.split(' ')[0].toLowerCase() || b.name.toLowerCase() === s.name.toLowerCase()));
+          const wishKey = match ? window.keyFor(match) : null;
+          const wishXP = wishKey ? window.loadXP(wishKey) : (s.wishXP || 0);
+          const totalPoints = (s.points || 0) + (wishXP || 0);
+          const col=document.createElement('div');col.className='col-md-6';
+          col.innerHTML=`<div class="card card-custom p-3" data-student-name="${s.name.toLowerCase()}"><div class="d-flex align-items-center"><div class="student-avatar me-3">${s.avatar|| s.name.split(' ').map(n=>n[0]).slice(0,2).join('')}</div><div><h5 class="mb-0">${s.name}</h5><small class="text-muted">ID: ${s.id}</small></div></div><p class="mb-2 mt-2">Puntos: <strong class="student-points" id="student-points-${s.id}">${totalPoints}</strong> • Progreso: ${s.progress}%</p><div class="mb-2 small text-muted">Deseos: <span class="wish-count" id="wish-${s.id}">${wishXP}</span> 🎉</div><a class="btn btn-outline-primary" href="/11-3/student.html?id=${s.id}">Ver espacio</a></div>`;
+          container.appendChild(col);
+        });
+        if (window.renderBirthdayWidget) window.renderBirthdayWidget('birthday-grid','birthday-leaderboard-list',config);
+        if (window.renderGradoCountdown) window.renderGradoCountdown('grado-countdown','recess-info',config);
+        if (window.initThemePicker) window.initThemePicker('theme-picker');
+      }catch(e){ console.error('students load error',e); }
+    })();
 
       students.forEach(s=>{
         // find matching birthday entry (by full name or first name)

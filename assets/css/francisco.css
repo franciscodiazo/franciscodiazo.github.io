@@ -474,3 +474,17 @@ img { max-width: 100%; height: auto; display: block; }
 .navbar .nav-link:hover { background: rgba(37,99,235,0.06); }
 /* Improve focus visibility */
 :focus-visible { outline: 4px solid rgba(37,99,235,0.18); outline-offset: 3px; }
+
+/* Gamification themes and styles */
+.theme-neon { --accent: #7c3aed; --accent-2: #f59e0b; }
+.theme-pastel { --accent: #a78bfa; --accent-2: #fda4af; }
+.theme-retro { --accent: #fab005; --accent-2: #ff6b6b; }
+.theme-space { --accent: #06b6d4; --accent-2: #7c3aed; }
+.theme-neon .student-avatar, .theme-pastel .student-avatar, .theme-retro .student-avatar, .theme-space .student-avatar { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: white; }
+.student-avatar { width:48px;height:48px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.95rem; }
+#grado-countdown { letter-spacing: .5px; }
+#theme-picker .theme-btn[aria-pressed="true"] { box-shadow: 0 0 0 3px rgba(0,0,0,0.06) inset; border-color: var(--accent, #7c3aed); color: var(--accent, #7c3aed); }
+.confetti-container { position: absolute; pointer-events: none; overflow: visible; width:100%; height: 0; }
+.confetti-piece { width:8px;height:14px;border-radius:2px;position:absolute;animation: confetti-fall 1.2s linear both; }
+@keyframes confetti-fall { to { transform: translateY(140px) rotate(360deg); opacity: 0; } }
+.resource-card .xp-badge { font-weight:700; }
