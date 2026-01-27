@@ -126,6 +126,11 @@
     const stored = localStorage.getItem('11-3:theme') || 'neon'; applyTheme(stored);
   };
 
+  // Student points persistence (per-student XP/points)
+  window.loadStudentPoints = function(id){ try{ return parseInt(localStorage.getItem('11-3:student-points:'+id)||'0',10); }catch(e){ return 0; } };
+  window.saveStudentPoints = function(id, val){ try{ localStorage.setItem('11-3:student-points:'+id, String(val)); }catch(e){ console.error('saveStudentPoints',e); } };
+  window.awardStudentPoints = function(id, val){ try{ const current = window.loadStudentPoints(id) || 0; const next = current + Math.max(0, parseInt(val,10)||0); window.saveStudentPoints(id, next); return next; }catch(e){ console.error('awardStudentPoints',e); return 0; } };
+
   // Auto init
   document.addEventListener('DOMContentLoaded', function(){
     try{ window.renderBirthdayWidget && window.renderBirthdayWidget('birthday-grid','birthday-leaderboard-list'); }catch(e){}

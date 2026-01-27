@@ -94,9 +94,11 @@
           const match = birthdaysList.find(b => b.name && (b.name.toLowerCase() === s.name.split(' ')[0].toLowerCase() || b.name.toLowerCase() === s.name.toLowerCase()));
           const wishKey = match ? window.keyFor(match) : null;
           const wishXP = wishKey ? window.loadXP(wishKey) : (s.wishXP || 0);
-          const totalPoints = (s.points || 0) + (wishXP || 0);
+          const studentXP = (window.loadStudentPoints ? window.loadStudentPoints(s.id) : 0);
+          const totalPoints = (s.points || 0) + (wishXP || 0) + (studentXP || 0);
           const col=document.createElement('div');col.className='col-md-6';
-          col.innerHTML=`<div class="card card-custom p-3" data-student-name="${s.name.toLowerCase()}"><div class="d-flex align-items-center"><div class="student-avatar me-3">${s.avatar|| s.name.split(' ').map(n=>n[0]).slice(0,2).join('')}</div><div><h5 class="mb-0">${s.name}</h5><small class="text-muted">ID: ${s.id}</small></div></div><p class="mb-2 mt-2">Puntos: <strong class="student-points" id="student-points-${s.id}">${totalPoints}</strong> • Progreso: ${s.progress}%</p><div class="mb-2 small text-muted">Deseos: <span class="wish-count" id="wish-${s.id}">${wishXP}</span> 🎉</div><button class="btn btn-outline-primary open-student-btn" data-id="${s.id}" aria-controls="studentModal">Ver espacio</button></div>`;
+          const avatarHtml = s.avatar ? `<img src="${s.avatar}" alt="Avatar ${s.name}" class="student-avatar-img rounded-circle" width="48" height="48">` : `${s.name.split(' ').map(n=>n[0]).slice(0,2).join('')}`;
+          col.innerHTML=`<div class="card card-custom p-3" data-student-name="${s.name.toLowerCase()}"><div class="d-flex align-items-center"><div class="student-avatar me-3">${avatarHtml}</div><div><h5 class="mb-0">${s.name}</h5><small class="text-muted">ID: ${s.id}</small></div></div><p class="mb-2 mt-2">Puntos: <strong class="student-points" id="student-points-${s.id}">${totalPoints}</strong> • Progreso: ${s.progress}%</p><div class="mb-2 small text-muted">Deseos: <span class="wish-count" id="wish-${s.id}">${wishXP}</span> 🎉</div><button class="btn btn-outline-primary open-student-btn" data-id="${s.id}" aria-controls="studentModal">Ver espacio</button></div>`;
           container.appendChild(col);
         });
         if (window.renderBirthdayWidget) window.renderBirthdayWidget('birthday-grid','birthday-leaderboard-list',config);
@@ -110,10 +112,12 @@
         const match = birthdaysList.find(b => b.name.toLowerCase() === s.name.split(' ')[0].toLowerCase() || b.name.toLowerCase() === s.name.toLowerCase());
         const wishKey = match ? window.keyFor({ last: match.last, name: match.name }) : null;
         const wishXP = wishKey ? window.loadXP(wishKey) : (s.wishXP || 0);
-        const totalPoints = (s.points || 0) + (wishXP || 0);
+        const studentXP = (window.loadStudentPoints ? window.loadStudentPoints(s.id) : 0);
+        const totalPoints = (s.points || 0) + (wishXP || 0) + (studentXP || 0);
 
         const col=document.createElement('div');col.className='col-md-6';
-        col.innerHTML=`<div class="card card-custom p-3" data-student-name="${s.name.toLowerCase()}"><div class="d-flex align-items-center"><div class="student-avatar me-3">${s.name.split(' ').map(n=>n[0]).slice(0,2).join('')}</div><div><h5 class="mb-0">${s.name}</h5><small class="text-muted">ID: ${s.id}</small></div></div><p class="mb-2 mt-2">Puntos: <strong class="student-points" id="student-points-${s.id}">${totalPoints}</strong> • Progreso: ${s.progress}%</p><div class="mb-2 small text-muted">Deseos: <span class="wish-count" id="wish-${s.id}">${wishXP}</span> 🎉</div><button class="btn btn-outline-primary open-student-btn" data-id="${s.id}" aria-controls="studentModal">Ver espacio</button></div>`;
+        const avatarHtml = s.avatar ? `<img src="${s.avatar}" alt="Avatar ${s.name}" class="student-avatar-img rounded-circle" width="48" height="48">` : `${s.name.split(' ').map(n=>n[0]).slice(0,2).join('')}`;
+        col.innerHTML=`<div class="card card-custom p-3" data-student-name="${s.name.toLowerCase()}"><div class="d-flex align-items-center"><div class="student-avatar me-3">${avatarHtml}</div><div><h5 class="mb-0">${s.name}</h5><small class="text-muted">ID: ${s.id}</small></div></div><p class="mb-2 mt-2">Puntos: <strong class="student-points" id="student-points-${s.id}">${totalPoints}</strong> • Progreso: ${s.progress}%</p><div class="mb-2 small text-muted">Deseos: <span class="wish-count" id="wish-${s.id}">${wishXP}</span> 🎉</div><button class="btn btn-outline-primary open-student-btn" data-id="${s.id}" aria-controls="studentModal">Ver espacio</button></div>`;
         container.appendChild(col);
       })
     })
@@ -178,8 +182,8 @@
       const title = document.getElementById('studentModalLabel');
       if (!modalEl || !body || !title) return;
       body.innerHTML = 'Cargando...';
-      Promise.all([fetch('/11-3/data/students.json').then(r=>r.json()), fetch('/11-3/data/activities.json').then(r=>r.json())])
-      .then(([students, activities])=>{
+      Promise.all([fetch('/11-3/data/students.json').then(r=>r.json()), fetch('/11-3/data/activities.json').then(r=>r.json()), fetch('/11-3/data/birthdays.json').then(r=>r.json())])
+      .then(([students, activities, birthdays])=>{
         const s = students.find(x=>x.id==id);
         if(!s){ body.innerHTML = '<div class="alert alert-danger">Estudiante no encontrado</div>'; return; }
         title.textContent = s.name;
@@ -203,7 +207,20 @@
                   <li>Meta ICFES: <strong>${s.goals?.icfes || '---'}</strong></li>
                   <li>Meta SENA: <strong>${s.goals?.sena || '---'}</strong></li>
                 </ul>
-                <button class="btn btn-primary ms-auto" id="modal-gain-${s.id}">Ganar puntos</button>
+                <div class="mb-2">
+                  <div class="small text-muted">Puntos guardados: <strong id="modal-student-xp-${s.id}">${window.loadStudentPoints ? window.loadStudentPoints(s.id) : 0}</strong></div>
+                </div>
+                <div class="d-flex gap-2 mb-2">
+                  <button class="btn btn-outline-success" id="modal-send-wish-${s.id}" aria-label="Enviar deseo a ${s.name}">🎉 Enviar deseo</button>
+                  <button class="btn btn-primary" id="modal-gain-${s.id}">Ganar puntos</button>
+                </div>
+                <div class="mini-game" id="mini-game-${s.id}">
+                  <div class="small text-muted mb-1">Mini-juego: Haz 10 clics en 5s para ganar puntos</div>
+                  <div class="d-flex gap-2 align-items-center">
+                    <button class="btn btn-sm btn-outline-primary" id="start-game-${s.id}">Comenzar</button>
+                    <div id="game-status-${s.id}" class="small text-muted">Listo</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -212,7 +229,35 @@
         modal.show();
         // hook the ganar puntos button
         const gainBtn = document.getElementById(`modal-gain-${s.id}`);
-        if (gainBtn){ gainBtn.addEventListener('click', ()=>{ try{ s.points = (s.points||0)+10; document.getElementById(`modal-points-${s.id}`).textContent = s.points; const card = document.querySelector(`[data-student-name="${s.name.toLowerCase()}"]`); if (card){ const pointsEl = card.querySelector('.student-points'); if(pointsEl) pointsEl.textContent = s.points; } }catch(e){} }); }
+        if (gainBtn){ gainBtn.addEventListener('click', ()=>{ try{ const next = window.awardStudentPoints ? window.awardStudentPoints(s.id, 10) : (s.points=(s.points||0)+10); document.getElementById(`modal-points-${s.id}`).textContent = next; const xpEl = document.getElementById(`modal-student-xp-${s.id}`); if (xpEl) xpEl.textContent = next; const card = document.querySelector(`[data-student-name="${s.name.toLowerCase()}"]`); if (card){ const pointsEl = card.querySelector('.student-points'); if(pointsEl) pointsEl.textContent = ((s.points||0) + (window.loadStudentPoints?window.loadStudentPoints(s.id):0)); } }catch(e){} }); }
+
+        // Enviar deseo button
+        const sendWishBtn = document.getElementById(`modal-send-wish-${s.id}`);
+        if (sendWishBtn){ sendWishBtn.addEventListener('click', ()=>{
+          try{
+            // find birthday entry for this student
+            const b = (birthdays || []).find(bd => bd.name && (bd.name.toLowerCase() === s.name.split(' ')[0].toLowerCase() || bd.name.toLowerCase() === s.name.toLowerCase() || bd.last && bd.last.split(' ')[0].toLowerCase() === s.name.split(' ')[0].toLowerCase()));
+            if (b && window.giveBirthdayWish){ window.giveBirthdayWish(b, document.querySelector(`[data-student-name="${s.name.toLowerCase()}"]`)); window.updateBirthdayLeaderboard && window.updateBirthdayLeaderboard('birthday-leaderboard-list'); }
+            else { // fallback: award student 1 point and show confetti
+              const next = window.awardStudentPoints ? window.awardStudentPoints(s.id, 1) : 1; document.getElementById(`modal-student-xp-${s.id}`).textContent = next; const card = document.querySelector(`[data-student-name="${s.name.toLowerCase()}"]`); if (card){ const pointsEl = card.querySelector('.student-points'); if(pointsEl) pointsEl.textContent = ((s.points||0) + (window.loadStudentPoints?window.loadStudentPoints(s.id):0)); }
+              try{ window.launchConfetti(document.querySelector(`[data-student-name="${s.name.toLowerCase()}"]`) ); }catch(e){}
+            }
+          }catch(e){ console.error('send wish', e); }
+        }); }
+
+        // Mini-game: quick click 10 times in 5 seconds
+        const startGameBtn = document.getElementById(`start-game-${s.id}`);
+        if (startGameBtn){ startGameBtn.addEventListener('click', ()=>{
+          const status = document.getElementById(`game-status-${s.id}`);
+          let clicks = 0; let timeLeft = 5; status.textContent = `Tiempo: ${timeLeft}s • Clics: ${clicks}`;
+          startGameBtn.disabled = true;
+          const clickTarget = document.createElement('button'); clickTarget.className = 'btn btn-success ms-2'; clickTarget.textContent = 'Clic rápido!';
+          startGameBtn.parentNode.appendChild(clickTarget);
+          const onClick = ()=>{ clicks++; status.textContent = `Tiempo: ${timeLeft}s • Clics: ${clicks}`; if (clicks >= 10){ finish(true); } };
+          clickTarget.addEventListener('click', onClick);
+          const interval = setInterval(()=>{ timeLeft--; if (timeLeft<=0){ finish(false); } else { status.textContent = `Tiempo: ${timeLeft}s • Clics: ${clicks}`; } },1000);
+          function finish(win){ clearInterval(interval); clickTarget.removeEventListener('click', onClick); clickTarget.remove(); startGameBtn.disabled = false; if (win){ const reward = 20 + Math.floor(Math.random()*31); const next = window.awardStudentPoints ? window.awardStudentPoints(s.id, reward) : (s.points=(s.points||0)+reward); document.getElementById(`modal-points-${s.id}`).textContent = next; const xpEl = document.getElementById(`modal-student-xp-${s.id}`); if (xpEl) xpEl.textContent = next; try{ window.launchConfetti(document.querySelector(`[data-student-name="${s.name.toLowerCase()}"]`)); }catch(e){} status.textContent = `¡Ganaste ${reward} puntos!`; } else { status.textContent = 'Se acabó el tiempo. Intenta otra vez.'; }
+        }); }
       }).catch(e=>{ body.innerHTML = '<div class="alert alert-danger">Error cargando datos</div>'; });
     }
 
