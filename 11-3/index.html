@@ -14,6 +14,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <style>
+    /* Critical hero styles (inlined for faster LCP) */
+    .page-hero{background:linear-gradient(135deg,rgba(14,165,233,0.06),rgba(124,58,237,0.04));padding:1.5rem}
+    .hero-stats .h4{font-weight:700}
+  </style>
   <!-- Animate.css -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
   <!-- Font Awesome -->
@@ -104,6 +110,7 @@
           <div class="card-body card-body-custom">
             <div id="leaderboard" class="mb-3">Cargando tablero...</div>
             <a href="/11-3/rewards.html" class="btn btn-primary-custom">Ver recompensas</a>
+            <button id="sync-points-btn-index" class="btn btn-sm btn-outline-success ms-2">Sincronizar puntos</button>
           </div>
         </div>
 
@@ -207,16 +214,18 @@
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/main.min.js"></script>
-  <script src="/11-3/js/11-3.js"></script>
-  <script src="/assets/js/gamification.js"></script>
-  <script src="/assets/js/francisco.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/main.min.js" defer></script>
+  <script src="/11-3/js/11-3.js" defer></script>
+  <script src="/assets/js/gamification.js" defer></script>
+  <script src="/assets/js/francisco.js" defer></script>
   <script>
     // Initialize birthdays by month on index and bind refresh
     document.addEventListener('DOMContentLoaded', function(){
       try{ if (window.renderBirthdaysByMonth) window.renderBirthdaysByMonth('birthdays-by-month','leaderboard'); }catch(e){console.error(e);}    
       const btn = document.getElementById('refresh-birthdays-index'); if (btn){ btn.addEventListener('click', function(){ const el = document.getElementById('birthdays-by-month'); if (el) { el.innerHTML = '<div class="small text-muted">Actualizando...</div>'; } try{ window.renderBirthdaysByMonth && window.renderBirthdaysByMonth('birthdays-by-month','leaderboard'); }catch(e){} }); }
+
+      const syncBtn = document.getElementById('sync-points-btn-index'); if (syncBtn){ syncBtn.addEventListener('click', async function(){ if (!confirm('¿Enviar puntos locales al repositorio? Esto disparará el workflow en GitHub.')) return; try{ await window.triggerPointsSync(); }catch(e){ console.error('sync index error',e); alert('Error al enviar: ' + (e.message||e)); } }); }
     });
   </script>
 </body>

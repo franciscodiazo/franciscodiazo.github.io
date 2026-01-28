@@ -100,6 +100,56 @@
         if (!groups[m]) groups[m] = [];
         groups[m].push(b);
       });
+      // expose last computed groups for bulk operations (used by wishAllForMonth)
+      window.lastBirthdaysGroups = groups;
+
+      // Bulk wish: give +1 XP to every student in a month, update badges and leaderboard
+      window.wishAllForMonth = async function(monthIndex, containerEl, leaderboardId){
+        try{
+          const groupsLocal = window.lastBirthdaysGroups || {};
+          const list = groupsLocal[monthIndex] || [];
+          if (!list.length) return;
+          // apply +1 XP per person
+          for (const b of list){
+            try{
+              const key = b.key || window.keyFor(b);
+              const prev = window.loadXP ? window.loadXP(key) : 0;
+              const next = (prev || 0) + 1;
+              if (window.saveXP) window.saveXP(key, next);
+              // update any visible xp badges
+              const xpEl = document.querySelector(`.xp-badge[data-key="${key}"]`);
+              if (xpEl) xpEl.textContent = next + ' 🎉';
+            }catch(e){ console.error('wishAll single', e); }
+          }
+          // announce
+          const ann = document.getElementById('birthday-announce'); if (ann){ ann.textContent = `Se enviaron deseos a ${list.length} estudiantes de ${['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'][monthIndex]}.`; }
+          if (window.launchConfetti) window.launchConfetti(containerEl || document.body);
+          if (window.updateBirthdayLeaderboard) window.updateBirthdayLeaderboard(leaderboardId);
+          // offer to sync immediately
+          try{
+            if (confirm('¿Deseas sincronizar ahora los puntos al repositorio (disparar workflow)?')){
+              if (window.triggerPointsSync) await window.triggerPointsSync();
+            }
+          }catch(e){}
+        }catch(e){ console.error('wishAllForMonth', e); }
+      };
+
+      // Trigger points sync: gathers local student points and calls configured serverless endpoint
+      window.SYNC_ENDPOINT = window.SYNC_ENDPOINT || '/.netlify/functions/trigger-sync';
+      window.triggerPointsSync = async function(endpoint, opts){
+        const url = endpoint || window.SYNC_ENDPOINT;
+        const keys = Object.keys(localStorage).filter(k=>k.startsWith('11-3:student-points:'));
+        const payload = {};
+        keys.forEach(k=>{ const id = k.replace('11-3:student-points:',''); payload[id] = parseInt(localStorage.getItem(k)||'0',10); });
+        if (!Object.keys(payload).length) { alert('No hay puntos locales para sincronizar.'); return; }
+        try{
+          const headers = { 'Content-Type': 'application/json' };
+          if (opts && opts.syncSecret) headers['x-sync-secret'] = opts.syncSecret;
+          const res = await fetch(url, { method: 'POST', headers, body: JSON.stringify({ points: payload }) });
+          if (!res.ok) { const txt = await res.text(); throw new Error(txt || res.statusText); }
+          alert('Solicitud enviada al servicio de sincronización. Revisa la ejecución en GitHub Actions.');
+        }catch(e){ console.error('triggerPointsSync', e); alert('Error sincronizando: ' + (e.message||e)); }
+      };
       // Sort months by next occurrence from today (so upcoming months first)
       const now = new Date();
       const monthOrder = Object.keys(groups).map(n=>parseInt(n,10)).sort((a,b)=>{
@@ -113,9 +163,21 @@
       monthOrder.forEach((m, idx)=>{
         const monthDiv = document.createElement('section'); monthDiv.className = 'birthday-month mb-3';
         const header = document.createElement('div'); header.className = 'month-header d-flex align-items-center justify-content-between p-2 rounded';
-        header.innerHTML = `<div><strong>${months[m]}</strong> <small class="text-muted">(${groups[m].length})</small></div><div><button class="btn btn-sm btn-outline-secondary month-toggle" aria-expanded="true">Ocultar</button></div>`;
+        header.innerHTML = `<div><strong>${months[m]}</strong> <small class="text-muted">(${groups[m].length})</small></div><div><button class="btn btn-sm btn-outline-danger month-wish-all me-2" title="Desear feliz cumpleaños a todo el mes">🎊 Deseo a todos</button><button class="btn btn-sm btn-outline-secondary month-toggle" aria-expanded="true">Ocultar</button></div>`;
         monthDiv.appendChild(header);
         const grid = document.createElement('div'); grid.className = 'month-grid mt-2 row g-2';
+        // bind "Deseo a todos" action
+        const wishBtn = header.querySelector('.month-wish-all');
+        if (wishBtn){
+          wishBtn.addEventListener('click', async function(){
+            try{
+              this.setAttribute('disabled','');
+              const confirmMsg = `¿Deseas enviar un deseo a los ${groups[m].length} estudiantes de ${months[m]}? Esto otorgará +1 XP a cada uno.`;
+              if (!confirm(confirmMsg)){ this.removeAttribute('disabled'); return; }
+              await window.wishAllForMonth(m, grid, leaderboardId);
+            }catch(e){ console.error(e); } finally { this.removeAttribute('disabled'); }
+          });
+        }
         groups[m].sort((a,b)=> a.meta.day - b.meta.day).forEach(b=>{
           const col = document.createElement('div'); col.className = 'col-12';
           const isToday = (new Date().toDateString() === b.next.toDateString());

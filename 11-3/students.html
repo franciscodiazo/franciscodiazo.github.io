@@ -68,6 +68,7 @@
             <button id="export-points-btn" class="btn btn-sm btn-outline-secondary">Exportar puntos (JSON)</button>
             <button id="download-points-btn" class="btn btn-sm btn-outline-primary">Descargar puntos</button>
             <button id="show-sync-instr-btn" class="btn btn-sm btn-outline-info">Instrucciones sincronizar</button>
+            <button id="sync-points-btn" class="btn btn-sm btn-outline-success">Sincronizar puntos</button>
             <div class="btn-group ms-auto" role="tablist" aria-label="Vista cumpleaños">
               <button class="btn btn-sm btn-outline-secondary" id="view-by-month-btn" aria-pressed="true">Por mes</button>
               <button class="btn btn-sm btn-outline-secondary" id="view-compact-btn" aria-pressed="false">Compacto</button>
@@ -88,9 +89,9 @@
     </div>
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/assets/js/francisco.js"></script>
-  <script src="/assets/js/gamification.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
+  <script src="/assets/js/francisco.js" defer></script>
+  <script src="/assets/js/gamification.js" defer></script>
   <script>
     (async function(){
       try {
@@ -325,6 +326,14 @@ curl -X POST -H "Authorization: token YOUR_TOKEN" -H "Accept: application/vnd.gi
 Nota: Para automatizar sin exponer tokens en clientes, crea un pequeño backend seguro que reciba la petición del cliente y haga la llamada anterior desde el servidor.
 `;
       alert(msg);
+    });
+
+    // Sync points button: call configured endpoint (Netlify/Vercel function, etc.)
+    document.getElementById('sync-points-btn').addEventListener('click', async function(){
+      if (!confirm('¿Enviar puntos locales al repositorio? Esto disparará el workflow en GitHub.')) return;
+      try{
+        await window.triggerPointsSync();
+      }catch(e){ console.error('sync error',e); alert('Error al enviar: ' + (e.message||e)); }
     });
 
     
