@@ -4,3 +4,10 @@
 .xp-badge{background:#eef7ff;border-radius:6px;padding:4px 6px}
 .birthday-today{background:linear-gradient(90deg,#fff7ed,#fff1f2)}
 
+/* Birthday month styles */
+.month-header{background:linear-gradient(90deg, rgba(14,165,233,0.03), rgba(124,58,237,0.02));padding:10px;border-radius:6px}
+.month-panel{padding:8px}
+.list-group-item{border:1px solid rgba(0,0,0,0.04);border-radius:6px;margin-bottom:6px}
+.wish-btn{min-width:72px}
+.month-wish-all{min-width:140px}
+
