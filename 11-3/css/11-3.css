@@ -1,24 +1,6 @@
-/* Minimal custom styles for 11-3 */
-body{background:linear-gradient(180deg,#f8fafc,#eef2ff);}
-.card-custom{border-radius:12px;border:1px solid #e6eefc}
-.card-header-custom{border-radius:0 0 0 0}
-.btn-primary-custom{background:linear-gradient(135deg,#3b82f6,#06b6d4);color:#fff;padding:.6rem 1rem;border-radius:8px;border:none}
-.stat-card{padding:1.5rem;border-radius:10px}
-#calendar{max-width:100%}
-
-/* Hero and birthdays styles */
-.page-hero{background:linear-gradient(135deg, rgba(124,58,237,0.12), rgba(3,105,161,0.06));box-shadow:0 10px 30px rgba(12,18,45,0.04);}
-.hero-stats .h4{color:var(--primary-color)}
-#next-birthdays .avatar-sm{width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:linear-gradient(135deg,#7c3aed,#06b6d4);color:white;font-weight:700}
-.birthday-item{border-radius:10px;padding:6px 8px;border:1px solid rgba(15,23,42,0.04);background:linear-gradient(180deg,rgba(255,255,255,0.85),rgba(255,255,255,0.6));}
-.xp-badge{background:linear-gradient(90deg,#f59e0b,#fbbf24);color:white;padding:4px 8px;border-radius:999px;font-weight:700}
-.send-wish{min-width:70px}
-@media(max-width:768px){ .hero-stats{display:none} }
-
-/* Month grouped birthdays */
-.birthday-month { border: 1px solid rgba(15,23,42,0.04); border-radius:10px; overflow:hidden; }
-.month-header { background: linear-gradient(90deg, rgba(124,58,237,0.06), rgba(3,105,161,0.04)); padding:10px 12px; }
-.month-grid { padding: 10px; }
-.month-header .month-toggle { min-width: 80px; }
-.birthday-today { border-left: 4px solid #f59e0b !important; }
+#calendar{min-height:320px}
+.resource-card{border-radius:6px;padding:8px;border:1px solid rgba(0,0,0,0.04)}
+.avatar-sm{width:44px;height:44px;border-radius:8px;background:#eee;display:inline-flex;align-items:center;justify-content:center;font-weight:700}
+.xp-badge{background:#eef7ff;border-radius:6px;padding:4px 6px}
+.birthday-today{background:linear-gradient(90deg,#fff7ed,#fff1f2)}
 

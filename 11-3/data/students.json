@@ -1,5 +1,6 @@
 [
-  { "id": "A001", "name": "Carlos Pérez", "points": 120, "wishXP": 0, "progress": 55, "goals": { "icfes": "65%", "sena": "Curso informático" } },
-  { "id": "A002", "name": "Laura Gómez", "points": 150, "wishXP": 0, "progress": 70, "goals": { "icfes": "72%", "sena": "Técnico en redes" } },
-  { "id": "A003", "name": "María Ruiz", "points": 85, "wishXP": 0, "progress": 40, "goals": { "icfes": "60%", "sena": "---" } }
+  { "id": "A001", "name": "Ana", "last": "González", "avatar": "", "points": 10, "progress": 45 },
+  { "id": "A002", "name": "Miguel", "last": "Ramírez", "avatar": "", "points": 20, "progress": 70 },
+  { "id": "A003", "name": "Laura", "last": "Torres", "avatar": "", "points": 5, "progress": 20 },
+  { "id": "A004", "name": "Carlos", "last": "Pérez", "avatar": "", "points": 0, "progress": 10 }
 ]
