@@ -24,12 +24,45 @@
     // leaderboard
     if (window.updateBirthdayLeaderboard) window.updateBirthdayLeaderboard('leaderboard');
 
-    // helper: simple toast notifications
-    window.showToast = function(message, opts){ try{ const container = document.getElementById('toast-container'); if (!container) return; const id = 't-'+Date.now(); const el = document.createElement('div'); el.className = 'app-toast show ' + (opts && opts.type ? opts.type : 'info'); el.id = id; el.setAttribute('role','status'); el.setAttribute('aria-live','polite'); el.innerHTML = `<div class="d-flex align-items-start justify-content-between"><div><div class="toast-title">${message}</div></div><div><button class="toast-close" aria-label="Cerrar">✕</button></div></div>`; container.appendChild(el); // close handler
-      el.querySelector('.toast-close').addEventListener('click', ()=>{ el.classList.remove('show'); setTimeout(()=>el.remove(),280); }); setTimeout(()=>{ if (document.getElementById(id)) { el.classList.remove('show'); setTimeout(()=>{ el.remove(); },280); } }, 4200); }catch(e){ console.error('toast',e); } };
+    // helper: accessible animated toast notifications (title or message)
+    window.showToast = function(message, opts){ try{
+      const container = document.getElementById('toast-container'); if (!container) return;
+      const id = 't-'+Date.now();
+      const type = opts && opts.type ? opts.type : 'info';
+      const title = (opts && opts.title) ? `<div class="toast-title">${opts.title}</div>` : '';
+      const desc = `<div class="toast-desc">${message}</div>`;
+      const el = document.createElement('div');
+      el.className = 'app-toast ' + type;
+      el.id = id;
+      el.setAttribute('role', type==='error'?'alert':'status');
+      el.setAttribute('aria-live','polite');
+      el.setAttribute('tabindex','0');
+      el.innerHTML = `<div class="d-flex align-items-start justify-content-between"><div>${title}${desc}</div><div><button class="toast-close" aria-label="Cerrar">✕</button></div></div>`;
+      container.appendChild(el);
+      // show with animation (allow CSS to animate)
+      requestAnimationFrame(()=> el.classList.add('show'));
+      // focus for screen readers briefly (but respect reduced motion)
+      try{ const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches; if (!prefersReduced) el.focus(); }catch(e){}
+      // close handler
+      el.querySelector('.toast-close').addEventListener('click', ()=>{ el.classList.remove('show'); setTimeout(()=>el.remove(),320); });
+      // auto dismiss (longer for error messages)
+      const ttl = opts && opts.ttl ? opts.ttl : (type==='error'?7000:4200);
+      const to = setTimeout(()=>{ if (document.getElementById(id)) { el.classList.remove('show'); setTimeout(()=>el.remove(),320); } }, ttl);
+      // remove on escape key when focused
+      el.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') { clearTimeout(to); el.classList.remove('show'); setTimeout(()=>el.remove(),240); } });
+    }catch(e){ console.error('toast',e); } };
 
     // refresh button
-    const btn = document.getElementById('refresh-birthdays-index'); if (btn) btn.addEventListener('click', ()=>{ try{ if (window.renderBirthdaysByMonth) window.renderBirthdaysByMonth('birthdays-by-month','leaderboard'); window.showToast && window.showToast('Cumpleaños actualizados', { type: 'info' }); }catch(e){} });
+    const btn = document.getElementById('refresh-birthdays-index'); if (btn) btn.addEventListener('click', ()=>{ try{ if (window.renderBirthdaysByMonth) window.renderBirthdaysByMonth('birthdays-by-month','leaderboard'); window.showToast && window.showToast('Cumpleaños actualizados', { type: 'success', title: 'Actualizado' }); }catch(e){} });
+
+    // Smooth scrolling for in-page anchors (improved UX + focus management)
+    document.querySelectorAll('a[href^="#"]').forEach(a=> a.addEventListener('click', function(e){ const href = this.getAttribute('href'); if (href === '#' || href === '#main-content') return; const target = document.querySelector(href); if (target){ e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); target.setAttribute('tabindex','-1'); target.focus({ preventScroll:true }); window.setTimeout(()=> target.removeAttribute('tabindex'),800); } }));
+
+    // Back to top floating button
+    const btt = document.createElement('button'); btt.id = 'back-to-top'; btt.setAttribute('aria-label','Volver arriba'); btt.innerHTML = '↑'; btt.style.display='none'; document.body.appendChild(btt);
+    const showBtt = ()=>{ if (window.scrollY>320){ btt.style.display='flex'; setTimeout(()=> btt.classList.add('show'),20); } else { btt.classList.remove('show'); setTimeout(()=> btt.style.display='none',250); } };
+    window.addEventListener('scroll', showBtt); showBtt();
+    btt.addEventListener('click', ()=>{ window.scrollTo({ top:0, behavior:'smooth' }); document.querySelector('#main-content') && document.querySelector('#main-content').focus(); });
 
     // search birthdays
     const search = document.getElementById('birthday-search'); if (search){ let timer=null; search.addEventListener('input', function(e){ clearTimeout(timer); timer=setTimeout(()=>{ try{ window.filterBirthdaysByQuery && window.filterBirthdaysByQuery(e.target.value, 'birthdays-by-month'); }catch(err){} }, 200); }); }
