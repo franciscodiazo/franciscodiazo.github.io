@@ -19,7 +19,8 @@ jobs:
             https://franciscodiazo.github.io/
             https://franciscodiazo.github.io/11-3/
           uploadArtifacts: true
-          config: '{"assertions": {"categories:performance": ["error", {"minScore":0.6}]}}'
+          # Stricter thresholds: aim for 90%+ in core categories. Adjust if tests fail on first runs.
+          config: '{"assertions": {"categories:performance": ["error", {"minScore":0.9}], "categories:accessibility": ["error", {"minScore":0.9}], "categories:best-practices": ["error", {"minScore":0.9}], "categories:seo": ["error", {"minScore":0.9}]}}'
 
       - name: Upload reports
         uses: actions/upload-artifact@v4
