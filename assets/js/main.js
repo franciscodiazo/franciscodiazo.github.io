@@ -24,20 +24,24 @@
     // leaderboard
     if (window.updateBirthdayLeaderboard) window.updateBirthdayLeaderboard('leaderboard');
 
+    // helper: simple toast notifications
+    window.showToast = function(message, opts){ try{ const container = document.getElementById('toast-container'); if (!container) return; const id = 't-'+Date.now(); const el = document.createElement('div'); el.className = 'app-toast show ' + (opts && opts.type ? opts.type : 'info'); el.id = id; el.setAttribute('role','status'); el.setAttribute('aria-live','polite'); el.innerHTML = `<div class="d-flex align-items-start justify-content-between"><div><div class="toast-title">${message}</div></div><div><button class="toast-close" aria-label="Cerrar">✕</button></div></div>`; container.appendChild(el); // close handler
+      el.querySelector('.toast-close').addEventListener('click', ()=>{ el.classList.remove('show'); setTimeout(()=>el.remove(),280); }); setTimeout(()=>{ if (document.getElementById(id)) { el.classList.remove('show'); setTimeout(()=>{ el.remove(); },280); } }, 4200); }catch(e){ console.error('toast',e); } };
+
     // refresh button
-    const btn = document.getElementById('refresh-birthdays-index'); if (btn) btn.addEventListener('click', ()=>{ try{ if (window.renderBirthdaysByMonth) window.renderBirthdaysByMonth('birthdays-by-month','leaderboard'); }catch(e){} });
+    const btn = document.getElementById('refresh-birthdays-index'); if (btn) btn.addEventListener('click', ()=>{ try{ if (window.renderBirthdaysByMonth) window.renderBirthdaysByMonth('birthdays-by-month','leaderboard'); window.showToast && window.showToast('Cumpleaños actualizados', { type: 'info' }); }catch(e){} });
 
     // search birthdays
     const search = document.getElementById('birthday-search'); if (search){ let timer=null; search.addEventListener('input', function(e){ clearTimeout(timer); timer=setTimeout(()=>{ try{ window.filterBirthdaysByQuery && window.filterBirthdaysByQuery(e.target.value, 'birthdays-by-month'); }catch(err){} }, 200); }); }
 
     // export points (copy to clipboard)
-    const expBtn = document.getElementById('export-birthdays-btn'); if (expBtn){ expBtn.addEventListener('click', async function(){ try{ const payload = window.exportBirthdaysPoints(); const txt = JSON.stringify(payload,null,2); await navigator.clipboard.writeText(txt); alert('Puntos copiados al portapapeles.'); }catch(e){ console.error(e); alert('Error copiando puntos: '+(e.message||e)); } }); }
+    const expBtn = document.getElementById('export-birthdays-btn'); if (expBtn){ expBtn.addEventListener('click', async function(){ try{ const payload = window.exportBirthdaysPoints(); const txt = JSON.stringify(payload,null,2); await navigator.clipboard.writeText(txt); window.showToast && window.showToast('Puntos copiados al portapapeles', { type: 'success' }); }catch(e){ console.error(e); window.showToast && window.showToast('Error copiando puntos', { type: 'info' }); } }); }
 
     // download points
-    const dlBtn = document.getElementById('download-birthdays-btn'); if (dlBtn){ dlBtn.addEventListener('click', function(){ try{ window.downloadBirthdaysPoints(); }catch(e){ console.error(e); alert('Error descargando puntos.'); } }); }
+    const dlBtn = document.getElementById('download-birthdays-btn'); if (dlBtn){ dlBtn.addEventListener('click', function(){ try{ window.downloadBirthdaysPoints(); window.showToast && window.showToast('Archivo descargado: 11-3-points.json', { type: 'success' }); }catch(e){ console.error(e); window.showToast && window.showToast('Error descargando puntos', { type: 'info' }); } }); }
 
     // sync button
-    const syncBtn = document.getElementById('sync-points-btn'); if (syncBtn) syncBtn.addEventListener('click', ()=>{ if (window.triggerPointsSync) window.triggerPointsSync(); else alert('Sin servicio de sincronización configurado.'); });
+    const syncBtn = document.getElementById('sync-points-btn'); if (syncBtn) syncBtn.addEventListener('click', ()=>{ if (window.triggerPointsSync) { window.showToast && window.showToast('Iniciando sincronización...', { type: 'info' }); window.triggerPointsSync(); } else { window.showToast && window.showToast('Sin servicio de sincronización configurado', { type: 'info' }); } });
   }
   document.addEventListener('DOMContentLoaded', init);
 })();
