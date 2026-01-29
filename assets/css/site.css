@@ -3,3 +3,11 @@ body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',
 a{color:var(--brand)}
 .page-hero{background:linear-gradient(90deg, rgba(14,165,233,0.06), rgba(124,58,237,0.04));}
 .small-muted{color:var(--muted)}
+
+/* Focus visible for accessibility */
+:focus{outline:3px solid #0ea5e934; outline-offset:2px}
+a:focus, button:focus{outline:3px solid rgba(14,165,233,0.35);}
+
+/* Skip link visible when focused */
+.skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+.skip-link:focus, .visually-hidden-focusable:focus{position:static;width:auto;height:auto;left:0;top:0;z-index:1000;padding:.75rem;background:#fff;border:1px solid rgba(0,0,0,.08)}

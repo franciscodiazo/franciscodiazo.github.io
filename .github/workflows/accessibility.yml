@@ -1,0 +1,21 @@
+name: Accessibility (pa11y)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  pa11y:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run pa11y checks
+        uses: pa11y/pa11y-action@v1
+        with:
+          urls: |
+            https://franciscodiazo.github.io/
+            https://franciscodiazo.github.io/11-3/
+          threshold: 2
