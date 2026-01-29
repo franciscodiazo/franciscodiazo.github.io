@@ -27,6 +27,15 @@
     // refresh button
     const btn = document.getElementById('refresh-birthdays-index'); if (btn) btn.addEventListener('click', ()=>{ try{ if (window.renderBirthdaysByMonth) window.renderBirthdaysByMonth('birthdays-by-month','leaderboard'); }catch(e){} });
 
+    // search birthdays
+    const search = document.getElementById('birthday-search'); if (search){ let timer=null; search.addEventListener('input', function(e){ clearTimeout(timer); timer=setTimeout(()=>{ try{ window.filterBirthdaysByQuery && window.filterBirthdaysByQuery(e.target.value, 'birthdays-by-month'); }catch(err){} }, 200); }); }
+
+    // export points (copy to clipboard)
+    const expBtn = document.getElementById('export-birthdays-btn'); if (expBtn){ expBtn.addEventListener('click', async function(){ try{ const payload = window.exportBirthdaysPoints(); const txt = JSON.stringify(payload,null,2); await navigator.clipboard.writeText(txt); alert('Puntos copiados al portapapeles.'); }catch(e){ console.error(e); alert('Error copiando puntos: '+(e.message||e)); } }); }
+
+    // download points
+    const dlBtn = document.getElementById('download-birthdays-btn'); if (dlBtn){ dlBtn.addEventListener('click', function(){ try{ window.downloadBirthdaysPoints(); }catch(e){ console.error(e); alert('Error descargando puntos.'); } }); }
+
     // sync button
     const syncBtn = document.getElementById('sync-points-btn'); if (syncBtn) syncBtn.addEventListener('click', ()=>{ if (window.triggerPointsSync) window.triggerPointsSync(); else alert('Sin servicio de sincronización configurado.'); });
   }

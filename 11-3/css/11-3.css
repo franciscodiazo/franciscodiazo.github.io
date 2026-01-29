@@ -11,3 +11,11 @@
 .wish-btn{min-width:72px}
 .month-wish-all{min-width:140px}
 
+/* Search and export in birthdays */
+#birthday-search{max-width:320px}
+#export-birthdays-btn, #download-birthdays-btn{white-space:nowrap}
+
+/* Announcements */
+#birthday-announce{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+#birthday-announce:focus, #birthday-announce[aria-live]{position:static;left:auto;width:auto;height:auto}
+

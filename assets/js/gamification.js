@@ -72,8 +72,15 @@
 
       });
 
-      // bind per-student wish buttons
-      container.querySelectorAll('.wish-btn').forEach(btn=> btn.addEventListener('click', ()=>{ const k=btn.getAttribute('data-key'); const next=(window.loadXP(k)||0)+1; window.saveXP(k,next); const el=document.querySelector(`.xp-badge[data-key="${k}"]`); if (el) el.textContent = next + ' 🎉'; if (window.updateBirthdayLeaderboard) window.updateBirthdayLeaderboard(leaderboardId); }));
+      // bind per-student wish buttons (announce and a11y)
+      container.querySelectorAll('.wish-btn').forEach(btn=> btn.addEventListener('click', ()=>{ const k=btn.getAttribute('data-key'); const next=(window.loadXP(k)||0)+1; window.saveXP(k,next); const el=document.querySelector(`.xp-badge[data-key="${k}"]`); if (el) el.textContent = next + ' 🎉'; if (window.updateBirthdayLeaderboard) window.updateBirthdayLeaderboard(leaderboardId); const ann = document.getElementById('birthday-announce'); if (ann){ ann.textContent = `Deseo enviado a ${btn.closest('.list-group-item').querySelector('.fw-bold').innerText}.`; } }));
+
+      // Filtering helper: shows only months and students matching query
+      window.filterBirthdaysByQuery = function(q, containerId){ const container = document.getElementById(containerId); if(!container) return; const ql = String(q||'').trim().toLowerCase(); const months = container.querySelectorAll('.birthday-month'); if(!ql){ months.forEach(m=> m.classList.remove('d-none')); return; } months.forEach(m=>{ const items = Array.from(m.querySelectorAll('.list-group-item')); let any=false; items.forEach(it=>{ const txt = it.innerText.toLowerCase(); const show = txt.includes(ql); it.style.display = show ? '' : 'none'; if (show) any = true; }); m.classList.toggle('d-none', !any); }); };
+
+      // Export/Download points helper
+      window.exportBirthdaysPoints = function(){ const xpKeys = Object.keys(localStorage).filter(k=>k.startsWith('11-3:xp:')); const studentKeys = Object.keys(localStorage).filter(k=>k.startsWith('11-3:student-points:')); const payload = { xp: {}, students: {} }; xpKeys.forEach(k=>{ payload.xp[k.replace('11-3:xp:','')] = parseInt(localStorage.getItem(k)||'0',10); }); studentKeys.forEach(k=>{ payload.students[k.replace('11-3:student-points:','')] = parseInt(localStorage.getItem(k)||'0',10); }); return payload; };
+      window.downloadBirthdaysPoints = function(filename='11-3-points.json'){ const payload = window.exportBirthdaysPoints(); const blob = new Blob([JSON.stringify(payload,null,2)], { type: 'application/json' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); };
 
     }catch(e){ container.innerHTML = '<div class="small text-muted">Error cargando cumpleaños</div>'; }
   };
