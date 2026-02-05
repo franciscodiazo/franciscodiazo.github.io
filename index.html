@@ -1,194 +1,131 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Aplicación educativa interactiva para matemáticas de secundaria">
-    <title>MathLearn - Matemáticas Interactivas</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>Francisco Díaz O. – Educador y Diseñador Instruccional</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Recursos para docentes y estudiantes, diseño instruccional y creación de contenidos educativos.">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Encabezado principal -->
-    <header class="main-header">
-        <div class="container">
-            <h1>🎓 MathLearn</h1>
-            <p class="subtitle">Aprende matemáticas de forma interactiva y divertida</p>
-        </div>
-    </header>
+  <header class="hero">
+    <div class="hero-texto">
+      <h1>Francisco Díaz O.</h1>
+      <p class="subtitulo">Educador · Contenidista · Diseñador instruccional</p>
+      <p class="descripcion">
+        Creo recursos y experiencias de aprendizaje para docentes y estudiantes,
+        conectando pedagogía, diseño y tecnología.
+      </p>
+      <nav class="botones">
+        <a href="#docentes" class="btn">Recursos para docentes</a>
+        <a href="#estudiantes" class="btn btn-secundario">Recursos para estudiantes</a>
+      </nav>
+    </div>
+    <div class="hero-imagen">
+      <img src="img/portada-github.png" alt="Ilustración de educador creando recursos digitales">
+    </div>
+  </header>
 
-    <!-- Contenedor principal -->
-    <main class="main-content">
-        <div class="container">
-            
-            <!-- Panel de control del docente -->
-            <section class="teacher-panel" id="teacherPanel" aria-label="Panel de configuración del docente">
-                <h2>⚙️ Panel del Docente</h2>
-                <div class="controls">
-                    <div class="control-group">
-                        <label for="difficultyLevel">Nivel de dificultad:</label>
-                        <select id="difficultyLevel" aria-describedby="difficultyHelp">
-                            <option value="basico">Básico (Secundaria 1-2)</option>
-                            <option value="intermedio" selected>Intermedio (Secundaria 3-4)</option>
-                            <option value="avanzado">Avanzado (Secundaria 5-6)</option>
-                        </select>
-                        <small id="difficultyHelp" class="help-text">Selecciona el nivel apropiado para tus estudiantes</small>
-                    </div>
-                    
-                    <div class="control-group">
-                        <label for="topicSelect">Tema matemático:</label>
-                        <select id="topicSelect" aria-describedby="topicHelp">
-                            <option value="algebra">Álgebra</option>
-                            <option value="ecuaciones">Ecuaciones lineales</option>
-                            <option value="geometria">Geometría</option>
-                            <option value="trigonometria">Trigonometría</option>
-                            <option value="funciones">Funciones</option>
-                        </select>
-                        <small id="topicHelp" class="help-text">Elige el tema a practicar</small>
-                    </div>
-                    
-                    <button id="newExerciseBtn" class="btn btn-primary" aria-label="Generar nuevo ejercicio">
-                        🔄 Nuevo Ejercicio
-                    </button>
-                    <button id="togglePanelBtn" class="btn btn-secondary" aria-label="Ocultar panel de docente">
-                        👁️ Ocultar Panel
-                    </button>
-                </div>
-            </section>
+  <main>
+    <section id="sobre-mi" class="bloque">
+      <h2>Sobre mí</h2>
+      <p>
+        Soy educador y diseñador instruccional colombiano. Acompaño procesos de
+        aprendizaje creando recursos claros, visuales y prácticos para el aula
+        presencial y virtual. Me interesa especialmente apoyar a docentes en la
+        planificación de clases y a estudiantes en el desarrollo de habilidades
+        clave para el siglo XXI.
+      </p>
+    </section>
 
-            <!-- Panel de puntuación y progreso -->
-            <section class="score-panel" aria-label="Panel de puntuación">
-                <div class="score-card">
-                    <h3>🏆 Puntuación</h3>
-                    <div class="score-display" id="scoreDisplay" aria-live="polite">0</div>
-                </div>
-                <div class="score-card">
-                    <h3>🔥 Racha</h3>
-                    <div class="streak-display" id="streakDisplay" aria-live="polite">0</div>
-                </div>
-                <div class="score-card">
-                    <h3>✅ Correctas</h3>
-                    <div class="correct-display" id="correctDisplay" aria-live="polite">0</div>
-                </div>
-            </section>
+    <section id="docentes" class="bloque destacado">
+      <h2>Recursos para docentes</h2>
+      <p>
+        Aquí encuentras materiales listos para usar o adaptar a tu contexto de aula:
+      </p>
+      <ul class="lista-recursos">
+        <li>
+          <h3>Guías didácticas</h3>
+          <p>Secuencias de clase paso a paso, con objetivos, actividades y evaluación.</p>
+          <a href="https://github.com/franciscodiazo" target="_blank">Ver repositorios relacionados</a>
+        </li>
+        <li>
+          <h3>Rúbricas y checklists</h3>
+          <p>Instrumentos para evaluar proyectos, presentaciones y trabajos escritos.</p>
+        </li>
+        <li>
+          <h3>Plantillas de planeación</h3>
+          <p>Formatos editables para planear unidades, clases y proyectos interdisciplinarios.</p>
+        </li>
+      </ul>
+    </section>
 
-            <!-- Área de ejercicios -->
-            <section class="exercise-area" aria-label="Área de ejercicios">
-                <div class="exercise-card" id="exerciseCard">
-                    <h2>📝 Ejercicio Actual</h2>
-                    
-                    <!-- Explicación visual del concepto -->
-                    <div class="visual-explanation" id="visualExplanation">
-                        <h3>💡 Concepto clave</h3>
-                        <div id="conceptContent" class="concept-content">
-                            Selecciona un tema y nivel para comenzar
-                        </div>
-                    </div>
+    <section id="estudiantes" class="bloque">
+      <h2>Recursos para estudiantes</h2>
+      <p>
+        Materiales pensados para acompañar tu proceso de aprendizaje de forma clara y autónoma:
+      </p>
+      <ul class="lista-recursos">
+        <li>
+          <h3>Guías de estudio</h3>
+          <p>Resúmenes, ejercicios y preguntas clave para preparar evaluaciones.</p>
+        </li>
+        <li>
+          <h3>Retos y proyectos</h3>
+          <p>Actividades basadas en problemas reales, trabajo colaborativo y productos finales.</p>
+        </li>
+        <li>
+          <h3>Recursos interactivos</h3>
+          <p>Enlaces a actividades digitales, simulaciones y materiales multimedia.</p>
+        </li>
+      </ul>
+    </section>
 
-                    <!-- Pregunta del ejercicio -->
-                    <div class="question-container" id="questionContainer">
-                        <div class="question-text" id="questionText">
-                            Presiona "Nuevo Ejercicio" para comenzar
-                        </div>
-                    </div>
+    <section id="proyectos" class="bloque">
+      <h2>Proyectos y repositorios destacados</h2>
+      <p>
+        Algunos de los proyectos que desarrollo y documento en GitHub:
+      </p>
+      <ul class="lista-proyectos">
+        <li>
+          <h3>Banco de actividades para aula</h3>
+          <p>Colección de actividades listas para usar en diferentes grados y áreas.</p>
+        </li>
+        <li>
+          <h3>Plantillas para cursos en línea</h3>
+          <p>Estructuras base para diseñar cursos virtuales con foco en el aprendizaje activo.</p>
+        </li>
+        <li>
+          <h3>Recursos abiertos OER</h3>
+          <p>Materiales compartidos bajo licencias abiertas para libre adaptación.</p>
+        </li>
+      </ul>
+      <p>
+        Puedes explorar todos mis repositorios en
+        <a href="https://github.com/franciscodiazo" target="_blank">github.com/franciscodiazo</a>.
+      </p>
+    </section>
 
-                    <!-- Área de respuesta -->
-                    <div class="answer-area" id="answerArea">
-                        <label for="userAnswer" class="sr-only">Tu respuesta:</label>
-                        <input 
-                            type="text" 
-                            id="userAnswer" 
-                            class="answer-input" 
-                            placeholder="Escribe tu respuesta aquí..."
-                            aria-describedby="answerHelp"
-                        >
-                        <small id="answerHelp" class="help-text">Ingresa tu respuesta numérica</small>
-                        
-                        <div class="button-group">
-                            <button id="submitBtn" class="btn btn-success" aria-label="Verificar respuesta">
-                                ✓ Verificar Respuesta
-                            </button>
-                            <button id="hintBtn" class="btn btn-info" aria-label="Solicitar pista">
-                                💡 Pista
-                            </button>
-                            <button id="solutionBtn" class="btn btn-warning" aria-label="Ver solución paso a paso">
-                                📖 Ver Solución
-                            </button>
-                        </div>
-                    </div>
+    <section id="contacto" class="bloque contacto">
+      <h2>Contacto</h2>
+      <p>
+        Si quieres colaborar, adaptar estos recursos a tu contexto o conversar sobre diseño
+        instruccional, puedes escribirme:
+      </p>
+      <ul>
+        <li>GitHub: <a href="https://github.com/franciscodiazo" target="_blank">@franciscodiazo</a></li>
+        <li>Correo: <span>tu.correo@ejemplo.com</span></li>
+      </ul>
+    </section>
+  </main>
 
-                    <!-- Área de retroalimentación -->
-                    <div class="feedback-area" id="feedbackArea" role="alert" aria-live="assertive">
-                        <!-- La retroalimentación aparecerá aquí dinámicamente -->
-                    </div>
+  <footer class="pie">
+    <p>© <span id="year"></span> Francisco Díaz O. · Educador y Diseñador Instruccional</p>
+  </footer>
 
-                    <!-- Solución paso a paso -->
-                    <div class="solution-steps" id="solutionSteps" aria-label="Solución paso a paso">
-                        <!-- Los pasos de la solución aparecerán aquí -->
-                    </div>
-                </div>
-            </section>
-
-            <!-- Sección de ejemplos prácticos -->
-            <section class="examples-section" aria-label="Ejemplos prácticos">
-                <h2>📚 Ejemplos Prácticos</h2>
-                <div class="examples-grid" id="examplesGrid">
-                    <div class="example-card">
-                        <h3>Ecuación Lineal Simple</h3>
-                        <p class="example-problem">2x + 5 = 13</p>
-                        <details>
-                            <summary>Ver solución</summary>
-                            <ol class="solution-list">
-                                <li>Resta 5 de ambos lados: 2x = 8</li>
-                                <li>Divide ambos lados por 2: x = 4</li>
-                                <li>Verificación: 2(4) + 5 = 8 + 5 = 13 ✓</li>
-                            </ol>
-                        </details>
-                    </div>
-                    
-                    <div class="example-card">
-                        <h3>Área de un Círculo</h3>
-                        <p class="example-problem">Radio = 5 cm</p>
-                        <details>
-                            <summary>Ver solución</summary>
-                            <ol class="solution-list">
-                                <li>Fórmula: A = πr²</li>
-                                <li>Sustituir: A = π(5)²</li>
-                                <li>Calcular: A = 25π ≈ 78.54 cm²</li>
-                            </ol>
-                        </details>
-                    </div>
-                    
-                    <div class="example-card">
-                        <h3>Teorema de Pitágoras</h3>
-                        <p class="example-problem">Catetos: 3 y 4</p>
-                        <details>
-                            <summary>Ver solución</summary>
-                            <ol class="solution-list">
-                                <li>Fórmula: a² + b² = c²</li>
-                                <li>Sustituir: 3² + 4² = c²</li>
-                                <li>Calcular: 9 + 16 = 25, entonces c = 5</li>
-                            </ol>
-                        </details>
-                    </div>
-                </div>
-            </section>
-
-        </div>
-    </main>
-
-    <!-- Pie de página -->
-    <footer class="main-footer">
-        <div class="container">
-            <p>&copy; 2026 MathLearn - Educación interactiva para todos</p>
-            <p>Diseñado con accesibilidad y aprendizaje activo en mente</p>
-        </div>
-    </footer>
-
-    <!-- Scripts -->
-    <script src="js/config.js"></script>
-    <script src="js/exercises.js"></script>
-    <script src="js/gamification.js"></script>
-    <script src="js/ui.js"></script>
-    <script src="js/app.js"></script>
+  <script>
+    // Año automático en el pie de página
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
