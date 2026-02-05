@@ -1,0 +1,27 @@
+:root {
+  /* Colores principales - Confianza y Tecnología */
+  --primary-blue: #2E5EAA;
+  --primary-blue-light: #4A7FC8;
+  --primary-blue-dark: #1A3A6B;
+
+  /* Colores secundarios - Equidad e Inclusión */
+  --secondary-green: #2D9D78;
+  --secondary-green-light: #45B896;
+  --secondary-green-dark: #1F7057;
+
+  /* Acentos - Creatividad y Energía */
+  --accent-orange: #F47C3C;
+  --accent-orange-light: #FF9A61;
+  --accent-orange-dark: #D35E27;
+
+  /* Neutrales */
+  --neutral-dark: #1E2A3A;
+  --neutral-medium: #4A5568;
+  --neutral-light: #E5E9F0;
+  --neutral-white: #FFFFFF;
+
+  /* Gradientes */
+  --gradient-tech: linear-gradient(135deg, #2E5EAA 0%, #2D9D78 100%);
+  --gradient-creative: linear-gradient(135deg, #F47C3C 0%, #2E5EAA 100%);
+  --gradient-hero: linear-gradient(135deg, rgba(46,94,170,0.95) 0%, rgba(45,157,120,0.85) 100%);
+}

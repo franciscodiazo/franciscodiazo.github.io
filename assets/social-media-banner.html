@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banner Redes Sociales - Francisco Javier Díaz Obando</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Space+Grotesk:wght@700&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+    
+    .banner {
+      width: 1200px;
+      height: 628px;
+      background: linear-gradient(135deg, #2E5EAA 0%, #2D9D78 50%, #F47C3C 100%);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 80px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Patrón SVG de fondo */
+    .banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 35px,
+          rgba(255, 255, 255, 0.03) 35px,
+          rgba(255, 255, 255, 0.03) 70px
+        ),
+        repeating-linear-gradient(
+          -45deg,
+          transparent,
+          transparent 35px,
+          rgba(255, 255, 255, 0.03) 35px,
+          rgba(255, 255, 255, 0.03) 70px
+        );
+      z-index: 1;
+    }
+    
+    .banner-content {
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      color: white;
+      max-width: 700px;
+    }
+    
+    .main-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 72px;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 30px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .subtitle {
+      font-family: 'Inter', sans-serif;
+      font-size: 28px;
+      font-weight: 500;
+      line-height: 1.5;
+      opacity: 0.95;
+    }
+    
+    .subtitle-separator {
+      margin: 0 12px;
+      opacity: 0.7;
+    }
+    
+    .banner-logo {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .banner-logo img {
+      width: 200px;
+      height: 200px;
+      filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
+    }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <div class="banner-content">
+      <h1 class="main-text">Transformando el Aprendizaje STEM</h1>
+      <p class="subtitle">
+        Innovación educativa<span class="subtitle-separator">•</span>Tecnología con propósito<span class="subtitle-separator">•</span>Impacto global
+      </p>
+    </div>
+    
+    <div class="banner-logo">
+      <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- Definición de gradientes -->
+        <defs>
+          <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.9" />
+            <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:0.7" />
+          </linearGradient>
+          
+          <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.4" />
+            <stop offset="50%" style="stop-color:#FFFFFF;stop-opacity:0.3" />
+            <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:0.4" />
+          </linearGradient>
+        </defs>
+        
+        <!-- Círculo exterior -->
+        <circle cx="100" cy="100" r="90" fill="none" stroke="url(#gradient2)" stroke-width="3" opacity="0.5"/>
+        
+        <!-- Hexágono central -->
+        <polygon points="100,30 150,56.7 150,113.3 100,140 50,113.3 50,56.7" fill="url(#gradient1)" opacity="0.3"/>
+        
+        <!-- Líneas de conexión -->
+        <line x1="100" y1="100" x2="40" y2="40" stroke="#FFFFFF" stroke-width="2" opacity="0.5"/>
+        <line x1="100" y1="100" x2="160" y2="40" stroke="#FFFFFF" stroke-width="2" opacity="0.5"/>
+        <line x1="100" y1="100" x2="160" y2="160" stroke="#FFFFFF" stroke-width="2" opacity="0.5"/>
+        <line x1="100" y1="100" x2="40" y2="160" stroke="#FFFFFF" stroke-width="2" opacity="0.5"/>
+        
+        <!-- Nodos de conexión -->
+        <circle cx="40" cy="40" r="6" fill="#FFFFFF" opacity="0.9"/>
+        <circle cx="160" cy="40" r="6" fill="#FFFFFF" opacity="0.9"/>
+        <circle cx="160" cy="160" r="6" fill="#FFFFFF" opacity="0.9"/>
+        <circle cx="40" cy="160" r="6" fill="#FFFFFF" opacity="0.9"/>
+        
+        <!-- Iniciales FD -->
+        <text x="100" y="115" font-family="'Space Grotesk', sans-serif" font-size="48" font-weight="700" fill="#FFFFFF" text-anchor="middle" opacity="0.95">FD</text>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>
