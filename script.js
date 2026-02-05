@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if(top >= offset && top < offset + height) {
                 navLinks.forEach(links => {
                     links.classList.remove('active');
-                    document.querySelector('.nav-links a[href*=' + id + ']').classList.add('active');
+                    document.querySelector('.nav-links a[href*=' + id + "]').classList.add('active');
                 });
             }
         });
