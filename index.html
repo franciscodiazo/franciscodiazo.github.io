@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aplicación educativa interactiva para matemáticas de secundaria">
+    <title>MathLearn - Matemáticas Interactivas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Encabezado principal -->
+    <header class="main-header">
+        <div class="container">
+            <h1>🎓 MathLearn</h1>
+            <p class="subtitle">Aprende matemáticas de forma interactiva y divertida</p>
+        </div>
+    </header>
+
+    <!-- Contenedor principal -->
+    <main class="main-content">
+        <div class="container">
+            
+            <!-- Panel de control del docente -->
+            <section class="teacher-panel" id="teacherPanel" aria-label="Panel de configuración del docente">
+                <h2>⚙️ Panel del Docente</h2>
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="difficultyLevel">Nivel de dificultad:</label>
+                        <select id="difficultyLevel" aria-describedby="difficultyHelp">
+                            <option value="basico">Básico (Secundaria 1-2)</option>
+                            <option value="intermedio" selected>Intermedio (Secundaria 3-4)</option>
+                            <option value="avanzado">Avanzado (Secundaria 5-6)</option>
+                        </select>
+                        <small id="difficultyHelp" class="help-text">Selecciona el nivel apropiado para tus estudiantes</small>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="topicSelect">Tema matemático:</label>
+                        <select id="topicSelect" aria-describedby="topicHelp">
+                            <option value="algebra">Álgebra</option>
+                            <option value="ecuaciones">Ecuaciones lineales</option>
+                            <option value="geometria">Geometría</option>
+                            <option value="trigonometria">Trigonometría</option>
+                            <option value="funciones">Funciones</option>
+                        </select>
+                        <small id="topicHelp" class="help-text">Elige el tema a practicar</small>
+                    </div>
+                    
+                    <button id="newExerciseBtn" class="btn btn-primary" aria-label="Generar nuevo ejercicio">
+                        🔄 Nuevo Ejercicio
+                    </button>
+                    <button id="togglePanelBtn" class="btn btn-secondary" aria-label="Ocultar panel de docente">
+                        👁️ Ocultar Panel
+                    </button>
+                </div>
+            </section>
+
+            <!-- Panel de puntuación y progreso -->
+            <section class="score-panel" aria-label="Panel de puntuación">
+                <div class="score-card">
+                    <h3>🏆 Puntuación</h3>
+                    <div class="score-display" id="scoreDisplay" aria-live="polite">0</div>
+                </div>
+                <div class="score-card">
+                    <h3>🔥 Racha</h3>
+                    <div class="streak-display" id="streakDisplay" aria-live="polite">0</div>
+                </div>
+                <div class="score-card">
+                    <h3>✅ Correctas</h3>
+                    <div class="correct-display" id="correctDisplay" aria-live="polite">0</div>
+                </div>
+            </section>
+
+            <!-- Área de ejercicios -->
+            <section class="exercise-area" aria-label="Área de ejercicios">
+                <div class="exercise-card" id="exerciseCard">
+                    <h2>📝 Ejercicio Actual</h2>
+                    
+                    <!-- Explicación visual del concepto -->
+                    <div class="visual-explanation" id="visualExplanation">
+                        <h3>💡 Concepto clave</h3>
+                        <div id="conceptContent" class="concept-content">
+                            Selecciona un tema y nivel para comenzar
+                        </div>
+                    </div>
+
+                    <!-- Pregunta del ejercicio -->
+                    <div class="question-container" id="questionContainer">
+                        <div class="question-text" id="questionText">
+                            Presiona "Nuevo Ejercicio" para comenzar
+                        </div>
+                    </div>
+
+                    <!-- Área de respuesta -->
+                    <div class="answer-area" id="answerArea">
+                        <label for="userAnswer" class="sr-only">Tu respuesta:</label>
+                        <input 
+                            type="text" 
+                            id="userAnswer" 
+                            class="answer-input" 
+                            placeholder="Escribe tu respuesta aquí..."
+                            aria-describedby="answerHelp"
+                        >
+                        <small id="answerHelp" class="help-text">Ingresa tu respuesta numérica</small>
+                        
+                        <div class="button-group">
+                            <button id="submitBtn" class="btn btn-success" aria-label="Verificar respuesta">
+                                ✓ Verificar Respuesta
+                            </button>
+                            <button id="hintBtn" class="btn btn-info" aria-label="Solicitar pista">
+                                💡 Pista
+                            </button>
+                            <button id="solutionBtn" class="btn btn-warning" aria-label="Ver solución paso a paso">
+                                📖 Ver Solución
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Área de retroalimentación -->
+                    <div class="feedback-area" id="feedbackArea" role="alert" aria-live="assertive">
+                        <!-- La retroalimentación aparecerá aquí dinámicamente -->
+                    </div>
+
+                    <!-- Solución paso a paso -->
+                    <div class="solution-steps" id="solutionSteps" aria-label="Solución paso a paso">
+                        <!-- Los pasos de la solución aparecerán aquí -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección de ejemplos prácticos -->
+            <section class="examples-section" aria-label="Ejemplos prácticos">
+                <h2>📚 Ejemplos Prácticos</h2>
+                <div class="examples-grid" id="examplesGrid">
+                    <div class="example-card">
+                        <h3>Ecuación Lineal Simple</h3>
+                        <p class="example-problem">2x + 5 = 13</p>
+                        <details>
+                            <summary>Ver solución</summary>
+                            <ol class="solution-list">
+                                <li>Resta 5 de ambos lados: 2x = 8</li>
+                                <li>Divide ambos lados por 2: x = 4</li>
+                                <li>Verificación: 2(4) + 5 = 8 + 5 = 13 ✓</li>
+                            </ol>
+                        </details>
+                    </div>
+                    
+                    <div class="example-card">
+                        <h3>Área de un Círculo</h3>
+                        <p class="example-problem">Radio = 5 cm</p>
+                        <details>
+                            <summary>Ver solución</summary>
+                            <ol class="solution-list">
+                                <li>Fórmula: A = πr²</li>
+                                <li>Sustituir: A = π(5)²</li>
+                                <li>Calcular: A = 25π ≈ 78.54 cm²</li>
+                            </ol>
+                        </details>
+                    </div>
+                    
+                    <div class="example-card">
+                        <h3>Teorema de Pitágoras</h3>
+                        <p class="example-problem">Catetos: 3 y 4</p>
+                        <details>
+                            <summary>Ver solución</summary>
+                            <ol class="solution-list">
+                                <li>Fórmula: a² + b² = c²</li>
+                                <li>Sustituir: 3² + 4² = c²</li>
+                                <li>Calcular: 9 + 16 = 25, entonces c = 5</li>
+                            </ol>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2026 MathLearn - Educación interactiva para todos</p>
+            <p>Diseñado con accesibilidad y aprendizaje activo en mente</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/exercises.js"></script>
+    <script src="js/gamification.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
