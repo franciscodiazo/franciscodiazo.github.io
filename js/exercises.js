@@ -52,7 +52,8 @@ const ExerciseGenerator = {
             case '/':
                 // Asegurar división exacta
                 const divisor = this.randomNumber(2, 10);
-                const quotient = this.randomNumber(config.rangeMin, Math.floor(config.rangeMax / divisor));
+                const maxQuotient = Math.max(config.rangeMin, Math.floor(config.rangeMax / divisor));
+                const quotient = this.randomNumber(config.rangeMin, maxQuotient);
                 const dividend = divisor * quotient;
                 answer = quotient;
                 question = `${dividend} ÷ ${divisor}`;
@@ -123,7 +124,8 @@ const ExerciseGenerator = {
                 
             case 'circulo':
                 const radio = this.randomNumber(config.rangeMin, Math.min(config.rangeMax, 20));
-                answer = Math.round(Math.PI * radio * radio * 100) / 100;
+                const DECIMAL_PRECISION = 100; // Para redondear a 2 decimales
+                answer = Math.round(Math.PI * radio * radio * DECIMAL_PRECISION) / DECIMAL_PRECISION;
                 question = `Calcula el área de un círculo con radio ${radio} cm (usa π ≈ 3.14)`;
                 steps.push(`Fórmula del área: A = πr²`);
                 steps.push(`Sustituir valores: A = π × ${radio}²`);
