@@ -4,128 +4,130 @@
   <meta charset="UTF-8">
   <title>Francisco Díaz O. – Educador y Diseñador Instruccional</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Recursos para docentes y estudiantes, diseño instruccional y creación de contenidos educativos.">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="hero">
-    <div class="hero-texto">
+<header class="topbar">
+  <div class="logo">Francisco.CV</div>
+  <nav class="menu">
+    <a href="#sobre-mi">Sobre mí</a>
+    <a href="#habilidades">Habilidades</a>
+    <a href="#experiencia">Experiencia</a>
+    <a href="#educacion">Educación</a>
+    <a href="#portafolio">Portafolio</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+</header>
+
+<main class="layout">
+  <!-- Columna izquierda -->
+  <aside class="panel-izquierdo">
+    <div class="foto">
+      <img src="img/foto.jpg" alt="Foto de Francisco Díaz">
+    </div>
+    <div class="info-general">
+      <h2>Información general</h2>
+      <p><strong>Nombre:</strong> Francisco Díaz O.</p>
+      <p><strong>Rol:</strong> Educador y diseñador instruccional</p>
+      <p><strong>Ubicación:</strong> Ginebra, Valle del Cauca, Colombia</p>
+      <p><strong>Enfoque:</strong> Recursos para docentes y estudiantes</p>
+    </div>
+    <div class="contacto-lateral">
+      <h3>Contacto</h3>
+      <p><strong>GitHub:</strong> <a href="https://github.com/franciscodiazo" target="_blank">franciscodiazo</a></p>
+      <p><strong>Correo:</strong> tu.correo@ejemplo.com</p>
+    </div>
+  </aside>
+
+  <!-- Columna derecha -->
+  <section class="panel-derecho">
+    <header class="hero-texto">
+      <p class="rol">Diseño instruccional · Recursos educativos</p>
       <h1>Francisco Díaz O.</h1>
-      <p class="subtitulo">Educador · Contenidista · Diseñador instruccional</p>
-      <p class="descripcion">
-        Creo recursos y experiencias de aprendizaje para docentes y estudiantes,
-        conectando pedagogía, diseño y tecnología.
-      </p>
-      <nav class="botones">
-        <a href="#docentes" class="btn">Recursos para docentes</a>
-        <a href="#estudiantes" class="btn btn-secundario">Recursos para estudiantes</a>
-      </nav>
-    </div>
-    <div class="hero-imagen">
-      <img src="img/portada-github.png" alt="Ilustración de educador creando recursos digitales">
-    </div>
-  </header>
+      <p class="disponible">Disponible para colaboraciones educativas</p>
+    </header>
 
-  <main>
     <section id="sobre-mi" class="bloque">
-      <h2>Sobre mí</h2>
+      <h2>Descripción</h2>
       <p>
-        Soy educador y diseñador instruccional colombiano. Acompaño procesos de
-        aprendizaje creando recursos claros, visuales y prácticos para el aula
-        presencial y virtual. Me interesa especialmente apoyar a docentes en la
-        planificación de clases y a estudiantes en el desarrollo de habilidades
-        clave para el siglo XXI.
+        Soy educador, contenidista y diseñador instruccional. Acompaño procesos
+        de aprendizaje creando recursos claros y visuales para docentes y
+        estudiantes, integrando pedagogía y tecnología en contextos presenciales
+        y virtuales.
       </p>
     </section>
 
-    <section id="docentes" class="bloque destacado">
-      <h2>Recursos para docentes</h2>
-      <p>
-        Aquí encuentras materiales listos para usar o adaptar a tu contexto de aula:
-      </p>
-      <ul class="lista-recursos">
-        <li>
-          <h3>Guías didácticas</h3>
-          <p>Secuencias de clase paso a paso, con objetivos, actividades y evaluación.</p>
-          <a href="https://github.com/franciscodiazo" target="_blank">Ver repositorios relacionados</a>
-        </li>
-        <li>
-          <h3>Rúbricas y checklists</h3>
-          <p>Instrumentos para evaluar proyectos, presentaciones y trabajos escritos.</p>
-        </li>
-        <li>
-          <h3>Plantillas de planeación</h3>
-          <p>Formatos editables para planear unidades, clases y proyectos interdisciplinarios.</p>
-        </li>
+    <section id="habilidades" class="bloque skills">
+      <h2>Habilidades clave</h2>
+      <div class="skill">
+        <div class="skill-header">
+          <span>Diseño de experiencias de aprendizaje</span>
+          <span>90%</span>
+        </div>
+        <div class="skill-bar"><span style="width:90%"></span></div>
+      </div>
+      <div class="skill">
+        <div class="skill-header">
+          <span>Creación de recursos para docentes</span>
+          <span>85%</span>
+        </div>
+        <div class="skill-bar"><span style="width:85%"></span></div>
+      </div>
+      <div class="skill">
+        <div class="skill-header">
+          <span>Facilitación y acompañamiento</span>
+          <span>80%</span>
+        </div>
+        <div class="skill-bar"><span style="width:80%"></span></div>
+      </div>
+    </section>
+
+    <section id="experiencia" class="bloque">
+      <h2>Experiencia</h2>
+      <article class="item">
+        <h3>Diseñador instruccional freelance</h3>
+        <p class="meta">2020 – Actualidad · Proyectos educativos digitales</p>
+        <p>Diseño cursos, guías y materiales didácticos para instituciones y docentes independientes.</p>
+      </article>
+      <article class="item">
+        <h3>Docente y acompañante pedagógico</h3>
+        <p class="meta">Años · Instituciones educativas</p>
+        <p>Acompaño a docentes en la planificación de clases y estrategias de evaluación auténtica.</p>
+      </article>
+    </section>
+
+    <section id="educacion" class="bloque">
+      <h2>Educación</h2>
+      <article class="item">
+        <h3>Formación en educación / pedagogía</h3>
+        <p class="meta">Detalles de tus estudios y cursos relevantes.</p>
+      </article>
+    </section>
+
+    <section id="portafolio" class="bloque">
+      <h2>Portafolio</h2>
+      <p>Algunos proyectos y repositorios en GitHub:</p>
+      <ul class="lista-portafolio">
+        <li><a href="https://github.com/franciscodiazo" target="_blank">Banco de recursos para docentes</a></li>
+        <li><a href="https://github.com/franciscodiazo" target="_blank">Plantillas de cursos en línea</a></li>
       </ul>
     </section>
 
-    <section id="estudiantes" class="bloque">
-      <h2>Recursos para estudiantes</h2>
-      <p>
-        Materiales pensados para acompañar tu proceso de aprendizaje de forma clara y autónoma:
-      </p>
-      <ul class="lista-recursos">
-        <li>
-          <h3>Guías de estudio</h3>
-          <p>Resúmenes, ejercicios y preguntas clave para preparar evaluaciones.</p>
-        </li>
-        <li>
-          <h3>Retos y proyectos</h3>
-          <p>Actividades basadas en problemas reales, trabajo colaborativo y productos finales.</p>
-        </li>
-        <li>
-          <h3>Recursos interactivos</h3>
-          <p>Enlaces a actividades digitales, simulaciones y materiales multimedia.</p>
-        </li>
-      </ul>
-    </section>
-
-    <section id="proyectos" class="bloque">
-      <h2>Proyectos y repositorios destacados</h2>
-      <p>
-        Algunos de los proyectos que desarrollo y documento en GitHub:
-      </p>
-      <ul class="lista-proyectos">
-        <li>
-          <h3>Banco de actividades para aula</h3>
-          <p>Colección de actividades listas para usar en diferentes grados y áreas.</p>
-        </li>
-        <li>
-          <h3>Plantillas para cursos en línea</h3>
-          <p>Estructuras base para diseñar cursos virtuales con foco en el aprendizaje activo.</p>
-        </li>
-        <li>
-          <h3>Recursos abiertos OER</h3>
-          <p>Materiales compartidos bajo licencias abiertas para libre adaptación.</p>
-        </li>
-      </ul>
-      <p>
-        Puedes explorar todos mis repositorios en
-        <a href="https://github.com/franciscodiazo" target="_blank">github.com/franciscodiazo</a>.
-      </p>
-    </section>
-
-    <section id="contacto" class="bloque contacto">
+    <section id="contacto" class="bloque">
       <h2>Contacto</h2>
-      <p>
-        Si quieres colaborar, adaptar estos recursos a tu contexto o conversar sobre diseño
-        instruccional, puedes escribirme:
-      </p>
-      <ul>
-        <li>GitHub: <a href="https://github.com/franciscodiazo" target="_blank">@franciscodiazo</a></li>
-        <li>Correo: <span>tu.correo@ejemplo.com</span></li>
-      </ul>
+      <p>Si quieres colaborar o adaptar estos recursos, escríbeme:</p>
+      <p><strong>Correo:</strong> tu.correo@ejemplo.com</p>
+      <p><strong>GitHub:</strong> <a href="https://github.com/franciscodiazo" target="_blank">github.com/franciscodiazo</a></p>
     </section>
-  </main>
+  </section>
+</main>
 
-  <footer class="pie">
-    <p>© <span id="year"></span> Francisco Díaz O. · Educador y Diseñador Instruccional</p>
-  </footer>
+<footer class="pie">
+  © <span id="year"></span> Francisco Díaz O.
+</footer>
 
-  <script>
-    // Año automático en el pie de página
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
 </body>
 </html>
