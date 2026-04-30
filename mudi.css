@@ -1,0 +1,254 @@
+/* mudi.css - Laboratorio Avanzado de Aritmética y Potenciación */
+:root {
+    --bg-main: #f0f2f5;
+    --sidebar-bg: #ffffff;
+    --accent-blue: #2563eb;
+    --accent-green: #10b981;
+    --accent-red: #ef4444;
+    --accent-purple: #8b5cf6;
+    --accent-orange: #f59e0b;
+    
+    /* Colores Sistema Decimal */
+    --color-u: #10b981;  /* Unidad - Verde */
+    --color-d: #3b82f6;  /* Decena - Azul */
+    --color-c: #ef4444;  /* Centena - Rojo */
+    --color-m: #f59e0b;  /* Mil - Naranja */
+    --color-dm: #8b5cf6; /* Diez Mil - Morado */
+    --color-cm: #06b6d4; /* Cien Mil - Cian */
+    --color-millon: #ec4899; /* Millón - Rosa */
+    
+    /* Decimales */
+    --color-tenths: #94a3b8;
+    --color-hundredths: #64748b;
+    --color-thousandths: #475569;
+    
+    --text-primary: #1e293b;
+    --border-color: #e2e8f0;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    overflow: hidden;
+    height: 100vh;
+}
+
+#mudi-app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* HEADER */
+.mudi-header {
+    background: #fff;
+    padding: 0.5rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.brand h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    margin: 0;
+}
+
+/* MAIN LAYOUT */
+.main-content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* SIDEBAR */
+.mudi-sidebar {
+    width: 260px;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.section-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #64748b;
+    margin: 1.5rem 0 0.75rem 0;
+}
+
+.decimal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+.gen-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+    background: #f8fafc;
+}
+
+.gen-item:hover {
+    background: #fff;
+    border-color: var(--accent-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.preview-box {
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+}
+
+.gen-item span {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* PLAYGROUND */
+.mudi-workspace {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+#playground {
+    flex: 1;
+    background-color: #ffffff;
+    background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+    background-size: 30px 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* BLOCKS STYLING */
+.math-block {
+    position: absolute;
+    cursor: grab;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: 800;
+    border-radius: 4px;
+    box-shadow: 
+        inset 2px 2px 5px rgba(255,255,255,0.3),
+        inset -2px -2px 5px rgba(0,0,0,0.2),
+        0 4px 8px rgba(0,0,0,0.1);
+    border: 1px solid rgba(0,0,0,0.1);
+    z-index: 10;
+}
+
+.math-block:active { cursor: grabbing; z-index: 1000; }
+
+/* FEEDBACK PANELS */
+.info-panels {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    pointer-events: none;
+}
+
+.mudi-panel {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+    pointer-events: all;
+}
+
+.panel-title {
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.theory-card {
+    background: #f1f5f9;
+    border-radius: 8px;
+    padding: 0.75rem;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+/* RECTA Y TRUCOS */
+.bottom-tools {
+    height: 120px;
+    background: #fff;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    padding: 1rem;
+    gap: 2rem;
+}
+
+.tool-section {
+    flex: 1;
+}
+
+.trick-badge {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    background: #dcfce7;
+    color: #166534;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+/* ANIMACIONES */
+@keyframes pop {
+    0% { transform: scale(0.9); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.math-block { animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+
+/* FLOATING LABELS */
+.val-label {
+    position: absolute;
+    background: var(--accent-blue);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    pointer-events: none;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}

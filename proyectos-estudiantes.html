@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Francisco Díaz | Proyectos Estudiantiles</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .projects-header {
+            text-align: center;
+            padding: 6rem 1rem 3rem;
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, var(--bg-main) 100%);
+            border-bottom: 1px solid var(--glass-border);
+            margin-bottom: 3rem;
+        }
+
+        .projects-header h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .projects-header h1 span {
+            color: var(--accent-cyan);
+        }
+
+        .projects-header p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .student-projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 5rem;
+        }
+
+        .student-card {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .student-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-cyan);
+            box-shadow: var(--shadow-glow-cyan);
+        }
+
+        .student-card-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .student-card-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .student-card-badges {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .student-badge-impact {
+            background: rgba(125, 206, 160, 0.2);
+            color: var(--sage-green, #7DCEA0);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .student-badge-score {
+            color: var(--accent-amber);
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        .student-card-title {
+            font-size: 1.3rem;
+            font-family: var(--font-heading);
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .student-card-authors {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .student-card-summary {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .student-card-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: auto;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 1rem;
+        }
+
+        .tech-tag {
+            background: rgba(6, 182, 212, 0.1);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            padding: 0.2rem 0.6rem;
+            border-radius: 5px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">ingfrancisco</span><span class="logo-accent">diaz</span><span
+                    class="logo-dot">.</span>
+            </a>
+            
+            <nav class="nav-links">
+                <a href="index.html">Inicio</a>
+                
+                <div class="nav-dropdown">
+                    <span class="nav-dropdown-trigger">STEM & Proyectos <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></span>
+                    <div class="nav-dropdown-content">
+                        <a href="entorno-matematico.html"><i class="fas fa-shapes" style="margin-right: 0.5rem; width: 15px;"></i> Laboratorio Matemático</a>
+                        <a href="tablero.html"><i class="fas fa-chalkboard" style="margin-right: 0.5rem; width: 15px;"></i> Tablero Interactivo</a>
+                        <a href="recursos.html"><i class="fas fa-flask" style="margin-right: 0.5rem; width: 15px;"></i> Recursos STEM</a>
+                        <a href="proyectos-estudiantes.html"><i class="fas fa-rocket" style="margin-right: 0.5rem; width: 15px;"></i> Vitrina Estudiantil</a>
+                    </div>
+                </div>
+
+                <div class="nav-dropdown">
+                    <span class="nav-dropdown-trigger highlight-link">Saber 11 <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></span>
+                    <div class="nav-dropdown-content">
+                        <a href="Saber11_Matematicas_2026_10Encuentros.html"><i class="fas fa-graduation-cap" style="margin-right: 0.5rem; width: 15px;"></i> Guías Python</a>
+                        <a href="simulacro-icfes.html"><i class="fas fa-check-double" style="margin-right: 0.5rem; width: 15px;"></i> Simulacro Interactivo</a>
+                        <a href="guia-geometria-circular.html"><i class="fas fa-circle-notch" style="margin-right: 0.5rem; width: 15px;"></i> Guía: Geo. Circular</a>
+                        <a href="geo-triangulos.html"><i class="fas fa-caret-up" style="margin-right: 0.5rem; width: 15px;"></i> Sim. Triángulos</a>
+                        <a href="geo-circulo.html"><i class="fas fa-circle" style="margin-right: 0.5rem; width: 15px;"></i> Sim. El Círculo</a>
+                    </div>
+                </div>
+
+                <div class="nav-dropdown">
+                    <span class="nav-dropdown-trigger">Innovación <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></span>
+                    <div class="nav-dropdown-content">
+                        <a href="directorio-ia.html"><i class="fas fa-robot" style="margin-right: 0.5rem; width: 15px;"></i> Directorio IA</a>
+                        <a href="dua.html"><i class="fas fa-universal-access" style="margin-right: 0.5rem; width: 15px;"></i> Propuesta DUA</a>
+                    </div>
+                </div>
+
+                <div class="nav-dropdown">
+                    <span class="nav-dropdown-trigger">El Mediador <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></span>
+                    <div class="nav-dropdown-content">
+                        <a href="portafolio.html"><i class="fas fa-briefcase" style="margin-right: 0.5rem; width: 15px;"></i> Portafolio Web</a>
+                        <a href="blog.html"><i class="fas fa-book-open" style="margin-right: 0.5rem; width: 15px;"></i> Bitácora</a>
+                    </div>
+                </div>
+                
+            </nav>
+            <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+        </div>
+    </header>
+
+    <div class="gamification-floating-bar">
+        <div class="gamification-label">Insignias</div>
+        <div id="gamification-badges" class="gamification-badges"></div>
+    </div>
+
+
+    
+
+    <div class="gamification-floating-bar">
+        <div class="gamification-label">Insignias</div>
+        <div id="gamification-badges" class="gamification-badges"></div>
+    </div>
+
+
+    
+
+    <div class="gamification-floating-bar">
+        <div class="gamification-label">Insignias</div>
+        <div id="gamification-badges" class="gamification-badges"></div>
+    </div>
+
+
+    
+
+    <div class="gamification-floating-bar">
+        <div class="gamification-label">Insignias</div>
+        <div id="gamification-badges" class="gamification-badges"></div>
+    </div>
+
+
+    
+
+    <div class="gamification-floating-bar">
+        <div class="gamification-label">Insignias</div>
+        <div id="gamification-badges" class="gamification-badges"></div>
+    </div>
+
+
+    
+
+
+    
+
+
+    
+
+    <section class="projects-header">
+        <div class="container">
+            <h1>Impacto y <span>Creación</span></h1>
+            <p>Vitrina de proyectos tecnológicos e iniciativas territoriales desarrolladas por nuestros estudiantes en sus procesos formativos STEM y DUA.</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Contenedor donde se renderizará el JSON dinámicamente -->
+        <div id="proyectos-grid" class="student-projects-grid">
+            <!-- Los cards se inyectarán aquí mediante JS -->
+        </div>
+    </div>
+
+    <!-- Script de Datos JSON y Renderizado -->
+    <script>
+        // JSON de prueba simulando una base de datos o API fetch
+        const proyectosJSON = [
+            {
+                "id": 1,
+                "titulo": "ECO-Riego Inteligente",
+                "autores": "María González & Mateo López",
+                "impacto": "Ambiental (ODS 6)",
+                "puntaje": "🌟 4.9",
+                "resumen": "Prototipo de IoT con ESP32 que monitorea la humedad del suelo y controla válvulas, ahorrando un 40% del agua en cultivos escolares mediante pensamiento computacional y domótica rural.",
+                "tecnologias": ["C++", "Sensores IoT", "Arduino"],
+                "imagen": "assets/proyectos/iot.png"
+            },
+            {
+                "id": 2,
+                "titulo": "Rover Solar UNAD Explorador",
+                "autores": "Equipo MakerGinebra",
+                "impacto": "Tecnológico (ODS 9)",
+                "puntaje": "🌟 5.0",
+                "resumen": "Vehículo de exploración a control remoto impreso en 3D y alimentado completamente por energía solar, destinado al reconocimiento territorial de flora nativa sin dejar huella de carbono.",
+                "tecnologias": ["Python", "Impresión 3D", "Energía Solar"],
+                "imagen": "assets/proyectos/robot.png"
+            },
+            {
+                "id": 3,
+                "titulo": "Data-Dash: Índice de Inclusión DUA",
+                "autores": "Ana Rodríguez",
+                "impacto": "Social (ODS 4)",
+                "puntaje": "🌟 4.8",
+                "resumen": "Plataforma de visualización de datos construida en Python que mapea las barreras cognitivas y físicas del territorio para facilitar aplicaciones basadas en Diseño Universal de Aprendizaje.",
+                "tecnologias": ["Python", "Pandas", "UX/UI"],
+                "imagen": "assets/proyectos/data.png"
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const gridContainer = document.getElementById('proyectos-grid');
+            
+            // Limpiamos contenido por seguridad
+            gridContainer.innerHTML = '';
+
+            // Renderizar cartas
+            proyectosJSON.forEach(proyecto => {
+                
+                // Construcción de etiquetas de tecnología
+                const techTagsHTML = proyecto.tecnologias.map(tech => 
+                    `<span class="tech-tag">${tech}</span>`
+                ).join('');
+
+                const cardHTML = `
+                    <div class="student-card">
+                        <img src="${proyecto.imagen}" alt="${proyecto.titulo}" class="student-card-img" onerror="this.src='https://via.placeholder.com/600x400/1E293B/06B6D4?text=Proyecto+Estudiantil'">
+                        <div class="student-card-body">
+                            <div class="student-card-badges">
+                                <span class="student-badge-impact"><i class="fas fa-leaf"></i> ${proyecto.impacto}</span>
+                                <span class="student-badge-score">${proyecto.puntaje}</span>
+                            </div>
+                            <h3 class="student-card-title">${proyecto.titulo}</h3>
+                            <p class="student-card-authors"><i class="fas fa-user-graduate"></i> Por: ${proyecto.autores}</p>
+                            <p class="student-card-summary">${proyecto.resumen}</p>
+                            <div class="student-card-tech">
+                                ${techTagsHTML}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                gridContainer.insertAdjacentHTML('beforeend', cardHTML);
+            });
+        });
+    </script>
+    
+    <script src="app.js"></script>
+</body>
+</html>

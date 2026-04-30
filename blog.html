@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitácora del Mediador | Francisco Díaz</title>
+    <meta name="description"
+        content="Artículos y reflexiones sobre heuragogía, gamificación educativa y TIC por Francisco Díaz.">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .blog-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-amber);
+        }
+
+        .blog-image {
+            height: 180px;
+            background: var(--bg-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.1);
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-date {
+            color: var(--accent-cyan);
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .blog-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-extract {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">ingfrancisco</span><span class="logo-accent">diaz</span><span
+                    class="logo-dot">.</span>
+            </a>
+            
+            <nav class="nav-links">
+                <a href="index.html">Inicio</a>
+                
+                <div class="nav-dropdown">
+                    <span class="nav-dropdown-trigger">STEM & Proyectos <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></span>
+                    <div class="nav-dropdown-content">
+                        <a href="entorno-matematico.html"><i class="fas fa-shapes" style="margin-right: 0.5rem; width: 15px;"></i> Laboratorio Matemático</a>
+                        <a href="tablero.html"><i class="fas fa-chalkboard" style="margin-right: 0.5rem; width: 15px;"></i> Tablero Interactivo</a>
+                        <a href="recursos.html"><i class="fas fa-flask" style="margin-right: 0.5rem; width: 15px;"></i> Recursos STEM</a>
+                        <a href="proyectos-estudiantes.html"><i class="fas fa-rocket" style="margin-right: 0.5rem; width: 15px;"></i> Vitrina Estudiantil</a>
+                    </div>
+                </div>
+
+                <div class="nav-dropdown">
+                    <span class="nav-dropdown-trigger highlight-link">Saber 11 <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></span>
+                    <div class="nav-dropdown-content">
+                        <a href="Saber11_Matematicas_2026_10Encuentros.html"><i class="fas fa-graduation-cap" style="margin-right: 0.5rem; width: 15px;"></i> Guías Python</a>
+                        <a href="simulacro-icfes.html"><i class="fas fa-check-double" style="margin-right: 0.5rem; width: 15px;"></i> Simulacro Interactivo</a>
+                        <a href="guia-geometria-circular.html"><i class="fas fa-circle-notch" style="margin-right: 0.5rem; width: 15px;"></i> Guía: Geo. Circular</a>
+                        <a href="geo-triangulos.html"><i class="fas fa-caret-up" style="margin-right: 0.5rem; width: 15px;"></i> Sim. Triángulos</a>
+                        <a href="geo-circulo.html"><i class="fas fa-circle" style="margin-right: 0.5rem; width: 15px;"></i> Sim. El Círculo</a>
+                    </div>
+                </div>
+
+                <div class="nav-dropdown">
+                    <span class="nav-dropdown-trigger">Innovación <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></span>
+                    <div class="nav-dropdown-content">
+                        <a href="directorio-ia.html"><i class="fas fa-robot" style="margin-right: 0.5rem; width: 15px;"></i> Directorio IA</a>
+                        <a href="dua.html"><i class="fas fa-universal-access" style="margin-right: 0.5rem; width: 15px;"></i> Propuesta DUA</a>
+                    </div>
+                </div>
+
+                <div class="nav-dropdown">
+                    <span class="nav-dropdown-trigger">El Mediador <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></span>
+                    <div class="nav-dropdown-content">
+                        <a href="portafolio.html"><i class="fas fa-briefcase" style="margin-right: 0.5rem; width: 15px;"></i> Portafolio Web</a>
+                        <a href="blog.html"><i class="fas fa-book-open" style="margin-right: 0.5rem; width: 15px;"></i> Bitácora</a>
+                    </div>
+                </div>
+                
+            </nav>
+            <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+        </div>
+    </header>
+
+    <div class="gamification-floating-bar">
+        <div class="gamification-label">Insignias</div>
+        <div id="gamification-badges" class="gamification-badges"></div>
+    </div>
+
+
+    
+
+    <div class="gamification-floating-bar">
+        <div class="gamification-label">Insignias</div>
+        <div id="gamification-badges" class="gamification-badges"></div>
+    </div>
+
+
+    
+
+    <div class="gamification-floating-bar">
+        <div class="gamification-label">Insignias</div>
+        <div id="gamification-badges" class="gamification-badges"></div>
+    </div>
+
+
+    
+
+    <div class="gamification-floating-bar">
+        <div class="gamification-label">Insignias</div>
+        <div id="gamification-badges" class="gamification-badges"></div>
+    </div>
+
+
+    
+
+    <div class="gamification-floating-bar">
+        <div class="gamification-label">Insignias</div>
+        <div id="gamification-badges" class="gamification-badges"></div>
+    </div>
+
+
+    
+
+
+    
+
+
+    
+
+
+    
+
+    <main>
+        <section class="page-hero"
+            style="background: linear-gradient(180deg, rgba(245, 158, 11, 0.15) 0%, var(--bg-main) 100%);">
+            <div class="container">
+                <span class="badge" style="border-color: var(--accent-amber); color: var(--accent-amber);">Diario de a
+                    bordo</span>
+                <h1 class="hero-title">Bitácora del <span>Mediador</span></h1>
+                <p class="hero-subtitle" style="margin: 0 auto;">Reflexiones, artículos y experiencias prácticas sobre
+                    la implementación de la Gamificación, el Aula Invertida y la Heutagogía desde secundaria hasta la
+                    universidad.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="blog-grid">
+
+                    <article class="blog-card">
+                        <div class="blog-image"><i class="fas fa-rocket"></i></div>
+                        <div class="blog-content">
+                            <span class="blog-date">EN EL HORIZONTE</span>
+                            <h3 class="blog-title">Implementar Aula Invertida sin perder el control</h3>
+                            <p class="blog-extract">Cómo delegar la apropiación teórica en casa sin que la clase
+                                presencial colapse. Tips desde el aula de matemáticas de bachillerato.</p>
+                            <a href="#" class="tool-link">Leer artículo completo →</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card">
+                        <div class="blog-image"><i class="fas fa-gamepad"></i></div>
+                        <div class="blog-content">
+                            <span class="blog-date">EXPERIENCIAS</span>
+                            <h3 class="blog-title">El Fracaso como Mecánica: Gamificación en la Universidad</h3>
+                            <p class="blog-extract">La tolerancia a la frustración es clave en el desarrollo multimedia.
+                                ¿Cómo usar insignias para que fallar sea divetido y formativo?</p>
+                            <a href="#" class="tool-link">Leer artículo completo →</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card">
+                        <div class="blog-image"><i class="fas fa-compass"></i></div>
+                        <div class="blog-content">
+                            <span class="blog-date">PARADIGMAS</span>
+                            <h3 class="blog-title">Heutagogía y el Rol del Mediador</h3>
+                            <p class="blog-extract">El tránsito de pedagogo a "mediador". ¿Por qué en la era de la IA,
+                                lo importante no es enseñar información, sino conectar los puntos?</p>
+                            <a href="#" class="tool-link">Leer artículo completo →</a>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="app.js"></script>
+</body>
+
+</html>

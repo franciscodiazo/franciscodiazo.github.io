@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Guía de aprendizaje interactiva sobre el pensamiento sistémico y sintaxis de Python.">
+    <title>De Ginebra al Código | Guía 1 de Python</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            /* Indigo */
+            --primary-hover: #4f46e5;
+            --secondary: #ec4899;
+            /* Pink */
+            --bg-body: #0f172a;
+            /* Slate 900 */
+            --bg-card: rgba(30, 41, 59, 0.7);
+            /* Slate 800 with opacity */
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #22d3ee;
+            /* Cyan */
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image:
+                radial-gradient(circle at top right, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at bottom left, rgba(236, 72, 153, 0.15) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 4rem 1rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            color: #fff;
+            margin-top: 2rem;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--text-main);
+        }
+
+        .glass-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient);
+        }
+
+        .highlight-box {
+            background: rgba(99, 102, 241, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            border-radius: 0 10px 10px 0;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            color: #cbd5e1;
+            font-size: 1.05rem;
+        }
+
+        .illustration {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            margin: 2rem auto;
+            display: block;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            transition: transform 0.5s ease;
+        }
+
+        .illustration:hover {
+            transform: scale(1.02);
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            border-radius: 12px;
+            padding: 1.5rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #d4d4d4;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .code-comment {
+            color: #6a9955;
+        }
+
+        .code-keyword {
+            color: #569cd6;
+        }
+
+        .code-string {
+            color: #ce9178;
+        }
+
+        .code-function {
+            color: #dcdcaa;
+        }
+
+        .challenge-badge {
+            display: inline-block;
+            background: var(--gradient);
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .pill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .pill {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .pill:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--accent);
+        }
+
+        .pill h4 {
+            color: var(--secondary);
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+
+        .input-blank {
+            display: inline-block;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 2px dashed var(--accent);
+            color: var(--accent);
+            text-align: center;
+            font-family: 'Fira Code', monospace;
+            padding: 0.1rem 0.3rem;
+            min-width: 50px;
+            width: auto;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .input-blank:focus {
+            border-bottom: 2px solid var(--primary);
+            background: rgba(99, 102, 241, 0.3);
+        }
+
+        .input-blank.correct {
+            border-bottom: 2px solid #10b981;
+            color: #10b981;
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .input-blank.incorrect {
+            border-bottom: 2px solid #ef4444;
+            color: #ef4444;
+            animation: shake 0.4s;
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .btn-run {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--gradient);
+            border: none;
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-run:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-4px); }
+            75% { transform: translateX(4px); }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Micro animations */
+        .fade-in-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">ingfrancisco</span><span class="logo-accent">diaz</span><span
+                    class="logo-dot">.</span>
+            </a>
+            
+            <nav class="nav-links">
+                <a href="index.html">Inicio</a>
+                
+                <div class="nav-dropdown">
+                    <span class="nav-dropdown-trigger">STEM & Proyectos <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></span>
+                    <div class="nav-dropdown-content">
+                        <a href="entorno-matematico.html"><i class="fas fa-shapes" style="margin-right: 0.5rem; width: 15px;"></i> Laboratorio Matemático</a>
+                        <a href="tablero.html"><i class="fas fa-chalkboard" style="margin-right: 0.5rem; width: 15px;"></i> Tablero Interactivo</a>
+                        <a href="recursos.html"><i class="fas fa-flask" style="margin-right: 0.5rem; width: 15px;"></i> Recursos STEM</a>
+                        <a href="proyectos-estudiantes.html"><i class="fas fa-rocket" style="margin-right: 0.5rem; width: 15px;"></i> Vitrina Estudiantil</a>
+                    </div>
+                </div>
+
+                <div class="nav-dropdown">
+                    <span class="nav-dropdown-trigger highlight-link">Saber 11 <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></span>
+                    <div class="nav-dropdown-content">
+                        <a href="Saber11_Matematicas_2026_10Encuentros.html"><i class="fas fa-graduation-cap" style="margin-right: 0.5rem; width: 15px;"></i> Guías Python</a>
+                        <a href="simulacro-icfes.html"><i class="fas fa-check-double" style="margin-right: 0.5rem; width: 15px;"></i> Simulacro Interactivo</a>
+                        <a href="guia-geometria-circular.html"><i class="fas fa-circle-notch" style="margin-right: 0.5rem; width: 15px;"></i> Guía: Geo. Circular</a>
+                        <a href="geo-triangulos.html"><i class="fas fa-caret-up" style="margin-right: 0.5rem; width: 15px;"></i> Sim. Triángulos</a>
+                        <a href="geo-circulo.html"><i class="fas fa-circle" style="margin-right: 0.5rem; width: 15px;"></i> Sim. El Círculo</a>
+                    </div>
+                </div>
+
+                <div class="nav-dropdown">
+                    <span class="nav-dropdown-trigger">Innovación <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></span>
+                    <div class="nav-dropdown-content">
+                        <a href="directorio-ia.html"><i class="fas fa-robot" style="margin-right: 0.5rem; width: 15px;"></i> Directorio IA</a>
+                        <a href="dua.html"><i class="fas fa-universal-access" style="margin-right: 0.5rem; width: 15px;"></i> Propuesta DUA</a>
+                    </div>
+                </div>
+
+                <div class="nav-dropdown">
+                    <span class="nav-dropdown-trigger">El Mediador <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></span>
+                    <div class="nav-dropdown-content">
+                        <a href="portafolio.html"><i class="fas fa-briefcase" style="margin-right: 0.5rem; width: 15px;"></i> Portafolio Web</a>
+                        <a href="blog.html"><i class="fas fa-book-open" style="margin-right: 0.5rem; width: 15px;"></i> Bitácora</a>
+                    </div>
+                </div>
+                
+            </nav>
+            <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+        </div>
+    </header>
+
+    <div class="gamification-floating-bar">
+        <div class="gamification-label">Insignias</div>
+        <div id="gamification-badges" class="gamification-badges"></div>
+    </div>
+
+
+
+    <div class="container">
+        <header>
+            <span class="challenge-badge">Guía Autónoma #1</span>
+            <h1>De Ginebra, Valle al Código</h1>
+            <p class="subtitle">Mi Primer Algoritmo con Python. Descubre cómo darle instrucciones a una computadora para
+                resolver problemas tipo Saber 11.</p>
+        </header>
+
+        <main>
+            <!-- CONEXIÓN VITAL -->
+            <section class="glass-card fade-in-scroll" style="animation-delay: 0.2s">
+                <h2>💡 1. Conexión Vital</h2>
+                <p>¡Hola! Bienvenido a tu primera aventura con el <strong>pensamiento sistémico</strong>. Antes de
+                    hablar de código extraño, pensemos en algo completamente cercano y conocido.</p>
+                <p>Imagina que estás en el parque principal de <strong>Ginebra, Valle</strong>, y un turista te pregunta
+                    cómo preparar un auténtico Sancocho de Gallina en leña. Tú no le dices simplemente "haz el
+                    sancocho". Le das una <strong>secuencia lógica de pasos ordenados</strong>:</p>
+
+                <div class="highlight-box">
+                    <ol style="margin: 0; color: #f8fafc; padding-left: 1.5rem; font-family: 'Outfit';">
+                        <li>Calentar el agua en la olla.</li>
+                        <li>Agregar las carnes y hierbas aromáticas.</li>
+                        <li>Incorporar la papa y la yuca en el momento correcto para que no se deshagan.</li>
+                        <li>Servir y disfrutar.</li>
+                    </ol>
+                </div>
+
+                <img src="assets/guias/sancocho.png" alt="Analogía del algoritmo: Preparar Sancocho"
+                    class="illustration">
+
+                <div class="highlight-box" style="border-color: var(--secondary)">
+                    <p><strong>🧠 Analogía Visual (DUA):</strong> Un <strong>algoritmo computacional</strong> es
+                        exactamente como esa receta paso a paso. Tienes unos <em>Ingredientes</em> (Datos de entrada),
+                        un <em>Proceso en la olla</em> (Operaciones matemáticas) y un <em>Plato Final</em> (Datos de
+                        salida). ¡Acabas de entender la base de toda la programación del mundo!</p>
+                </div>
+            </section>
+
+            <!-- CAJA DE HERRAMIENTAS -->
+            <section class="glass-card fade-in-scroll" style="animation-delay: 0.4s">
+                <h2>🛠️ 2. Caja de Herramientas (Python)</h2>
+                <p>Para que la computadora siga tu "receta", usaremos el lenguaje <strong>Python</strong>. Es igual de
+                    fácil que el español, pero para comunicarnos con máquinas.</p>
+
+                <img src="assets/guias/variables.png" alt="Variables en Python como cajas" class="illustration"
+                    style="max-width: 600px;">
+
+                <div class="pill-grid">
+                    <div class="pill">
+                        <h4>📦 Variables</h4>
+                        <p>Son como cajas de cartón con una etiqueta afuera. Adentro guardas números o texto para el
+                            futuro.</p>
+                        <div class="code-block" style="padding: 1rem; margin: 0.5rem 0;">
+                            <span class="code-keyword">precio_empanada</span> = <span
+                                class="code-string">2500</span><br>
+                            <span class="code-keyword">cantidad</span> = <span class="code-string">3</span>
+                        </div>
+                    </div>
+
+                    <div class="pill">
+                        <h4>📢 print()</h4>
+                        <p>El megáfono. Sirve para que la computadora hable y muestre resultados en pantalla.</p>
+                        <div class="code-block" style="padding: 1rem; margin: 0.5rem 0;">
+                            <span class="code-function">print</span>(<span class="code-string">"El total
+                                es:"</span>)<br>
+                            <span class="code-function">print</span>(precio_empanada * cantidad)
+                        </div>
+                    </div>
+
+                    <div class="pill">
+                        <h4>👂 input()</h4>
+                        <p>Las orejas. Escucha lo que tú escribes. Si harás matemáticas, envuélvelo en
+                            <code>int()</code> para que sea número entero.</p>
+                        <div class="code-block" style="padding: 1rem; margin: 0.5rem 0;">
+                            <span class="code-keyword">edad</span> = <span class="code-function">int</span>(<span
+                                class="code-function">input</span>(<span class="code-string">"¿Edad?"</span>))
+                        </div>
+                    </div>
+
+                    <div class="pill">
+                        <h4>🧮 Matemáticas</h4>
+                        <p>Usamos: Suma <code>+</code>, Resta <code>-</code>, Multiplicación <code>*</code>, División
+                            <code>/</code>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MODELADO -->
+            <section class="glass-card fade-in-scroll" style="animation-delay: 0.6s">
+                <h2>🎯 3. Modelado (Paso a Paso Tipo Saber 11)</h2>
+                <p>Abordemos un problema clásico de <strong>Aritmética y Proporcionalidad</strong> muy común en las
+                    pruebas ICFES.</p>
+
+                <div class="highlight-box">
+                    <p><strong>El Problema:</strong> <em>"Un grupo de amigos cena a $35,000 el plato por persona. Al
+                            final de la cuenta, se agrega automáticamente un 10% (0.10) de propina voluntaria al
+                            subtotal. ¿Cuál es la expresión para calcular el total a pagar?"</em></p>
+                </div>
+
+                <p>Dividir un gran problema en pedacitos (Pensamiento Computacional):</p>
+                <ul>
+                    <li><strong>Entrada:</strong> Preguntar cuántas personas asistirán.</li>
+                    <li><strong>Proceso:</strong> Subtotal = <code>personas * 35000</code>, Propina =
+                        <code>subtotal * 0.10</code>, Total = <code>subtotal + propina</code>.</li>
+                    <li><strong>Salida:</strong> Mostrar el valor final.</li>
+                </ul>
+
+                <div class="code-block">
+                    <span class="code-comment"># 1. ENTRADA DE DATOS</span>
+                    <span class="code-keyword">personas</span> = <span class="code-function">int</span>(<span
+                        class="code-function">input</span>(<span class="code-string">"Ingresa el número de amigos:
+                        "</span>))
+
+                    <span class="code-comment"># 2. PROCESO (Lógica Matemática)</span>
+                    <span class="code-keyword">subtotal</span> = personas * <span class="code-string">35000</span>
+                    <span class="code-keyword">propina</span> = subtotal * <span class="code-string">0.10</span>
+                    <span class="code-keyword">total_pagar</span> = subtotal + propina
+
+                    <span class="code-comment"># 3. SALIDA DE DATOS</span>
+                    <span class="code-function">print</span>(<span class="code-string">"El total de la cuenta con
+                        propina es de: "</span>)
+                    <span class="code-function">print</span>(total_pagar)
+                </div>
+            </section>
+
+            <!-- EL RETO -->
+            <section class="glass-card fade-in-scroll" style="animation-delay: 0.8s">
+                <span class="challenge-badge" style="background: linear-gradient(135deg, #10b981, #3b82f6);">Tu Reto
+                    ABR</span>
+                <h2>🚀 4. El Reto: Cosecha de Uva Isabella</h2>
+
+                <img src="assets/guias/vinedo.png" alt="Viñedo de Uva Isabella" class="illustration">
+
+                <p><strong>Contexto:</strong> Un cultivo de uva Isabella en Ginebra ha determinado que por cada 10
+                    metros cuadrados de tierra, recolectan 45 kilogramos de uva. Un comprador grande paga $3,200 por
+                    cada kg elaborado.</p>
+
+                <p><strong>Misión:</strong> Construye un programa donde el agricultor ingrese los metros cuadrados que
+                    posee y el sistema le indique <strong>cuántos kilogramos producirá</strong> y <strong>cuánto dinero
+                        ganará</strong>.</p>
+
+                <div class="highlight-box">
+                    <p><strong>Andamiaje:</strong> Completa mentalmente o en tu computador los espacios vacíos
+                        (<code>___</code>) para lograr que funcione.</p>
+                </div>
+
+                <div class="code-block" style="position: relative;">
+                    <span class="code-comment"># Reto: Calculadora de Cosecha de Uva</span><br><br>
+
+                    <span class="code-keyword">metros_cuadrados</span> = <input type="text" class="input-blank" data-answer="int" placeholder="___" style="width: 50px;">(<input type="text" class="input-blank" data-answer="input" placeholder="___" style="width: 65px;">(<span class="code-string">"Ingresa metros cuadrados de cultivo: "</span>))<br><br>
+
+                    <span class="code-comment"># Si 10m dan 45kg, 1m da 4.5kg</span><br>
+                    <span class="code-keyword">kilos</span> = metros_cuadrados * <span class="code-string">4.5</span><br><br>
+
+                    <span class="code-comment"># Calculamos ganancia a $3200 el kilo</span><br>
+                    <span class="code-keyword">dinero</span> = kilos * <input type="text" class="input-blank" data-answer="3200" placeholder="___" style="width: 60px;"><br><br>
+
+                    <span class="code-function">print</span>(<span class="code-string">"Tus kilogramos esperados son:"</span>)<br>
+                    <span class="code-function">print</span>(<input type="text" class="input-blank" data-answer="kilos" placeholder="___" style="width: 60px;">)<br>
+                    <span class="code-function">print</span>(<span class="code-string">"El dinero total a ganar es:"</span>)<br>
+                    <span class="code-function">print</span>(<input type="text" class="input-blank" data-answer="dinero" placeholder="___" style="width: 70px;">)
+                    
+                    <div style="text-align: right;">
+                        <button class="btn-run" onclick="ejecutarReto()"><i class="fas fa-play"></i> Ejecutar Código</button>
+                    </div>
+
+                    <div id="console-output" style="margin-top: 1.5rem; padding: 1.2rem; background: #000; border-radius: 8px; border-left: 4px solid var(--primary); color: #94a3b8; font-family: 'Fira Code', monospace; display: none;">
+                    </div>
+                </div>
+            </section>
+
+            <!-- METACOGNICIÓN Y GLOSARIO -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem;">
+                <section class="glass-card" style="margin-bottom: 0;">
+                    <h2>🧠 5. Bitácora de Reflexión</h2>
+                    <ol style="color: var(--text-muted);">
+                        <li style="margin-bottom: 1rem;">¿Cómo te ayudó separar la lectura en "Entrada, Proceso y
+                            Salida" para no confundirte con los datos?</li>
+                        <li style="margin-bottom: 1rem;">¿Por qué obligatoriamente transformamos a número con
+                            <code>int()</code> antes de multiplicar?</li>
+                        <li>Si la inflación cambia el precio de la uva mañana, ¿cuál es la *única* línea del código a
+                            modificar?</li>
+                    </ol>
+                </section>
+
+                <section class="glass-card" style="margin-bottom: 0;">
+                    <h2>📚 6. Glosario Traducido</h2>
+                    <ul style="color: var(--text-muted); list-style-type: none; padding: 0;">
+                        <li style="margin-bottom: 1rem;"><strong>Algoritmo:</strong> Receta paso a paso. Cero magia,
+                            cien por ciento lógica en orden.</li>
+                        <li style="margin-bottom: 1rem;"><strong>Variable:</strong> Un lugar en la memoria (una caja)
+                            donde guardamos un dato bautizándolo con un nombre claro.</li>
+                        <li><strong>Sintaxis:</strong> La ortografía de la computadora. Olvidar un paréntesis en Python
+                            es como faltar una tilde en una carta.</li>
+                    </ul>
+                </section>
+            </div>
+        </main>
+
+        <footer style="text-align: center; margin-top: 4rem; color: var(--text-muted); font-size: 0.9rem;">
+            <p>Diseñado con enfoque Socio-Constructivista y DUA para estudiantes de la Institución Educativa en Ginebra,
+                Valle.</p>
+            <p>Francisco Díaz | Ingeniería y Educatrónica</p>
+        </footer>
+    </div>
+
+    <script>
+        // Micro-interacción: animar elementos al hacer scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        document.querySelectorAll('.fade-in-scroll').forEach((el) => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+
+        // Simulador de Código Python
+        function ejecutarReto() {
+            const inputs = document.querySelectorAll('.input-blank');
+            let isCorrect = true;
+            
+            inputs.forEach(input => {
+                input.classList.remove('incorrect', 'correct');
+                // Trim clean answer ignoring case
+                if (input.value.trim().toLowerCase() === input.dataset.answer.toLowerCase()) {
+                    input.classList.add('correct');
+                } else {
+                    input.classList.add('incorrect');
+                    isCorrect = false;
+                }
+            });
+
+            const consoleOut = document.getElementById('console-output');
+            
+            if (isCorrect) {
+                consoleOut.style.display = 'block';
+                consoleOut.style.borderColor = '#10b981';
+                
+                // Simulación animada
+                consoleOut.innerHTML = '<code>Iniciando intérprete de Python...<br></code>';
+                setTimeout(() => {
+                    consoleOut.innerHTML += '<code style="color: white;">Ingresa metros cuadrados de cultivo:<br><span style="color:#22d3ee;">> 100</span><br><br></code>';
+                    setTimeout(() => {
+                        consoleOut.innerHTML += '<code style="color: white;">Tus kilogramos esperados son:<br><span style="color:#22d3ee;">> 450.0</span><br>El dinero total a ganar es:<br><span style="color:#22d3ee;">> 1440000</span><br><br><span style="color:#10b981;">[✓] Algoritmo Ejecutado Correctamente. ¡Buen trabajo!</span></code>';
+                    }, 500);
+                }, 400);
+
+            } else {
+                consoleOut.style.display = 'block';
+                consoleOut.style.borderColor = '#ef4444';
+                consoleOut.innerHTML = '<span style="color:#ef4444;">[!] Error de Sintaxis o Lógica (NameError / ValueError).<br>Revisa las palabras clave que completaste marcadas en rojo e inténtalo de nuevo.</span>';
+            }
+        }
+    </script>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
