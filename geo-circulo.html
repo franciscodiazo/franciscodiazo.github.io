@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Círculo — Simulador Interactivo | Ing. Francisco Díaz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --surface2: #1c2330;
+            --border: #30363d;
+            --gold: #f0c040;
+            --gold-dim: #a07820;
+            --cyan: #58d4e8;
+            --cyan-dim: #1e6070;
+            --rose: #f47068;
+            --rose-dim: #7a2820;
+            --green: #6ee78e;
+            --green-dim: #1a5030;
+            --purple: #c084fc;
+            --purple-dim: #5a2878;
+            --white: #e6edf3;
+            --muted: #8b949e;
+            --circle-color: #58d4e8;
+            --radius-color: #f0c040;
+            --diam-color: #f47068;
+            --pi-color: #6ee78e;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--white);
+            font-family: 'Nunito', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ── NOISE TEXTURE ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+            opacity: .5;
+        }
+
+        header {
+            text-align: center;
+            padding: 2.5rem 1rem 1.5rem;
+            position: relative;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--cyan), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+        }
+
+        header p {
+            color: var(--muted);
+            font-size: 1rem;
+            margin-top: .5rem;
+            font-weight: 300;
+        }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ── CANVAS PANEL ── */
+        .canvas-panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .canvas-panel::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 30% 30%, rgba(88, 212, 232, .05) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        #mainCanvas {
+            display: block;
+            width: 100%;
+            cursor: crosshair;
+            border-radius: 12px;
+        }
+
+        .canvas-hint {
+            text-align: center;
+            font-size: .78rem;
+            color: var(--muted);
+            margin-top: .6rem;
+            font-style: italic;
+        }
+
+        /* ── SIDE PANEL ── */
+        .side-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.25rem;
+            position: relative;
+            overflow: hidden;
+            transition: border-color .3s;
+        }
+
+        .card:hover {
+            border-color: var(--cyan-dim);
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: .85rem;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+        }
+
+        .card-title .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* ── DEFINITIONS LIST ── */
+        .def-item {
+            display: flex;
+            gap: .75rem;
+            align-items: flex-start;
+            padding: .6rem 0;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background .2s;
+            padding: .5rem .6rem;
+            margin: .1rem -.6rem;
+        }
+
+        .def-item:last-child {
+            border-bottom: none;
+        }
+
+        .def-item:hover {
+            background: rgba(255, 255, 255, .04);
+        }
+
+        .def-item.active {
+            background: rgba(88, 212, 232, .07);
+        }
+
+        .def-swatch {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
+        .def-name {
+            font-weight: 700;
+            font-size: .9rem;
+            line-height: 1.2;
+        }
+
+        .def-desc {
+            font-size: .78rem;
+            color: var(--muted);
+            line-height: 1.4;
+            margin-top: 2px;
+        }
+
+        /* ── METRICS ── */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: .6rem;
+        }
+
+        .metric {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: .7rem .85rem;
+            transition: border-color .3s;
+        }
+
+        .metric:hover {
+            border-color: var(--gold-dim);
+        }
+
+        .metric-label {
+            font-size: .68rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            font-weight: 600;
+        }
+
+        .metric-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: .15rem;
+        }
+
+        /* ── PI DEMO ── */
+        .pi-section {
+            background: linear-gradient(135deg, rgba(110, 231, 142, .07), rgba(88, 212, 232, .04));
+            border-color: var(--green-dim);
+        }
+
+        .pi-equation {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            margin: .75rem 0;
+            flex-wrap: wrap;
+        }
+
+        .pi-eq-part {
+            padding: .3rem .6rem;
+            border-radius: 6px;
+        }
+
+        .pi-c {
+            background: rgba(88, 212, 232, .15);
+            color: var(--cyan);
+        }
+
+        .pi-d {
+            background: rgba(244, 112, 104, .15);
+            color: var(--rose);
+        }
+
+        .pi-pi {
+            background: rgba(110, 231, 142, .15);
+            color: var(--green);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .pi-op {
+            color: var(--muted);
+            font-size: 1.1rem;
+        }
+
+        #piResult {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            color: var(--green);
+            text-shadow: 0 0 20px rgba(110, 231, 142, .4);
+            transition: all .3s;
+        }
+
+        #piBar {
+            height: 6px;
+            border-radius: 3px;
+            background: var(--border);
+            margin-top: .7rem;
+            overflow: hidden;
+        }
+
+        #piBarFill {
+            height: 100%;
+            border-radius: 3px;
+            background: linear-gradient(90deg, var(--green), var(--cyan));
+            transition: width .4s cubic-bezier(.34, 1.56, .64, 1);
+            box-shadow: 0 0 8px rgba(110, 231, 142, .5);
+        }
+
+        .pi-note {
+            font-size: .72rem;
+            color: var(--muted);
+            text-align: center;
+            margin-top: .5rem;
+            font-style: italic;
+        }
+
+        /* ── UNROLL BUTTON ── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            background: linear-gradient(135deg, var(--cyan-dim), rgba(88, 212, 232, .2));
+            border: 1px solid var(--cyan-dim);
+            color: var(--cyan);
+            font-family: 'Nunito', sans-serif;
+            font-size: .82rem;
+            font-weight: 700;
+            padding: .5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            justify-content: center;
+            transition: all .2s;
+            margin-top: .5rem;
+        }
+
+        .btn:hover {
+            background: rgba(88, 212, 232, .2);
+            border-color: var(--cyan);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(88, 212, 232, .2);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        /* ── UNROLL CANVAS ── */
+        #unrollCanvas {
+            width: 100%;
+            border-radius: 8px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            margin-top: .6rem;
+            display: none;
+        }
+
+        /* ── LEGEND TOGGLE ── */
+        .toggle-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .4rem;
+            margin-top: .5rem;
+        }
+
+        .toggle-chip {
+            padding: .25rem .7rem;
+            border-radius: 20px;
+            font-size: .72rem;
+            font-weight: 700;
+            cursor: pointer;
+            border: 1.5px solid;
+            transition: all .2s;
+            user-select: none;
+        }
+
+        .toggle-chip.off {
+            opacity: .35;
+        }
+
+        @media (max-width: 820px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .side-panel {
+                flex-direction: column;
+            }
+        }
+    /* ── PI ENHANCED ── */
+        .pi-big-eq {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .6rem;
+            margin: 1rem 0 .5rem;
+            flex-wrap: wrap;
+        }
+        .pi-token {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.4rem;
+            font-weight: 700;
+            padding: .4rem .8rem;
+            border-radius: 8px;
+            position: relative;
+        }
+        .pi-token.tok-c  { background: rgba(88,212,232,.18); color: #58d4e8; box-shadow: 0 0 16px rgba(88,212,232,.2); }
+        .pi-token.tok-d  { background: rgba(244,112,104,.18); color: #f47068; box-shadow: 0 0 16px rgba(244,112,104,.2); }
+        .pi-token.tok-pi {
+            background: linear-gradient(135deg, rgba(110,231,142,.2), rgba(88,212,232,.15));
+            color: #6ee78e;
+            font-size: 2rem;
+            box-shadow: 0 0 24px rgba(110,231,142,.35);
+            animation: piGlow 2.5s ease-in-out infinite;
+        }
+        @keyframes piGlow {
+            0%,100% { box-shadow: 0 0 24px rgba(110,231,142,.35); }
+            50%      { box-shadow: 0 0 40px rgba(110,231,142,.7), 0 0 60px rgba(110,231,142,.25); }
+        }
+        .pi-token.tok-op { background: none; color: #8b949e; font-size: 1.3rem; padding: .4rem .2rem; }
+        .pi-live-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+            padding: .55rem 1rem;
+            background: rgba(15,20,30,.6);
+            border: 1px solid rgba(110,231,142,.25);
+            border-radius: 10px;
+            margin: .5rem 0;
+        }
+        .pi-live-lhs { font-family: 'JetBrains Mono', monospace; font-size: .85rem; color: #8b949e; }
+        .pi-live-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #6ee78e;
+            text-shadow: 0 0 14px rgba(110,231,142,.5);
+            transition: all .3s;
+        }
+        .pi-steps {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: .5rem;
+            margin: .75rem 0;
+        }
+        .pi-step {
+            display: flex;
+            align-items: flex-start;
+            gap: .65rem;
+            padding: .6rem .75rem;
+            border-radius: 10px;
+            background: rgba(255,255,255,.03);
+            border: 1px solid rgba(255,255,255,.06);
+            transition: border-color .2s, background .2s;
+        }
+        .pi-step:hover { border-color: rgba(110,231,142,.3); background: rgba(110,231,142,.04); }
+        .pi-step-num {
+            width: 24px; height: 24px;
+            border-radius: 50%;
+            background: rgba(110,231,142,.15);
+            border: 1.5px solid rgba(110,231,142,.4);
+            display: flex; align-items: center; justify-content: center;
+            font-size: .72rem; font-weight: 800; color: #6ee78e;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .pi-step-text { font-size: .8rem; color: #c9d1d9; line-height: 1.45; }
+        .pi-step-text strong { color: #6ee78e; }
+        .pi-step-text em { color: #58d4e8; font-style: normal; }
+        .pi-formula-row {
+            display: flex;
+            gap: .5rem;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin: .3rem 0;
+        }
+        .pf { font-family: 'JetBrains Mono', monospace; font-size: .82rem; padding: .15rem .4rem; border-radius: 5px; }
+        .pf-c { background: rgba(88,212,232,.12);  color: #58d4e8; }
+        .pf-d { background: rgba(244,112,104,.12); color: #f47068; }
+        .pf-g { background: rgba(110,231,142,.12); color: #6ee78e; }
+        .pf-y { background: rgba(240,192,64,.12);  color: #f0c040; }
+        .pf-p { background: rgba(192,132,252,.12); color: #c084fc; }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">ingfrancisco</span><span class="logo-accent">diaz</span><span
+                    class="logo-dot">.</span>
+            </a>
+            
+            <nav class="nav-links">
+                <a href="index.html">Inicio</a>
+                
+                <div class="nav-dropdown">
+                    <span class="nav-dropdown-trigger">STEM & Proyectos <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></span>
+                    <div class="nav-dropdown-content">
+                        <a href="entorno-matematico.html"><i class="fas fa-shapes" style="margin-right: 0.5rem; width: 15px;"></i> Laboratorio Matemático</a>
+                        <a href="tablero.html"><i class="fas fa-chalkboard" style="margin-right: 0.5rem; width: 15px;"></i> Tablero Interactivo</a>
+                        <a href="recursos.html"><i class="fas fa-flask" style="margin-right: 0.5rem; width: 15px;"></i> Recursos STEM</a>
+                        <a href="proyectos-estudiantes.html"><i class="fas fa-rocket" style="margin-right: 0.5rem; width: 15px;"></i> Vitrina Estudiantil</a>
+                    </div>
+                </div>
+
+                <div class="nav-dropdown">
+                    <span class="nav-dropdown-trigger highlight-link">Saber 11 <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></span>
+                    <div class="nav-dropdown-content">
+                        <a href="Saber11_Matematicas_2026_10Encuentros.html"><i class="fas fa-graduation-cap" style="margin-right: 0.5rem; width: 15px;"></i> Guías Python</a>
+                        <a href="simulacro-icfes.html"><i class="fas fa-check-double" style="margin-right: 0.5rem; width: 15px;"></i> Simulacro Interactivo</a>
+                        <a href="guia-geometria-circular.html"><i class="fas fa-circle-notch" style="margin-right: 0.5rem; width: 15px;"></i> Guía: Geo. Circular</a>
+                        <a href="geo-triangulos.html"><i class="fas fa-caret-up" style="margin-right: 0.5rem; width: 15px;"></i> Sim. Triángulos</a>
+                        <a href="geo-circulo.html"><i class="fas fa-circle" style="margin-right: 0.5rem; width: 15px;"></i> Sim. El Círculo</a>
+                    </div>
+                </div>
+
+                <div class="nav-dropdown">
+                    <span class="nav-dropdown-trigger">Innovación <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></span>
+                    <div class="nav-dropdown-content">
+                        <a href="directorio-ia.html"><i class="fas fa-robot" style="margin-right: 0.5rem; width: 15px;"></i> Directorio IA</a>
+                        <a href="dua.html"><i class="fas fa-universal-access" style="margin-right: 0.5rem; width: 15px;"></i> Propuesta DUA</a>
+                    </div>
+                </div>
+
+                <div class="nav-dropdown">
+                    <span class="nav-dropdown-trigger">El Mediador <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></span>
+                    <div class="nav-dropdown-content">
+                        <a href="portafolio.html"><i class="fas fa-briefcase" style="margin-right: 0.5rem; width: 15px;"></i> Portafolio Web</a>
+                        <a href="blog.html"><i class="fas fa-book-open" style="margin-right: 0.5rem; width: 15px;"></i> Bitácora</a>
+                    </div>
+                </div>
+                
+            </nav>
+            <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+        </div>
+    </header>
+
+    <div class="gamification-floating-bar">
+        <div class="gamification-label">Insignias</div>
+        <div id="gamification-badges" class="gamification-badges"></div>
+    </div>
+
+
+    
+
+    <div class="gamification-floating-bar">
+        <div class="gamification-label">Insignias</div>
+        <div id="gamification-badges" class="gamification-badges"></div>
+    </div>
+
+
+    
+
+    <div class="gamification-floating-bar">
+        <div class="gamification-label">Insignias</div>
+        <div id="gamification-badges" class="gamification-badges"></div>
+    </div>
+
+
+    <!-- NAV GLOBAL (inyectado por update_all_headers.py) -->
+    
+    <div class="gamification-floating-bar">
+        <div class="gamification-label">Insignias</div>
+        <div id="gamification-badges" class="gamification-badges"></div>
+    </div>
+
+    <header style="padding-top:1.5rem">
+        <h1>El Círculo &amp; La Circunferencia</h1>
+        <p>Simulador interactivo — arrastra los puntos para explorar</p>
+    </header>
+
+    <div class="main-layout">
+
+        <!-- CANVAS PRINCIPAL -->
+        <div class="canvas-panel">
+            <canvas id="mainCanvas" height="520"></canvas>
+            <p class="canvas-hint">🟡 Arrastra el <strong>centro</strong> para mover · 🔵 Arrastra el <strong>borde
+                    azul</strong> para cambiar el radio</p>
+        </div>
+
+        <!-- PANEL LATERAL -->
+        <div class="side-panel">
+
+            <!-- DEFINICIONES -->
+            <div class="card">
+                <div class="card-title">
+                    <span class="dot" style="background:var(--white)"></span>
+                    Partes del círculo
+                </div>
+
+                <div class="def-item" id="def-circulo" onclick="highlight('circulo')">
+                    <div class="def-swatch" style="background:rgba(88,212,232,.3);border:1.5px solid var(--cyan)"></div>
+                    <div>
+                        <div class="def-name" style="color:var(--cyan)">Círculo</div>
+                        <div class="def-desc">Región plana interior delimitada por la circunferencia. Todo el "relleno".
+                        </div>
+                    </div>
+                </div>
+
+                <div class="def-item" id="def-circunferencia" onclick="highlight('circunferencia')">
+                    <div class="def-swatch" style="background:var(--white)"></div>
+                    <div>
+                        <div class="def-name" style="color:var(--white)">Circunferencia</div>
+                        <div class="def-desc">Línea curva cerrada que forma el borde. Es el perímetro del círculo.</div>
+                    </div>
+                </div>
+
+                <div class="def-item" id="def-centro" onclick="highlight('centro')">
+                    <div class="def-swatch" style="background:var(--gold)"></div>
+                    <div>
+                        <div class="def-name" style="color:var(--gold)">Centro</div>
+                        <div class="def-desc">Punto interior equidistante de todos los puntos de la circunferencia.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="def-item" id="def-radio" onclick="highlight('radio')">
+                    <div class="def-swatch" style="background:var(--gold)"></div>
+                    <div>
+                        <div class="def-name" style="color:var(--gold)">Radio (r)</div>
+                        <div class="def-desc">Segmento del centro a la circunferencia. El diámetro es el doble del
+                            radio.</div>
+                    </div>
+                </div>
+
+                <div class="def-item" id="def-diametro" onclick="highlight('diametro')">
+                    <div class="def-swatch" style="background:var(--rose)"></div>
+                    <div>
+                        <div class="def-name" style="color:var(--rose)">Diámetro (d)</div>
+                        <div class="def-desc">Cuerda máxima que pasa por el centro. d = 2r</div>
+                    </div>
+                </div>
+
+                <div class="def-item" id="def-cuerda" onclick="highlight('cuerda')">
+                    <div class="def-swatch" style="background:var(--purple)"></div>
+                    <div>
+                        <div class="def-name" style="color:var(--purple)">Cuerda</div>
+                        <div class="def-desc">Segmento que une dos puntos de la circunferencia sin pasar por el centro.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="def-item" id="def-arco" onclick="highlight('arco')">
+                    <div class="def-swatch" style="background:var(--rose)"></div>
+                    <div>
+                        <div class="def-name" style="color:var(--rose)">Arco</div>
+                        <div class="def-desc">Porción de la circunferencia entre dos puntos.</div>
+                    </div>
+                </div>
+
+                <div class="def-item" id="def-sector" onclick="highlight('sector')">
+                    <div class="def-swatch" style="background:rgba(192,132,252,.3);border:1.5px solid var(--purple)">
+                    </div>
+                    <div>
+                        <div class="def-name" style="color:var(--purple)">Sector circular</div>
+                        <div class="def-desc">Región "en forma de trozo de torta" delimitada por dos radios y un arco.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MÉTRICAS EN TIEMPO REAL -->
+            <div class="card">
+                <div class="card-title">
+                    <span class="dot" style="background:var(--gold)"></span>
+                    Medidas en tiempo real
+                </div>
+                <div class="metrics-grid">
+                    <div class="metric">
+                        <div class="metric-label">Radio (r)</div>
+                        <div class="metric-value" id="mRadius" style="color:var(--gold)">—</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Diámetro (d)</div>
+                        <div class="metric-value" id="mDiam" style="color:var(--rose)">—</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Circunferencia (C)</div>
+                        <div class="metric-value" id="mCirc" style="color:var(--cyan)">—</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Área</div>
+                        <div class="metric-value" id="mArea" style="color:var(--purple)">—</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PI RELACIÓN — SECCIÓN MEJORADA -->
+            <div class="card pi-section">
+                <div class="card-title">
+                    <span class="dot" style="background:var(--green)"></span>
+                    La relación con π
+                </div>
+
+                <!-- Ecuación grande con brillo -->
+                <div class="pi-big-eq">
+                    <span class="pi-token tok-c" title="Circunferencia">C</span>
+                    <span class="pi-token tok-op">÷</span>
+                    <span class="pi-token tok-d" title="Diámetro">d</span>
+                    <span class="pi-token tok-op">=</span>
+                    <span class="pi-token tok-pi">π</span>
+                </div>
+
+                <!-- Badge con valor en vivo -->
+                <div class="pi-live-badge">
+                    <span class="pi-live-lhs">C ÷ d =</span>
+                    <span class="pi-live-val" id="piResult">3.14159…</span>
+                    <span style="font-size:.7rem;color:#475569;margin-left:.2rem">(siempre)</span>
+                </div>
+
+                <!-- Barra -->
+                <div id="piBar"><div id="piBarFill" style="width:100%"></div></div>
+
+                <!-- 3 pasos conceptuales -->
+                <div class="pi-steps">
+                    <div class="pi-step">
+                        <div class="pi-step-num">1</div>
+                        <div class="pi-step-text">
+                            <strong>Mide el diámetro</strong> de cualquier círculo.
+                            <em>d = 2r</em>
+                        </div>
+                    </div>
+                    <div class="pi-step">
+                        <div class="pi-step-num">2</div>
+                        <div class="pi-step-text">
+                            <strong>Mide la circunferencia</strong> (perímetro del borde).
+                            Si <em>r = 5</em> → <em>C = 2πr ≈ 31.4</em>
+                        </div>
+                    </div>
+                    <div class="pi-step">
+                        <div class="pi-step-num">3</div>
+                        <div class="pi-step-text">
+                            <strong>Divide C ÷ d</strong> — sin importar el tamaño, el resultado
+                            siempre es <strong>π ≈ 3.14159…</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fórmulas clave -->
+                <div style="background:rgba(0,0,0,.25);border-radius:9px;padding:.65rem .85rem;margin:.5rem 0;">
+                    <div style="font-size:.68rem;color:#475569;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem">Fórmulas</div>
+                    <div class="pi-formula-row">
+                        <span class="pf pf-c">C = 2πr</span>
+                        <span style="color:#475569;font-size:.75rem">ó</span>
+                        <span class="pf pf-c">C = πd</span>
+                    </div>
+                    <div class="pi-formula-row" style="margin-top:.3rem">
+                        <span class="pf pf-p">A = πr²</span>
+                        <span style="color:#475569;font-size:.75rem">|</span>
+                        <span class="pf pf-d">d = 2r</span>
+                        <span style="color:#475569;font-size:.75rem">|</span>
+                        <span class="pf pf-g">π ≈ 3.14159…</span>
+                    </div>
+                </div>
+
+                <!-- Animación desenrollar -->
+                <button class="btn" id="unrollBtn" onclick="toggleUnroll()">
+                    <i class="fas fa-play-circle"></i> Desenrollar la circunferencia
+                </button>
+                <canvas id="unrollCanvas" height="90"></canvas>
+
+                <p class="pi-note" style="margin-top:.5rem">
+                    🔍 Arrastra el borde azul del círculo — el valor C÷d siempre converge a π
+                </p>
+            </div>
+
+        </div>
+    </div>
+    <script src="app.js"></script>
+    <script>
+        // ══════════════════════════════════════════════════════════
+        //  STATE
+        // ══════════════════════════════════════════════════════════
+        const canvas = document.getElementById('mainCanvas');
+        const ctx = canvas.getContext('2d');
+        const W = () => canvas.width;
+        const H = () => canvas.height;
+
+        const U = 40; // 40px por Unidad
+        let cx, cy, radius;
+        let dragging = null; // 'center' | 'radius'
+        let highlighted = null;
+        let unrolling = false;
+        let unrollAnim = null;
+        let unrollProgress = 0;
+
+        const COLORS = {
+            circulo: 'rgba(88,212,232,0.12)',
+            circunferencia: '#e6edf3',
+            centro: '#f0c040',
+            radio: '#f0c040',
+            diametro: '#f47068',
+            cuerda: '#c084fc',
+            arco: '#f47068',
+            sector: 'rgba(192,132,252,0.18)',
+        };
+
+        // ══════════════════════════════════════════════════════════
+        //  INIT
+        // ══════════════════════════════════════════════════════════
+        function initCircle() {
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.parentElement ? canvas.parentElement.getBoundingClientRect() : { width: 800 };
+            const w = Math.max(300, Math.floor(rect.width - 32));
+            const h = 570; // Extended height slightly to make room for bottom visualization
+            canvas.width = w * dpr;
+            canvas.height = h * dpr;
+            canvas.style.width = w + 'px';
+            canvas.style.height = h + 'px';
+            ctx.scale(dpr, dpr);
+            cx = Math.round((w / 2) / U) * U;
+            cy = Math.round((h / 2.3) / U) * U;
+            radius = 3 * U;
+            draw();
+        }
+
+        // ══════════════════════════════════════════════════════════
+        //  DRAW
+        // ══════════════════════════════════════════════════════════
+        function draw() {
+            const dpr = window.devicePixelRatio || 1;
+            const w = canvas.width / dpr;
+            const h = canvas.height / dpr;
+
+            ctx.clearRect(0, 0, w, h);
+
+            // Grid
+            ctx.save();
+            ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x < w; x += U) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke(); }
+            for (let y = 0; y < h; y += U) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
+            ctx.restore();
+
+            // Background Area Square Units Highlighter
+            if (highlighted === 'circulo' || highlighted == null) {
+                ctx.save();
+                ctx.fillStyle = 'rgba(255,255,255,0.02)';
+                ctx.strokeStyle = 'rgba(255,255,255,0.09)';
+                ctx.beginPath(); ctx.arc(cx, cy, radius, 0, Math.PI * 2); ctx.fill(); ctx.clip();
+                
+                ctx.lineWidth = 1;
+                const startX = cx - Math.ceil(radius/U)*U;
+                const endX   = cx + Math.ceil(radius/U)*U;
+                const startY = cy - Math.ceil(radius/U)*U;
+                const endY   = cy + Math.ceil(radius/U)*U;
+                
+                for (let x = startX; x <= endX; x += U) { ctx.beginPath(); ctx.moveTo(x, startY); ctx.lineTo(x, endY); ctx.stroke(); }
+                for (let y = startY; y <= endY; y += U) { ctx.beginPath(); ctx.moveTo(startX, y); ctx.lineTo(endX, y); ctx.stroke(); }
+                ctx.restore();
+            }
+
+            const hl = highlighted;
+
+            // ── SECTOR CIRCULAR ──
+            const secAngle = Math.PI * 0.7;
+            const secEnd = Math.PI * 1.5;
+            if (hl === 'sector') {
+                ctx.save();
+                ctx.beginPath();
+                ctx.moveTo(cx, cy);
+                ctx.arc(cx, cy, radius, secAngle, secEnd);
+                ctx.closePath();
+                ctx.fillStyle = 'rgba(192,132,252,0.25)';
+                ctx.fill();
+                ctx.strokeStyle = '#c084fc';
+                ctx.lineWidth = 2.5;
+                ctx.setLineDash([]);
+                ctx.stroke();
+                ctx.restore();
+                label('Sector circular', cx + radius * 0.35 * Math.cos((secAngle + secEnd) / 2), cy + radius * 0.35 * Math.sin((secAngle + secEnd) / 2), '#c084fc', 13, true);
+            }
+
+            // ── CIRCLE FILL ──
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+            const grd = ctx.createRadialGradient(cx - radius * 0.2, cy - radius * 0.2, 0, cx, cy, radius);
+            if (hl === 'circulo') {
+                grd.addColorStop(0, 'rgba(88,212,232,0.3)');
+                grd.addColorStop(1, 'rgba(88,212,232,0.05)');
+            } else {
+                grd.addColorStop(0, 'rgba(88,212,232,0.10)');
+                grd.addColorStop(1, 'rgba(88,212,232,0.02)');
+            }
+            ctx.fillStyle = grd;
+            ctx.fill();
+            ctx.restore();
+
+            // ── CUERDA ──
+            const chordA = Math.PI * 0.2;
+            const chordB = Math.PI * 1.1;
+            const chAx = cx + radius * Math.cos(chordA), chAy = cy + radius * Math.sin(chordA);
+            const chBx = cx + radius * Math.cos(chordB), chBy = cy + radius * Math.sin(chordB);
+
+            if (hl === 'cuerda' || hl == null) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.moveTo(chAx, chAy);
+                ctx.lineTo(chBx, chBy);
+                ctx.strokeStyle = hl === 'cuerda' ? '#c084fc' : 'rgba(192,132,252,0.4)';
+                ctx.lineWidth = hl === 'cuerda' ? 3 : 1.5;
+                ctx.setLineDash(hl === 'cuerda' ? [] : [6, 4]);
+                ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.restore();
+                if (hl === 'cuerda') {
+                    label('Cuerda', (chAx + chBx) / 2 + 10, (chAy + chBy) / 2 - 18, '#c084fc', 12, true);
+                    dot(chAx, chAy, '#c084fc', 5);
+                    dot(chBx, chBy, '#c084fc', 5);
+                }
+            }
+
+            // ── ARCO ──
+            const arcStart = Math.PI * 1.15;
+            const arcEnd = Math.PI * 1.9;
+            if (hl === 'arco' || hl == null) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(cx, cy, radius, arcStart, arcEnd);
+                ctx.strokeStyle = hl === 'arco' ? '#f47068' : 'rgba(244,112,104,0.5)';
+                ctx.lineWidth = hl === 'arco' ? 5 : 2.5;
+                ctx.setLineDash([]);
+                ctx.stroke();
+                ctx.restore();
+                if (hl === 'arco') {
+                    const midArc = (arcStart + arcEnd) / 2;
+                    const ax = cx + (radius + 24) * Math.cos(midArc);
+                    const ay = cy + (radius + 24) * Math.sin(midArc);
+                    label('Arco', ax, ay, '#f47068', 12, true);
+                }
+            }
+
+            // ── RADIO ──
+            if (hl === 'radio' || hl == null) {
+                ctx.save();
+                const rAlpha = hl === 'radio' ? 1 : 0.75;
+                ctx.globalAlpha = rAlpha;
+                // Radio diagonal
+                const ang = -Math.PI / 4;
+                const rx = cx + radius * Math.cos(ang), ry = cy + radius * Math.sin(ang);
+                ctx.beginPath();
+                ctx.moveTo(cx, cy);
+                ctx.lineTo(rx, ry);
+                ctx.strokeStyle = '#f0c040';
+                ctx.lineWidth = hl === 'radio' ? 3 : 2;
+                ctx.setLineDash([]);
+                ctx.stroke();
+                arrowHead(ctx, rx, ry, ang, '#f0c040');
+                ctx.restore();
+                const rl = (radius / U).toFixed(1);
+                label(`r = ${rl} u`, cx + (radius / 2) * Math.cos(ang) + 16, cy + (radius / 2) * Math.sin(ang) - 16, '#f0c040', hl === 'radio' ? 13 : 11);
+            }
+
+            // ── DIÁMETRO ──
+            if (hl === 'diametro' || hl == null) {
+                ctx.save();
+                const dAlpha = hl === 'diametro' ? 1 : 0.65;
+                ctx.globalAlpha = dAlpha;
+                ctx.beginPath();
+                ctx.moveTo(cx - radius, cy);
+                ctx.lineTo(cx + radius, cy);
+                ctx.strokeStyle = '#f47068';
+                ctx.lineWidth = hl === 'diametro' ? 3 : 1.5;
+                ctx.setLineDash([]);
+                ctx.stroke();
+                // arrowheads
+                arrowHead(ctx, cx + radius, cy, 0, '#f47068');
+                arrowHead(ctx, cx - radius, cy, Math.PI, '#f47068');
+                ctx.restore();
+                const dl = ((radius * 2) / U).toFixed(1);
+                label(`d = ${dl} u`, cx, cy - 16, '#f47068', hl === 'diametro' ? 13 : 11);
+            }
+
+            // ── CIRCUMFERENCE ──
+            ctx.save();
+            const circAlpha = (hl === 'circunferencia' || hl === 'circulo' || hl == null) ? 1 : 0.25;
+            ctx.globalAlpha = circAlpha;
+            ctx.beginPath();
+            ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+            ctx.strokeStyle = hl === 'circunferencia' ? '#ffffff' : 'rgba(230,237,243,0.85)';
+            ctx.lineWidth = hl === 'circunferencia' ? 3.5 : 2;
+            ctx.shadowColor = hl === 'circunferencia' ? 'rgba(255,255,255,0.4)' : 'transparent';
+            ctx.shadowBlur = 10;
+            ctx.stroke();
+            ctx.restore();
+
+            if (hl === 'circunferencia') {
+                const cLabel = (2 * Math.PI * (radius / U)).toFixed(1);
+                label(`C = 2πr = ${cLabel} u`, cx, cy - radius - 22, '#e6edf3', 13, true);
+            }
+
+            // ── CENTER ──
+            ctx.save();
+            const centAlpha = (hl === 'centro' || hl === 'radio' || hl === 'diametro' || hl == null) ? 1 : 0.3;
+            ctx.globalAlpha = centAlpha;
+            ctx.beginPath();
+            ctx.arc(cx, cy, 8, 0, Math.PI * 2);
+            ctx.fillStyle = '#f0c040';
+            ctx.shadowColor = '#f0c040';
+            ctx.shadowBlur = 12;
+            ctx.fill();
+            ctx.restore();
+            label('O', cx + 14, cy - 10, '#f0c040', 12, true);
+
+            // ── RADIUS HANDLE ──
+            const rx0 = cx + radius, ry0 = cy;
+            dot(rx0, ry0, '#58d4e8', 9);
+            ctx.save();
+            ctx.strokeStyle = '#58d4e8';
+            ctx.lineWidth = 2.5;
+            ctx.beginPath(); ctx.arc(rx0, ry0, 13, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.restore();
+
+            // ── HIGHLIGHT LABEL ──
+            if (hl === 'circulo') {
+                label('Círculo (región interior)', cx, cy + 30, '#58d4e8', 14, true);
+            }
+            if (hl === 'centro') {
+                dot(cx, cy, '#f0c040', 12);
+                label('Centro O', cx, cy + 28, '#f0c040', 14, true);
+            }
+            if (hl === 'sector') {
+                // sector labels done above
+            }
+
+            // ── UNROLLED CIRCUMFERENCE VIZ (BOTTOM OF MAIN CANVAS) ──
+            const C_px = 2 * Math.PI * radius;
+            const d_px = 2 * radius;
+            const yLine = cy + radius + 70; 
+            
+            if (yLine < h - 10) { // Render only if fits
+                ctx.save();
+                const margin = 40;
+                const maxW = w - margin * 2;
+                const scalePx = Math.min(1, maxW / C_px); 
+                const act_C = C_px * scalePx;
+                const act_D = d_px * scalePx;
+                
+                // Set absolute center of canvas horizontally
+                const centerW = w / 2;
+                const lx = centerW - act_C / 2;
+                const yb = yLine;
+                
+                ctx.font = '600 13px Nunito';
+                ctx.fillStyle = '#8b949e';
+                ctx.textAlign = 'center';
+                ctx.fillText(`Despliegue de la Circunferencia (C = π × d)`, centerW, yb - 32);
+
+                const colors = ['#f47068', '#c084fc', '#58d4e8', '#6ee78e'];
+                const labels = ['1 d', '2 d', '3 d', '0.1416 d'];
+                
+                let cx_seg = lx;
+                for (let i = 0; i < 4; i++) {
+                    const segLen = (i < 3) ? act_D : (Math.PI - 3) * act_D;
+                    
+                    ctx.beginPath();
+                    ctx.strokeStyle = colors[i];
+                    ctx.lineWidth = 6;
+                    ctx.lineCap = 'round';
+                    ctx.moveTo(cx_seg, yb);
+                    ctx.lineTo(cx_seg + segLen, yb);
+                    ctx.stroke();
+                    
+                    if (segLen > 25) {
+                        ctx.fillStyle = colors[i];
+                        ctx.font = '700 12px Nunito';
+                        ctx.fillText(labels[i], cx_seg + segLen / 2, yb - 12);
+                    }
+                    
+                    ctx.lineWidth = 2;
+                    ctx.beginPath(); ctx.moveTo(cx_seg + segLen, yb - 8); ctx.lineTo(cx_seg + segLen, yb + 8); ctx.stroke();
+                    
+                    cx_seg += segLen;
+                }
+                
+                // Start mark
+                ctx.strokeStyle = '#f47068'; ctx.lineWidth = 2;
+                ctx.beginPath(); ctx.moveTo(lx, yLine - 8); ctx.lineTo(lx, yLine + 8); ctx.stroke();
+                
+                ctx.restore();
+            }
+
+            updateMetrics();
+        }
+
+        // ══════════════════════════════════════════════════════════
+        //  HELPERS
+        // ══════════════════════════════════════════════════════════
+        function dot(x, y, color, r) {
+            ctx.save();
+            ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
+            ctx.fillStyle = color;
+            ctx.shadowColor = color; ctx.shadowBlur = 10;
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function label(text, x, y, color, size, bold) {
+            ctx.save();
+            ctx.font = `${bold ? '700' : '400'} ${size}px Nunito`;
+            ctx.fillStyle = color;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            // background
+            const tw = ctx.measureText(text).width;
+            ctx.fillStyle = 'rgba(13,17,23,0.75)';
+            ctx.beginPath();
+            ctx.roundRect(x - tw / 2 - 6, y - size / 2 - 4, tw + 12, size + 8, 4);
+            ctx.fill();
+            ctx.fillStyle = color;
+            ctx.fillText(text, x, y);
+            ctx.restore();
+        }
+
+        function arrowHead(ctx, x, y, angle, color) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(angle);
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(-10, -5);
+            ctx.lineTo(-10, 5);
+            ctx.closePath();
+            ctx.fillStyle = color;
+            ctx.fill();
+            ctx.restore();
+        }
+
+        // ══════════════════════════════════════════════════════════
+        //  METRICS
+        // ══════════════════════════════════════════════════════════
+        function updateMetrics() {
+            const r = radius / U;
+            const d = 2 * r;
+            const C = 2 * Math.PI * r;
+            const A = Math.PI * r * r;
+            const piVal = C / d;
+
+            document.getElementById('mRadius').textContent = r.toFixed(1) + ' u';
+            document.getElementById('mDiam').textContent = d.toFixed(1) + ' u';
+            document.getElementById('mCirc').textContent = C.toFixed(2) + ' u';
+            document.getElementById('mArea').textContent = A.toFixed(2) + ' u²';
+            document.getElementById('piResult').textContent = piVal.toFixed(8);
+
+            // Bar: always π/π = 100%
+            document.getElementById('piBarFill').style.width = '100%';
+        }
+
+        // ══════════════════════════════════════════════════════════
+        //  HIGHLIGHT
+        // ══════════════════════════════════════════════════════════
+        function highlight(name) {
+            highlighted = (highlighted === name) ? null : name;
+            document.querySelectorAll('.def-item').forEach(el => el.classList.remove('active'));
+            if (highlighted) {
+                const el = document.getElementById('def-' + highlighted);
+                if (el) el.classList.add('active');
+            }
+            draw();
+        }
+
+        // ══════════════════════════════════════════════════════════
+        //  DRAG
+        // ══════════════════════════════════════════════════════════
+        function getPos(e) {
+            const r = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / (window.devicePixelRatio || 1) / r.width;
+            const scaleY = canvas.height / (window.devicePixelRatio || 1) / r.height;
+            const src = e.touches ? e.touches[0] : e;
+            return {
+                x: (src.clientX - r.left) * scaleX,
+                y: (src.clientY - r.top) * scaleY
+            };
+        }
+
+        function dist(ax, ay, bx, by) {
+            return Math.hypot(ax - bx, ay - by);
+        }
+
+        function onDown(e) {
+            e.preventDefault();
+            const { x, y } = getPos(e);
+            const hx = cx + radius, hy = cy;
+            if (dist(x, y, hx, hy) < 30) { dragging = 'radius'; return; }
+            if (dist(x, y, cx, cy) < 30) { dragging = 'center'; return; }
+        }
+
+        function onMove(e) {
+            if (!dragging) return;
+            e.preventDefault();
+            const { x, y } = getPos(e);
+            const dpr = window.devicePixelRatio || 1;
+            const w = canvas.width / dpr;
+            const h = canvas.height / dpr;
+            const pad = 30;
+
+            if (dragging === 'center') {
+                cx = Math.max(pad + radius, Math.min(w - pad - radius, x));
+                cy = Math.max(pad + radius, Math.min(h - pad - radius, y));
+            } else if (dragging === 'radius') {
+                const d = dist(x, y, cx, cy);
+                const maxR = Math.min(cx, cy, w - cx, h - cy) - pad;
+                radius = Math.max(30, Math.min(maxR, d));
+            }
+            draw();
+            if (unrolling) drawUnroll(unrollProgress);
+        }
+
+        function onUp() { dragging = null; }
+
+        canvas.addEventListener('mousedown', onDown);
+        canvas.addEventListener('mousemove', onMove);
+        canvas.addEventListener('mouseup', onUp);
+        canvas.addEventListener('touchstart', onDown, { passive: false });
+        canvas.addEventListener('touchmove', onMove, { passive: false });
+        canvas.addEventListener('touchend', onUp);
+
+        // ══════════════════════════════════════════════════════════
+        //  UNROLL ANIMATION
+        // ══════════════════════════════════════════════════════════
+        const uCanvas = document.getElementById('unrollCanvas');
+        const uCtx = uCanvas.getContext('2d');
+
+        function toggleUnroll() {
+            if (unrolling) {
+                unrolling = false;
+                uCanvas.style.display = 'none';
+                if (unrollAnim) cancelAnimationFrame(unrollAnim);
+                document.querySelector('.btn').textContent = '▶ Desenrollar la circunferencia';
+                return;
+            }
+            unrolling = true;
+            uCanvas.style.display = 'block';
+            document.querySelector('.btn').textContent = '⏹ Ocultar demostración';
+
+            // size
+            const dpr = window.devicePixelRatio || 1;
+            const pw = uCanvas.parentElement.clientWidth - 40;
+            uCanvas.width = pw * dpr;
+            uCanvas.height = 80 * dpr;
+            uCanvas.style.width = pw + 'px';
+            uCanvas.style.height = '80px';
+            uCtx.scale(dpr, dpr);
+
+            unrollProgress = 0;
+            animateUnroll();
+        }
+
+        function animateUnroll() {
+            unrollProgress += 0.012;
+            if (unrollProgress > 1) unrollProgress = 0;
+            drawUnroll(unrollProgress);
+            unrollAnim = requestAnimationFrame(animateUnroll);
+        }
+
+        function drawUnroll(t) {
+            const dpr = window.devicePixelRatio || 1;
+            const pw = uCanvas.width / dpr;
+            const ph = uCanvas.height / dpr;
+            uCtx.clearRect(0, 0, pw, ph);
+
+            const C = 2 * Math.PI * radius;
+            const scalePx = (pw - 20) / (C * 1.05); // fit circumference in width
+            const lineLen = C * t * scalePx;
+            const yLine = ph * 0.55;
+
+            // Diameter marks: C = π × d
+            const d = 2 * radius;
+            const dPx = d * scalePx;
+            const colors = ['#f47068', '#c084fc', '#58d4e8', '#6ee78e'];
+            const labels = ['d', 'd', 'd', '0.14159…d'];
+            let x = 10;
+            for (let i = 0; i < 4; i++) {
+                const segLen = (i < 3) ? dPx : (Math.PI - 3) * dPx;
+                const seg = Math.min(segLen, Math.max(0, lineLen - (i < 3 ? i * dPx : 3 * dPx)));
+                if (seg <= 0) break;
+                uCtx.save();
+                uCtx.strokeStyle = colors[i];
+                uCtx.lineWidth = 5;
+                uCtx.lineCap = 'round';
+                uCtx.shadowColor = colors[i]; uCtx.shadowBlur = 8;
+                uCtx.beginPath();
+                uCtx.moveTo(x, yLine);
+                uCtx.lineTo(x + seg, yLine);
+                uCtx.stroke();
+                // label
+                if (seg > 14) {
+                    uCtx.fillStyle = colors[i];
+                    uCtx.font = '600 10px Nunito';
+                    uCtx.textAlign = 'center';
+                    uCtx.fillText(labels[i], x + seg / 2, yLine - 10);
+                }
+                // tick
+                uCtx.strokeStyle = colors[i]; uCtx.lineWidth = 1.5; uCtx.shadowBlur = 0;
+                if (seg >= segLen) {
+                    uCtx.beginPath(); uCtx.moveTo(x + seg, yLine - 8); uCtx.lineTo(x + seg, yLine + 8); uCtx.stroke();
+                }
+                uCtx.restore();
+                if (i < 3) x += dPx;
+                else x += (Math.PI - 3) * dPx;
+            }
+
+            // Start tick
+            uCtx.save();
+            uCtx.strokeStyle = '#f47068'; uCtx.lineWidth = 1.5;
+            uCtx.beginPath(); uCtx.moveTo(10, yLine - 8); uCtx.lineTo(10, yLine + 8); uCtx.stroke();
+
+            // Pi label
+            if (t > 0.9) {
+                uCtx.font = 'bold 11px JetBrains Mono';
+                uCtx.fillStyle = '#6ee78e';
+                uCtx.textAlign = 'center';
+                uCtx.fillText(`C = π × d  ≈  3.14159 × d`, pw / 2, ph - 6);
+            }
+            uCtx.restore();
+        }
+
+        // ══════════════════════════════════════════════════════════
+        //  RESPONSIVE
+        // ══════════════════════════════════════════════════════════
+        window.addEventListener('resize', () => {
+            const oldR = radius;
+            const oldCx = cx, oldCy = cy;
+            const dpr = window.devicePixelRatio || 1;
+            const prevW = canvas.width / dpr;
+            initCircle();
+            // Try to preserve relative position
+            const newW = canvas.width / dpr;
+            const newH = canvas.height / dpr;
+            cx = Math.min(newW - 40, Math.max(40, oldCx * newW / prevW));
+            cy = newH / 2;
+            radius = Math.min(radius, Math.min(cx, cy, newW - cx, newH - cy) - 30);
+            draw();
+        });
+
+        // ══════════════════════════════════════════════════════════
+        //  BOOT
+        // ══════════════════════════════════════════════════════════
+        // Call immediately to avoid being blocked by global script errors
+        setTimeout(initCircle, 100);
+        window.addEventListener('resize', initCircle);
+        window.addEventListener('load', initCircle);
+        document.addEventListener('DOMContentLoaded', initCircle);
+    </script>
+</body>
+
+</html>

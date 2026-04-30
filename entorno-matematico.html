@@ -1,0 +1,226 @@
+<!-- entorno-matematico.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Entorno Geométrico y Matemático</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Estilos -->
+    <link rel="stylesheet" href="entorno-matematico.css">
+    
+    <!-- Evitar zoom táctil indeseado en móviles -->
+    <style>
+        body { touch-action: none; }
+    </style>
+</head>
+<body class="bc-app">
+
+    <div id="app-container">
+        <!-- HEADER PRINCIPAL -->
+        <header class="bc-header">
+            <div class="bc-brand">
+                <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i></a>
+                <span class="bc-title">Matemáticas Digital</span>
+            </div>
+            <div class="bc-header-actions">
+                <a href="#" class="coffee-btn" title="Este proyecto es para ti, tus hijos y en general un conocimiento más cercano.">
+                    <i class="fas fa-coffee"></i> Invítame a un café
+                </a>
+                <div class="score-badge" id="score-badge">
+                    <i class="fas fa-star"></i> <span id="score">0</span>
+                </div>
+                <button class="btn-icon" id="btn-info" title="Información"><i class="fas fa-info-circle"></i></button>
+            </div>
+        </header>
+
+        <!-- LAYOUT DE DOS FILAS: HEADER Y AREA PRINCIPAL -->
+        <div class="bc-main-layout">
+            
+            <!-- SIDEBAR - HERRAMIENTAS -->
+            <aside class="bc-sidebar" style="width: 180px;">
+                <div class="block-generators" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 10px;">
+                    <!-- Pares Positivo / Negativo -->
+                    <!-- 1 -->
+                    <div class="generator-item" data-type="num" data-val="1">
+                        <div class="preview-block 3d-block" style="width: 25px; height: 25px; background: #e2e8f0;"></div>
+                        <span style="color:#10b981;">+1</span>
+                    </div>
+                    <div class="generator-item" data-type="num" data-val="-1">
+                        <div class="preview-block 3d-block" style="width: 25px; height: 25px; background: #fee2e2; border: 1px solid #ef4444;"></div>
+                        <span style="color:#ef4444;">-1</span>
+                    </div>
+                    
+                    <!-- 2 -->
+                    <div class="generator-item" data-type="num" data-val="2">
+                        <div class="preview-block 3d-block" style="width: 25px; height: 50px; background: #fca5a5;"></div>
+                        <span style="color:#10b981;">+2</span>
+                    </div>
+                    <div class="generator-item" data-type="num" data-val="-2">
+                        <div class="preview-block 3d-block" style="width: 25px; height: 50px; background: repeating-linear-gradient(45deg, #ef4444, #ef4444 5px, #fca5a5 5px, #fca5a5 10px);"></div>
+                        <span style="color:#ef4444;">-2</span>
+                    </div>
+
+                    <!-- 3 -->
+                    <div class="generator-item" data-type="num" data-val="3">
+                        <div class="preview-block 3d-block" style="width: 25px; height: 75px; background: #86efac;"></div>
+                        <span style="color:#10b981;">+3</span>
+                    </div>
+                    <div class="generator-item" data-type="num" data-val="-3">
+                        <div class="preview-block 3d-block" style="width: 25px; height: 75px; background: repeating-linear-gradient(45deg, #ef4444, #ef4444 5px, rgba(239,68,68,0.3) 5px, rgba(239,68,68,0.3) 10px);"></div>
+                        <span style="color:#ef4444;">-3</span>
+                    </div>
+
+                    <!-- 4 -->
+                    <div class="generator-item" data-type="num" data-val="4">
+                        <div class="preview-block 3d-block" style="width: 25px; height: 100px; background: #c084fc;"></div>
+                        <span style="color:#10b981;">+4</span>
+                    </div>
+                    <div class="generator-item" data-type="num" data-val="-4">
+                        <div class="preview-block 3d-block" style="width: 25px; height: 100px; background: repeating-linear-gradient(45deg, #ef4444, #ef4444 5px, rgba(185,28,28,0.2) 5px, rgba(185,28,28,0.2) 10px);"></div>
+                        <span style="color:#ef4444;">-4</span>
+                    </div>
+
+                    <!-- 5 -->
+                    <div class="generator-item" data-type="num" data-val="5">
+                        <div class="preview-block 3d-block" style="width: 25px; height: 125px; background: #fde047;"></div>
+                        <span style="color:#10b981;">+5</span>
+                    </div>
+                    <div class="generator-item" data-type="num" data-val="-5">
+                        <div class="preview-block 3d-block" style="width: 25px; height: 125px; background: repeating-linear-gradient(45deg, #dc2626, #dc2626 5px, transparent 5px, transparent 10px); background-color: #f87171;"></div>
+                        <span style="color:#ef4444;">-5</span>
+                    </div>
+
+                    <!-- 6 -->
+                    <div class="generator-item" data-type="num" data-val="6">
+                        <div class="preview-block 3d-block" style="width: 25px; height: 150px; background: #14b8a6;"></div>
+                        <span style="color:#10b981;">+6</span>
+                    </div>
+                    <div class="generator-item" data-type="num" data-val="-6">
+                        <div class="preview-block 3d-block" style="width: 25px; height: 150px; background: repeating-linear-gradient(45deg, #b91c1c, #b91c1c 5px, transparent 5px, transparent 10px); background-color: #fca5a5;"></div>
+                        <span style="color:#ef4444;">-6</span>
+                    </div>
+
+                    <!-- 7 -->
+                    <div class="generator-item" data-type="num" data-val="7">
+                        <div class="preview-block 3d-block" style="width: 25px; height: 175px; background: #fb923c;"></div>
+                        <span style="color:#10b981;">+7</span>
+                    </div>
+                    <div class="generator-item" data-type="num" data-val="-7">
+                        <div class="preview-block 3d-block" style="width: 25px; height: 175px; background: repeating-linear-gradient(45deg, #991b1b, #991b1b 5px, transparent 5px, transparent 10px); background-color: #ef4444;"></div>
+                        <span style="color:#ef4444;">-7</span>
+                    </div>
+
+                    <!-- 8 -->
+                    <div class="generator-item" data-type="num" data-val="8">
+                        <div class="preview-block 3d-block" style="width: 25px; height: 200px; background: #9d174d;"></div>
+                        <span style="color:#10b981;">+8</span>
+                    </div>
+                    <div class="generator-item" data-type="num" data-val="-8">
+                        <div class="preview-block 3d-block" style="width: 25px; height: 200px; background: repeating-linear-gradient(45deg, #7f1d1d, #7f1d1d 5px, transparent 5px, transparent 10px); background-color: #dc2626;"></div>
+                        <span style="color:#ef4444;">-8</span>
+                    </div>
+
+                    <!-- 9 -->
+                    <div class="generator-item" data-type="num" data-val="9">
+                        <div class="preview-block 3d-block" style="width: 25px; height: 225px; background: #3b82f6;"></div>
+                        <span style="color:#10b981;">+9</span>
+                    </div>
+                    <div class="generator-item" data-type="num" data-val="-9">
+                        <div class="preview-block 3d-block" style="width: 25px; height: 225px; background: repeating-linear-gradient(45deg, #450a0a, #450a0a 5px, transparent 5px, transparent 10px); background-color: #b91c1c;"></div>
+                        <span style="color:#ef4444;">-9</span>
+                    </div>
+
+                    <!-- 10 -->
+                    <div class="generator-item" data-type="num" data-val="10">
+                        <div class="preview-block 3d-block" style="width: 25px; height: 250px; background: #f97316;"></div>
+                        <span style="color:#10b981;">+10</span>
+                    </div>
+                    <div class="generator-item" data-type="num" data-val="-10">
+                        <div class="preview-block 3d-block" style="width: 25px; height: 250px; background: repeating-linear-gradient(45deg, black, black 5px, #991b1b 5px, #991b1b 10px);"></div>
+                        <span style="color:#ef4444;">-10</span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- ESPACIO DE TRABAJO -->
+            <main class="bc-workspace">
+                
+                <div id="numberLinePanel" class="number-line-floating">
+                    <canvas id="numLineCanvas" width="600" height="60"></canvas>
+                </div>
+
+                <div class="playground" id="playground">
+                    <div class="playground-hint" style="pointer-events: none;">
+                        Haz clic en un bloque de la izquierda para enviarlo aquí.<br>¡Doble clic para rotarlos!
+                    </div>
+                </div>
+
+                <!-- TOOLBAR INFERIOR -->
+                <div class="bc-toolbar">
+                    <div class="toolbar-group">
+                        <button class="tool-btn" id="btn-draw" title="Modo Dibujo (Lápiz)"><i class="fas fa-pencil-alt"></i></button>
+                        <button class="tool-btn" id="btn-erase-draw" title="Borrar Dibujo"><i class="fas fa-eraser"></i></button>
+                        <div class="color-picker-wrapper" title="Color de figuras">
+                            <input type="color" id="blockColor" class="color-picker" value="#3b82f6" />
+                        </div>
+                    </div>
+                    <div class="toolbar-group">
+                        <button class="tool-btn text-danger" id="btn-clear" title="Limpiar Pizarra"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </div>
+            </main>
+            
+        </div>
+    </div>
+
+    <!-- PANELES FLOTANTES -->
+    <div id="explanation-panel" class="bc-floating-panel" style="top: 80px; right: 20px;">
+        <div class="panel-header">
+            <h3>Retroalimentación</h3>
+        </div>
+        <div class="panel-body" id="explanation-box">
+            Coloca bloques en la pizarra para comenzar a interactuar. Se agruparán automáticamente si los acercas.
+        </div>
+    </div>
+
+    <div id="gamification-panel" class="bc-floating-panel" style="bottom: 80px; right: 20px;">
+        <div class="panel-header" style="background:#10b981;">
+            <h3 style="color:white;"><i class="fas fa-flag-checkered"></i> Reto Misión</h3>
+        </div>
+        <div class="panel-body" id="challenge-box">
+            <p><strong>Misión actual:</strong> <span id="challenge-text">Cargando...</span></p>
+        </div>
+    </div>
+
+    <!-- PANEL GUIA ORDEN Y SIGNOS -->
+    <div id="cheatsheet-panel" class="bc-floating-panel" style="bottom: 80px; left: 200px; width: 220px;">
+        <div class="panel-header" style="background:#0ea5e9;">
+            <h3 style="color:white;"><i class="fas fa-book-open"></i> Guía Rápida</h3>
+        </div>
+        <div class="panel-body" style="font-size: 0.85rem; line-height: 1.5; background: rgba(255,255,255,0.9);">
+            <strong>Ley de los Signos:</strong><br>
+            <span style="color:#10b981; font-weight:bold;">(+)</span> × <span style="color:#10b981; font-weight:bold;">(+)</span> = <span style="color:#10b981; font-weight:bold;">+</span><br>
+            <span style="color:#ef4444; font-weight:bold;">(-)</span> × <span style="color:#ef4444; font-weight:bold;">(-)</span> = <span style="color:#10b981; font-weight:bold;">+</span><br>
+            <span style="color:#10b981; font-weight:bold;">(+)</span> × <span style="color:#ef4444; font-weight:bold;">(-)</span> = <span style="color:#ef4444; font-weight:bold;">-</span><br>
+            <span style="color:#ef4444; font-weight:bold;">(-)</span> × <span style="color:#10b981; font-weight:bold;">(+)</span> = <span style="color:#ef4444; font-weight:bold;">-</span><br>
+            <hr style="margin: 8px 0; border: 0; border-top: 1px solid #cbd5e1;">
+            <strong>Orden (PEMDAS / PAPOMUDAS):</strong><br>
+            1. <strong>PA</strong>réntesis <strong>( ) [ ] { }</strong><br>
+            2. <strong>PO</strong>tencias <strong>xⁿ √</strong><br>
+            3. <strong>MU</strong>ltipl. / <strong>D</strong>iv. <strong>× ÷</strong><br>
+            4. <strong>A</strong>dición / <strong>S</strong>ustr. <strong>+ -</strong>
+        </div>
+    </div>
+
+    <canvas id="drawing-canvas" style="position:absolute; top:0; left:0; pointer-events:none; z-index:4;"></canvas>
+
+    <script src="entorno-matematico.js"></script>
+</body>
+</html>

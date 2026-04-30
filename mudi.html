@@ -1,0 +1,160 @@
+<!-- mudi.html - Laboratorio de Aritmética Avanzada -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MUDI - Laboratorio de Multiplicación y División</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="mudi.css">
+</head>
+<body>
+
+    <div id="mudi-app">
+        <!-- HEADER -->
+        <header class="mudi-header">
+            <div class="brand">
+                <a href="index.html" style="color: inherit;"><i class="fas fa-home"></i></a>
+                <h1>MUDI <span style="font-weight: 400; font-size: 0.9rem; color: #64748b;">| Multiplicación y División Interactiva</span></h1>
+            </div>
+            <div class="header-tools" style="display: flex; align-items: center; gap: 1.5rem;">
+                <a href="#" class="coffee-btn" title="Este proyecto es para ti, tus hijos y en general un conocimiento más cercano.">
+                    <i class="fas fa-coffee"></i> Invítame a un café
+                </a>
+                <span id="global-sum" style="font-weight: 700; background: #f1f5f9; padding: 0.4rem 1rem; border-radius: 999px;">Total: 0</span>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <!-- SIDEBAR: SISTEMA DECIMAL -->
+            <aside class="mudi-sidebar">
+                <div class="section-title">Valores Positivos</div>
+                <div class="decimal-grid">
+                    <div class="gen-item" data-val="1000000">
+                        <div class="preview-box" style="background: var(--color-millon)"></div>
+                        <span>1,000,000</span>
+                    </div>
+                    <div class="gen-item" data-val="1000">
+                        <div class="preview-box" style="background: var(--color-m)"></div>
+                        <span>1,000</span>
+                    </div>
+                    <div class="gen-item" data-val="100">
+                        <div class="preview-box" style="background: var(--color-c)"></div>
+                        <span>100</span>
+                    </div>
+                    <div class="gen-item" data-val="10">
+                        <div class="preview-box" style="background: var(--color-d)"></div>
+                        <span>10</span>
+                    </div>
+                    <div class="gen-item" data-val="1">
+                        <div class="preview-box" style="background: var(--color-u)"></div>
+                        <span>1</span>
+                    </div>
+                </div>
+
+                <div class="section-title">Decimales</div>
+                <div class="decimal-grid">
+                    <div class="gen-item" data-val="0.1">
+                        <div class="preview-box" style="background: var(--color-tenths)"></div>
+                        <span>0.1 (d)</span>
+                    </div>
+                    <div class="gen-item" data-val="0.01">
+                        <div class="preview-box" style="background: var(--color-hundredths)"></div>
+                        <span>0.01 (c)</span>
+                    </div>
+                    <div class="gen-item" data-val="0.001">
+                        <div class="preview-box" style="background: var(--color-thousandths)"></div>
+                        <span>0.001 (m)</span>
+                    </div>
+                </div>
+
+                <div class="section-title">Laboratorio de Potencias</div>
+                <div class="theory-card" style="margin-bottom: 1rem;">
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <div style="display: flex; gap: 5px; align-items: center;">
+                            <input type="number" id="base-input" placeholder="Base" style="width: 60px; padding: 5px; border-radius: 4px; border: 1px solid #cbd5e1;">
+                            <span style="font-weight: 700;">^</span>
+                            <input type="number" id="exp-input" placeholder="Exp" style="width: 50px; padding: 5px; border-radius: 4px; border: 1px solid #cbd5e1;">
+                        </div>
+                        <button id="btn-calc-pow" class="gen-item" style="width: 100%; background: var(--accent-purple); color: white; border: none; flex-direction: row; gap: 10px;">
+                            <i class="fas fa-bolt"></i> Calcular y Generar
+                        </button>
+                    </div>
+                </div>
+
+                <div class="section-title">Laboratorio de Raíces</div>
+                <div class="theory-card">
+                    <div style="display: flex; gap: 5px; align-items: center;">
+                        <span style="font-weight: 700;">√</span>
+                        <input type="number" id="root-input" placeholder="Número" style="width: 100%; padding: 5px; border-radius: 4px; border: 1px solid #cbd5e1;">
+                    </div>
+                    <button id="btn-calc-root" class="gen-item" style="width: 100%; margin-top: 5px; background: var(--accent-orange); color: white; border: none; flex-direction: row; gap: 10px;">
+                        <i class="fas fa-square-root-variable"></i> Calcular Raíz
+                    </button>
+                </div>
+                
+                <button id="btn-clear" style="margin-top: 2rem; padding: 1rem; border: none; background: #fee2e2; color: #ef4444; font-weight: 700; border-radius: 8px; cursor: pointer; width: 100%;">
+                    <i class="fas fa-trash-alt"></i> Limpiar Todo
+                </button>
+            </aside>
+
+            <!-- WORKSPACE -->
+            <main class="mudi-workspace">
+                <div id="playground">
+                    <!-- Los bloques se inyectan aquí -->
+                    
+                    <!-- Explicación Técnica Flotante (Segura) -->
+                    <div id="advanced-explanation" class="mudi-panel" style="position: absolute; bottom: 20px; left: 20px; width: 350px; z-index: 100; display: none; background: rgba(255,255,255,0.95); box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
+                        <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <strong id="exp-title" style="color: var(--accent-blue);">Explicación Técnica</strong>
+                            <button onclick="this.parentElement.parentElement.style.display='none'" style="border:none; background:none; cursor:pointer;"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div id="exp-content" class="theory-card" style="font-size: 0.9rem;"></div>
+                    </div>
+                </div>
+
+                <!-- PANELES DE INFORMACION FLOTANTES -->
+                <div class="info-panels">
+                    <!-- Descomposición -->
+                    <div class="mudi-panel" id="decomp-panel">
+                        <div class="panel-title"><i class="fas fa-layer-group"></i> Descomposición</div>
+                        <div id="decomp-box" class="theory-card">Agrega bloques para ver su descomposición decimal.</div>
+                    </div>
+
+                    <!-- Trucos de Multiplicación -->
+                    <div class="mudi-panel" id="trick-panel">
+                        <div class="panel-title"><i class="fas fa-lightbulb"></i> Tips Avanzados</div>
+                        <div id="trick-box" class="theory-card">
+                            <span class="trick-badge">Multiplicación Visual</span>
+                            <p style="margin: 0;">¿Sabías que multiplicar por 10 es solo "deslizar" el número una posición a la izquierda en el tablero?</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HERRAMIENTA DE JERARQUIA / RESULTADOS -->
+                <div class="bottom-tools">
+                    <div class="tool-section">
+                        <div class="panel-title"><i class="fas fa-equals"></i> Operación Actual</div>
+                        <div id="operation-display" style="font-family: 'Courier New', monospace; font-size: 1.5rem; font-weight: 700; color: var(--accent-blue);">
+                            Esperando bloques...
+                        </div>
+                    </div>
+                    <div class="tool-section">
+                        <div class="panel-title"><i class="fas fa-brain"></i> Guía Logitma/Exponente</div>
+                        <div id="log-exp-box" style="font-size: 0.85rem;">
+                            Usa los bloques de operación para visualizar potencias.
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- MODALES / LABELS -->
+    <div id="ui-labels"></div>
+
+    <script src="mudi.js"></script>
+</body>
+</html>

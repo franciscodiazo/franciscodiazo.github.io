@@ -1,0 +1,388 @@
+/* Entorno Matemático - Estilo Brainingcamp Layout */
+:root {
+    --bc-bg: #e5e7eb;
+    --bc-sidebar-bg: #f8fafc;
+    --bc-header-bg: #ffffff;
+    --bc-toolbar-bg: #ffffff;
+    --bc-border: #cbd5e1;
+    --bc-accent: #0ea5e9;
+    --bc-text: #334155;
+    --bc-dark: #0f172a;
+    --bc-grid: #cbd5e1;
+}
+
+body.bc-app {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bc-bg);
+    color: var(--bc-text);
+}
+
+#app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* HEADER */
+.bc-header {
+    height: 50px;
+    background-color: var(--bc-header-bg);
+    border-bottom: 1px solid var(--bc-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    z-index: 10;
+}
+
+.bc-brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.back-link {
+    color: var(--bc-text);
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.back-link:hover {
+    color: var(--bc-accent);
+}
+
+.bc-title {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--bc-dark);
+}
+
+.bc-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.score-badge {
+    background: #FEFCE8; /* Fondo ámbar muy claro para visibilidad */
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-weight: 700;
+    color: #92400E; /* Ámbar oscuro para alto contraste sobre fondo claro */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid #F59E0B;
+}
+
+.score-badge span {
+    color: var(--bc-text);
+}
+
+.btn-icon {
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    color: var(--bc-text);
+    cursor: pointer;
+    transition: color 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+}
+
+.btn-icon:hover {
+    color: var(--bc-accent);
+    background: #f1f5f9;
+}
+
+/* MAIN LAYOUT */
+.bc-main-layout {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* SIDEBAR */
+.bc-sidebar {
+    width: 120px;
+    background-color: var(--bc-sidebar-bg);
+    border-right: 1px solid var(--bc-border);
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 0;
+    overflow-y: auto;
+    z-index: 5;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.02);
+}
+
+.block-generators {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.generator-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: transform 0.1s;
+    user-select: none;
+}
+
+.generator-item:hover {
+    transform: scale(1.05);
+}
+
+.generator-item span {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--bc-text);
+}
+
+/* BLOCKS PREVIEW & ACTUAL */
+.preview-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Efecto Base 10 Premium 3D */
+.math-block.num-block, .preview-block.3d-block {
+    border-radius: 4px;
+    box-shadow: 
+        inset -2px -2px 6px rgba(0,0,0,0.2), 
+        inset 2px 2px 6px rgba(255,255,255,0.4),
+        0 4px 6px rgba(0,0,0,0.2);
+    border: 1px solid rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.math-block {
+    position: absolute;
+    cursor: grab;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    touch-action: none; /* Prevenir scroll/zoom táctil nativo en la figura */
+    z-index: 2;
+}
+
+.math-block:active {
+    cursor: grabbing;
+    z-index: 1000 !important;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+}
+
+/* WORKSPACE */
+.bc-workspace {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: #ffffff;
+}
+
+.playground {
+    flex: 1;
+    position: relative; /* Crucial para drag offset */
+    overflow: hidden;
+    background-image: 
+        radial-gradient(circle, var(--bc-grid) 1px, transparent 1px),
+        radial-gradient(circle, var(--bc-grid) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: 0 0, 20px 20px;
+}
+
+.playground-hint {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #cbd5e1;
+    font-size: 1.5rem;
+    font-weight: 500;
+    pointer-events: none;
+    text-align: center;
+}
+
+.number-line-floating {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: blur(4px);
+    padding: 10px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border: 1px solid var(--bc-border);
+    z-index: 1;
+}
+
+/* BOTTOM TOOLBAR */
+.bc-toolbar {
+    height: 60px;
+    background-color: var(--bc-toolbar-bg);
+    border-top: 1px solid var(--bc-border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 2rem;
+    gap: 2rem;
+    z-index: 10;
+}
+
+.toolbar-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.tool-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--bc-border);
+    background: #ffffff;
+    color: var(--bc-text);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.tool-btn:hover {
+    background: #f1f5f9;
+    color: var(--bc-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.color-picker-wrapper {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid var(--bc-border);
+    cursor: pointer;
+}
+
+.color-picker {
+    width: 150%;
+    height: 150%;
+    border: none;
+    transform: translate(-25%, -25%);
+    cursor: pointer;
+}
+
+/* PANELES FLOTANTES */
+.bc-floating-panel {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--bc-border);
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    width: 300px;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--bc-border);
+    background: #f8fafc;
+    border-radius: 8px 8px 0 0;
+}
+
+.panel-header h3 {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--bc-dark);
+}
+
+.panel-body {
+    padding: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.panel-body ul {
+    margin: 0;
+    padding-left: 1.2rem;
+}
+
+.panel-body li {
+    margin-bottom: 0.5rem;
+}
+
+.panel-body span {
+    font-weight: 600;
+    color: var(--bc-accent);
+}
+
+.coffee-btn {
+    background: #78350f !important;
+    color: white !important;
+    text-decoration: none;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(120, 53, 15, 0.2);
+    border: none;
+    cursor: pointer;
+}
+
+.coffee-btn:hover {
+    background: #92400e !important;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(120, 53, 15, 0.4);
+}
+
+@media (max-width: 768px) {
+    .bc-sidebar {
+        width: 80px;
+    }
+    .generator-item span {
+        font-size: 0.8rem;
+    }
+    .number-line-floating canvas {
+        width: 100%;
+        max-width: 400px;
+    }
+}

@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saber 11 2026 · Simulacro ICFES</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --cobalt-blue: #003380; /* Más profundo para mejor contraste */
+            --sage-green: #1B5E20; /* Verde bosque profundo para legibilidad en texto */
+            --slate-gray: #475569;
+            --dark-blue: #0F172A;
+            --light-bg: #F1F5F9;
+            --white: #FFFFFF;
+            --accent-error: #C2410C; /* Naranja quemado para errores */
+            --accent-success: #15803D; /* Verde esmeralda oscuro */
+            --panel-bg: #1E293B; /* Fondo oscuro para bloques de código/algoritmos */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        
+        h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; color: var(--dark-blue); }
+
+        .container {
+            max-width: 900px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .header-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header-title h1 {
+            font-size: 2.5rem;
+            color: var(--sage-green); /* Changed to pop on dark mode */
+            margin-bottom: 0.5rem;
+        }
+        
+        .header-title p {
+            color: var(--light-bg); /* Lighter text for dark bg */
+            font-size: 1.1rem;
+        }
+
+        /* Question Card */
+        .question-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem 3rem;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+            border-top: 5px solid var(--cobalt-blue);
+            color: var(--dark-blue); /* Asegura que el texto general sea legible en fondo blanco */
+        }
+
+        .question-image {
+            width: 100%;
+            height: auto;
+            margin: 1.5rem auto;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            display: block;
+        }
+
+        /* ICFES Simulation Sheet */
+        .icfes-sheet {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: #F1F5F9;
+            border-radius: 8px;
+            border: 2px dashed #CBD5E1;
+            flex-wrap: wrap;
+        }
+
+        .icfes-sheet h3 {
+            font-size: 1.1rem;
+            color: #475569;
+            min-width: 150px;
+        }
+
+        .ovals-group {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .oval-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--dark-blue);
+        }
+
+        .oval-label input[type="radio"] {
+            display: none;
+        }
+
+        .oval {
+            width: 40px;
+            height: 25px;
+            border: 2px solid #64748B;
+            border-radius: 50%;
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            position: relative;
+            color: var(--dark-blue); /* Color oscuro explícito para legibilidad */
+            font-size: 0.85rem;
+        }
+
+        .oval-label input[type="radio"]:checked + .oval {
+            background: #334155;
+            border-color: #334155;
+            color: transparent;
+        }
+
+        .oval-label input[type="radio"]:checked + .oval::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #1e293b;
+        }
+
+        .eval-btn {
+            background: var(--cobalt-blue);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Outfit';
+            font-weight: 600;
+            margin-top: 2rem;
+            transition: background 0.3s;
+            width: 100%;
+        }
+
+        .eval-btn:hover { background: var(--dark-blue); }
+        .eval-btn:disabled { background: #94A3B8; cursor: not-allowed; }
+
+        .feedback { margin-top: 1.5rem; border-radius: 8px; animation: fadeIn 0.4s ease; display: none; }
+        .feedback.show { display: block; }
+        
+        .feedback-success { 
+            padding: 1.5rem; 
+            background: #ECFDF5; 
+            border-left: 5px solid var(--accent-success); 
+            border-radius: 8px; 
+            color: var(--accent-success); 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .feedback-success h4 { color: #065F46; margin-bottom: 0.5rem; font-weight: 800; }
+        
+        .feedback-error { 
+            padding: 1.5rem; 
+            background: #FFF7ED; 
+            border-left: 5px solid var(--accent-error); 
+            border-radius: 8px; 
+            color: var(--accent-error); 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .feedback-error h4 { color: #9A3412; margin-bottom: 0.5rem; font-weight: 800; }
+
+        .notebook-btn {
+            display: inline-flex; align-items: center; gap: 0.5rem; background: var(--dark-blue); color: var(--white); padding: 0.75rem 1.5rem; border-radius: 5px; text-decoration: none; font-weight: 600; margin-top: 1rem; transition: transform 0.2s;
+        }
+        .gemini-btn {
+            display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, #4285f4, #9b72f3); color: var(--white); padding: 0.75rem 1.5rem; border-radius: 5px; text-decoration: none; font-weight: 600; margin-top: 1rem; transition: transform 0.2s;
+        }
+        .copilot-btn {
+            display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, #0078d4, #00bcf2); color: #fff; padding: 0.75rem 1.5rem; border-radius: 5px; text-decoration: none; font-weight: 600; margin-top: 1rem; transition: transform 0.2s;
+        }
+        .notebook-btn:hover, .gemini-btn:hover, .copilot-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+        #confetti { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999; }
+    </style>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">ingfrancisco</span><span class="logo-accent">diaz</span><span
+                    class="logo-dot">.</span>
+            </a>
+            
+            <nav class="nav-links">
+                <a href="index.html">Inicio</a>
+                
+                <div class="nav-dropdown">
+                    <span class="nav-dropdown-trigger">STEM & Proyectos <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></span>
+                    <div class="nav-dropdown-content">
+                        <a href="entorno-matematico.html"><i class="fas fa-shapes" style="margin-right: 0.5rem; width: 15px;"></i> Laboratorio Matemático</a>
+                        <a href="tablero.html"><i class="fas fa-chalkboard" style="margin-right: 0.5rem; width: 15px;"></i> Tablero Interactivo</a>
+                        <a href="recursos.html"><i class="fas fa-flask" style="margin-right: 0.5rem; width: 15px;"></i> Recursos STEM</a>
+                        <a href="proyectos-estudiantes.html"><i class="fas fa-rocket" style="margin-right: 0.5rem; width: 15px;"></i> Vitrina Estudiantil</a>
+                    </div>
+                </div>
+
+                <div class="nav-dropdown">
+                    <span class="nav-dropdown-trigger highlight-link">Saber 11 <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></span>
+                    <div class="nav-dropdown-content">
+                        <a href="Saber11_Matematicas_2026_10Encuentros.html"><i class="fas fa-graduation-cap" style="margin-right: 0.5rem; width: 15px;"></i> Guías Python</a>
+                        <a href="simulacro-icfes.html"><i class="fas fa-check-double" style="margin-right: 0.5rem; width: 15px;"></i> Simulacro Interactivo</a>
+                        <a href="guia-geometria-circular.html"><i class="fas fa-circle-notch" style="margin-right: 0.5rem; width: 15px;"></i> Guía: Geo. Circular</a>
+                        <a href="geo-triangulos.html"><i class="fas fa-caret-up" style="margin-right: 0.5rem; width: 15px;"></i> Sim. Triángulos</a>
+                        <a href="geo-circulo.html"><i class="fas fa-circle" style="margin-right: 0.5rem; width: 15px;"></i> Sim. El Círculo</a>
+                    </div>
+                </div>
+
+                <div class="nav-dropdown">
+                    <span class="nav-dropdown-trigger">Innovación <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></span>
+                    <div class="nav-dropdown-content">
+                        <a href="directorio-ia.html"><i class="fas fa-robot" style="margin-right: 0.5rem; width: 15px;"></i> Directorio IA</a>
+                        <a href="dua.html"><i class="fas fa-universal-access" style="margin-right: 0.5rem; width: 15px;"></i> Propuesta DUA</a>
+                    </div>
+                </div>
+
+                <div class="nav-dropdown">
+                    <span class="nav-dropdown-trigger">El Mediador <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></span>
+                    <div class="nav-dropdown-content">
+                        <a href="portafolio.html"><i class="fas fa-briefcase" style="margin-right: 0.5rem; width: 15px;"></i> Portafolio Web</a>
+                        <a href="blog.html"><i class="fas fa-book-open" style="margin-right: 0.5rem; width: 15px;"></i> Bitácora</a>
+                    </div>
+                </div>
+                
+            </nav>
+            <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+        </div>
+    </header>
+
+    <div class="gamification-floating-bar">
+        <div class="gamification-label">Insignias</div>
+        <div id="gamification-badges" class="gamification-badges"></div>
+    </div>
+
+
+    
+
+
+
+    
+
+
+    
+
+
+    
+
+    <canvas id="confetti"></canvas>
+    
+    
+
+    <div class="container">
+        <div class="header-title">
+            <h1>Simulacro Tipo ICFES</h1>
+            <p>Familiarízate con el formato del examen. Analiza la situación, observa la gráfica y rellena completamente el óvalo de la respuesta correcta.</p>
+        </div>
+
+        <!-- Pregunta 1 -->
+        <div class="question-card" id="q1">
+            <p style="font-size: 1.15rem; margin-bottom: 1rem;"><strong>Pregunta 1.</strong> Responde a partir de la siguiente imagen:</p>
+            
+            <img src="assets/pruebas/1.png" alt="Pregunta 1" class="question-image">
+
+            <div class="icfes-sheet">
+                <h3>Hoja de Respuestas:</h3>
+                <div class="ovals-group">
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">A</div>
+                        <input type="radio" name="q1_ans" value="A">
+                        <div class="oval">A</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">B</div>
+                        <input type="radio" name="q1_ans" value="B">
+                        <div class="oval">B</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">C</div>
+                        <input type="radio" name="q1_ans" value="C">
+                        <div class="oval">C</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">D</div>
+                        <input type="radio" name="q1_ans" value="D">
+                        <div class="oval">D</div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="eval-btn" onclick="evaluar('q1', 'B', '1', 'Medidas de tendencia central (Mediana)')">Confirmar Respuesta y Calificar</button>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 2 -->
+        <div class="question-card" id="q2">
+            <p style="font-size: 1.15rem; margin-bottom: 1rem;"><strong>Pregunta 2.</strong> Responde a partir de la siguiente imagen:</p>
+            
+            <img src="assets/pruebas/2.png" alt="Pregunta 2" class="question-image">
+
+            <div class="icfes-sheet">
+                <h3>Hoja de Respuestas:</h3>
+                <div class="ovals-group">
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">A</div>
+                        <input type="radio" name="q2_ans" value="A">
+                        <div class="oval">A</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">B</div>
+                        <input type="radio" name="q2_ans" value="B">
+                        <div class="oval">B</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">C</div>
+                        <input type="radio" name="q2_ans" value="C">
+                        <div class="oval">C</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">D</div>
+                        <input type="radio" name="q2_ans" value="D">
+                        <div class="oval">D</div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="eval-btn" onclick="evaluar('q2', 'B', '2', 'Semejanza de figuras y proporcionalidad geométrica')">Confirmar Respuesta y Calificar</button>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 3 -->
+        <div class="question-card" id="q3">
+            <p style="font-size: 1.15rem; margin-bottom: 1rem;"><strong>Pregunta 3.</strong> Responde a partir de la siguiente imagen:</p>
+            
+            <img src="assets/pruebas/3.png" alt="Pregunta 3" class="question-image">
+
+            <div class="icfes-sheet">
+                <h3>Hoja de Respuestas:</h3>
+                <div class="ovals-group">
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">A</div>
+                        <input type="radio" name="q3_ans" value="A">
+                        <div class="oval">A</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">B</div>
+                        <input type="radio" name="q3_ans" value="B">
+                        <div class="oval">B</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">C</div>
+                        <input type="radio" name="q3_ans" value="C">
+                        <div class="oval">C</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">D</div>
+                        <input type="radio" name="q3_ans" value="D">
+                        <div class="oval">D</div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="eval-btn" onclick="evaluar('q3', 'B', '3', 'Interpretación de gráficos circulares (Moda estadística)')">Confirmar Respuesta y Calificar</button>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 4 -->
+        <div class="question-card" id="q4">
+            <p style="font-size: 1.15rem; margin-bottom: 1rem;"><strong>Pregunta 4.</strong> Responde a partir de la siguiente imagen:</p>
+            
+            <img src="assets/pruebas/4.png" alt="Pregunta 4" class="question-image">
+
+            <div class="icfes-sheet">
+                <h3>Hoja de Respuestas:</h3>
+                <div class="ovals-group">
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">A</div>
+                        <input type="radio" name="q4_ans" value="A">
+                        <div class="oval">A</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">B</div>
+                        <input type="radio" name="q4_ans" value="B">
+                        <div class="oval">B</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">C</div>
+                        <input type="radio" name="q4_ans" value="C">
+                        <div class="oval">C</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">D</div>
+                        <input type="radio" name="q4_ans" value="D">
+                        <div class="oval">D</div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="eval-btn" onclick="evaluar('q4', 'B', '4', 'Área y Volumen de prismas')">Confirmar Respuesta y Calificar</button>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 5 -->
+        <div class="question-card" id="q5">
+            <p style="font-size: 1.15rem; margin-bottom: 1rem;"><strong>Pregunta 5.</strong> Responde a partir de la siguiente imagen:</p>
+            
+            <img src="assets/pruebas/5.png" alt="Pregunta 5" class="question-image">
+
+            <div class="icfes-sheet">
+                <h3>Hoja de Respuestas:</h3>
+                <div class="ovals-group">
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">A</div>
+                        <input type="radio" name="q5_ans" value="A">
+                        <div class="oval">A</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">B</div>
+                        <input type="radio" name="q5_ans" value="B">
+                        <div class="oval">B</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">C</div>
+                        <input type="radio" name="q5_ans" value="C">
+                        <div class="oval">C</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">D</div>
+                        <input type="radio" name="q5_ans" value="D">
+                        <div class="oval">D</div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="eval-btn" onclick="evaluar('q5', 'C', '5', 'Probabilidad combinatoria')">Confirmar Respuesta y Calificar</button>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 6 -->
+        <div class="question-card" id="q6">
+            <p style="font-size: 1.15rem; margin-bottom: 1rem;"><strong>Pregunta 6.</strong> Responde a partir de la siguiente imagen:</p>
+            
+            <img src="assets/pruebas/6.png" alt="Pregunta 6" class="question-image">
+
+            <div class="icfes-sheet">
+                <h3>Hoja de Respuestas:</h3>
+                <div class="ovals-group">
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">A</div>
+                        <input type="radio" name="q6_ans" value="A">
+                        <div class="oval">A</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">B</div>
+                        <input type="radio" name="q6_ans" value="B">
+                        <div class="oval">B</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">C</div>
+                        <input type="radio" name="q6_ans" value="C">
+                        <div class="oval">C</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">D</div>
+                        <input type="radio" name="q6_ans" value="D">
+                        <div class="oval">D</div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="eval-btn" onclick="evaluar('q6', 'C', '6', 'Probabilidad simple (Casos favorables / Casos posibles)')">Confirmar Respuesta y Calificar</button>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 7 -->
+        <div class="question-card" id="q7">
+            <p style="font-size: 1.15rem; margin-bottom: 1rem;"><strong>Pregunta 7.</strong> Responde a partir de la siguiente imagen:</p>
+            
+            <img src="assets/pruebas/7.png" alt="Pregunta 7" class="question-image">
+
+            <div class="icfes-sheet">
+                <h3>Hoja de Respuestas:</h3>
+                <div class="ovals-group">
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">A</div>
+                        <input type="radio" name="q7_ans" value="A">
+                        <div class="oval">A</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">B</div>
+                        <input type="radio" name="q7_ans" value="B">
+                        <div class="oval">B</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">C</div>
+                        <input type="radio" name="q7_ans" value="C">
+                        <div class="oval">C</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">D</div>
+                        <input type="radio" name="q7_ans" value="D">
+                        <div class="oval">D</div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="eval-btn" onclick="evaluar('q7', 'C', '7', 'Relaciones inversamente proporcionales')">Confirmar Respuesta y Calificar</button>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 8 -->
+        <div class="question-card" id="q8">
+            <p style="font-size: 1.15rem; margin-bottom: 1rem;"><strong>Pregunta 8.</strong> Responde a partir de la siguiente imagen:</p>
+            
+            <img src="assets/pruebas/8.png" alt="Pregunta 8" class="question-image">
+
+            <div class="icfes-sheet">
+                <h3>Hoja de Respuestas:</h3>
+                <div class="ovals-group">
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">A</div>
+                        <input type="radio" name="q8_ans" value="A">
+                        <div class="oval">A</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">B</div>
+                        <input type="radio" name="q8_ans" value="B">
+                        <div class="oval">B</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">C</div>
+                        <input type="radio" name="q8_ans" value="C">
+                        <div class="oval">C</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">D</div>
+                        <input type="radio" name="q8_ans" value="D">
+                        <div class="oval">D</div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="eval-btn" onclick="evaluar('q8', 'D', '8', 'Expresiones algebraicas para representar Volúmenes')">Confirmar Respuesta y Calificar</button>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 9 -->
+        <div class="question-card" id="q9">
+            <p style="font-size: 1.15rem; margin-bottom: 1rem;"><strong>Pregunta 9.</strong> Responde a partir de la siguiente imagen:</p>
+            
+            <img src="assets/pruebas/9.png" alt="Pregunta 9" class="question-image">
+
+            <div class="icfes-sheet">
+                <h3>Hoja de Respuestas:</h3>
+                <div class="ovals-group">
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">A</div>
+                        <input type="radio" name="q9_ans" value="A">
+                        <div class="oval">A</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">B</div>
+                        <input type="radio" name="q9_ans" value="B">
+                        <div class="oval">B</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">C</div>
+                        <input type="radio" name="q9_ans" value="C">
+                        <div class="oval">C</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">D</div>
+                        <input type="radio" name="q9_ans" value="D">
+                        <div class="oval">D</div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="eval-btn" onclick="evaluar('q9', 'B', '9', 'Lectura de datos en tablas')">Confirmar Respuesta y Calificar</button>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 10 -->
+        <div class="question-card" id="q10">
+            <p style="font-size: 1.15rem; margin-bottom: 1rem;"><strong>Pregunta 10.</strong> Responde a partir de la siguiente imagen:</p>
+            
+            <img src="assets/pruebas/10.png" alt="Pregunta 10" class="question-image">
+
+            <div class="icfes-sheet">
+                <h3>Hoja de Respuestas:</h3>
+                <div class="ovals-group">
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">A</div>
+                        <input type="radio" name="q10_ans" value="A">
+                        <div class="oval">A</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">B</div>
+                        <input type="radio" name="q10_ans" value="B">
+                        <div class="oval">B</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">C</div>
+                        <input type="radio" name="q10_ans" value="C">
+                        <div class="oval">C</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">D</div>
+                        <input type="radio" name="q10_ans" value="D">
+                        <div class="oval">D</div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="eval-btn" onclick="evaluar('q10', 'A', '10', 'Cálculo de Área de un Triángulo Rectángulo')">Confirmar Respuesta y Calificar</button>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 11 -->
+        <div class="question-card" id="q11">
+            <p style="font-size: 1.15rem; margin-bottom: 1rem;"><strong>Pregunta 11.</strong> Responde a partir de la siguiente imagen:</p>
+            
+            <img src="assets/pruebas/11.png" alt="Pregunta 11" class="question-image">
+
+            <div class="icfes-sheet">
+                <h3>Hoja de Respuestas:</h3>
+                <div class="ovals-group">
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">A</div>
+                        <input type="radio" name="q11_ans" value="A">
+                        <div class="oval">A</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">B</div>
+                        <input type="radio" name="q11_ans" value="B">
+                        <div class="oval">B</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">C</div>
+                        <input type="radio" name="q11_ans" value="C">
+                        <div class="oval">C</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">D</div>
+                        <input type="radio" name="q11_ans" value="D">
+                        <div class="oval">D</div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="eval-btn" onclick="evaluar('q11', 'D', '11', 'Cálculo de fracciones y porcentajes aplicados')">Confirmar Respuesta y Calificar</button>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 13 -->
+        <div class="question-card" id="q13">
+            <p style="font-size: 1.15rem; margin-bottom: 1rem;"><strong>Pregunta 13.</strong> Responde a partir de la siguiente imagen:</p>
+            
+            <img src="assets/pruebas/13.png" alt="Pregunta 13" class="question-image">
+
+            <div class="icfes-sheet">
+                <h3>Hoja de Respuestas:</h3>
+                <div class="ovals-group">
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">A</div>
+                        <input type="radio" name="q13_ans" value="A">
+                        <div class="oval">A</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">B</div>
+                        <input type="radio" name="q13_ans" value="B">
+                        <div class="oval">B</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">C</div>
+                        <input type="radio" name="q13_ans" value="C">
+                        <div class="oval">C</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">D</div>
+                        <input type="radio" name="q13_ans" value="D">
+                        <div class="oval">D</div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="eval-btn" onclick="evaluar('q13', 'C', '13', 'Cálculo de Promedios (Media aritmética)')">Confirmar Respuesta y Calificar</button>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 14 -->
+        <div class="question-card" id="q14">
+            <p style="font-size: 1.15rem; margin-bottom: 1rem;"><strong>Pregunta 14.</strong> Responde a partir de la siguiente imagen:</p>
+            
+            <img src="assets/pruebas/14.png" alt="Pregunta 14" class="question-image">
+
+            <div class="icfes-sheet">
+                <h3>Hoja de Respuestas:</h3>
+                <div class="ovals-group">
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">A</div>
+                        <input type="radio" name="q14_ans" value="A">
+                        <div class="oval">A</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">B</div>
+                        <input type="radio" name="q14_ans" value="B">
+                        <div class="oval">B</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">C</div>
+                        <input type="radio" name="q14_ans" value="C">
+                        <div class="oval">C</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">D</div>
+                        <input type="radio" name="q14_ans" value="D">
+                        <div class="oval">D</div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="eval-btn" onclick="evaluar('q14', 'A', '14', 'Gráficas de funciones lineales o relaciones proporcionales')">Confirmar Respuesta y Calificar</button>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 15 -->
+        <div class="question-card" id="q15">
+            <p style="font-size: 1.15rem; margin-bottom: 1rem;"><strong>Pregunta 15.</strong> Responde a partir de la siguiente imagen:</p>
+            
+            <img src="assets/pruebas/15.png" alt="Pregunta 15" class="question-image">
+
+            <div class="icfes-sheet">
+                <h3>Hoja de Respuestas:</h3>
+                <div class="ovals-group">
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">A</div>
+                        <input type="radio" name="q15_ans" value="A">
+                        <div class="oval">A</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">B</div>
+                        <input type="radio" name="q15_ans" value="B">
+                        <div class="oval">B</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">C</div>
+                        <input type="radio" name="q15_ans" value="C">
+                        <div class="oval">C</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">D</div>
+                        <input type="radio" name="q15_ans" value="D">
+                        <div class="oval">D</div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="eval-btn" onclick="evaluar('q15', 'A', '15', 'Ubicación y ejes en el plano cartesiano')">Confirmar Respuesta y Calificar</button>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 16 -->
+        <div class="question-card" id="q16">
+            <p style="font-size: 1.15rem; margin-bottom: 1rem;"><strong>Pregunta 16.</strong> Responde a partir de la siguiente imagen:</p>
+            
+            <img src="assets/pruebas/16.png" alt="Pregunta 16" class="question-image">
+
+            <div class="icfes-sheet">
+                <h3>Hoja de Respuestas:</h3>
+                <div class="ovals-group">
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">A</div>
+                        <input type="radio" name="q16_ans" value="A">
+                        <div class="oval">A</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">B</div>
+                        <input type="radio" name="q16_ans" value="B">
+                        <div class="oval">B</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">C</div>
+                        <input type="radio" name="q16_ans" value="C">
+                        <div class="oval">C</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">D</div>
+                        <input type="radio" name="q16_ans" value="D">
+                        <div class="oval">D</div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="eval-btn" onclick="evaluar('q16', 'C', '16', 'Traslaciones de coordenadas en el plano cartesiano')">Confirmar Respuesta y Calificar</button>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 17 -->
+        <div class="question-card" id="q17">
+            <p style="font-size: 1.15rem; margin-bottom: 1rem;"><strong>Pregunta 17.</strong> Responde a partir de la siguiente imagen:</p>
+            
+            <img src="assets/pruebas/17.png" alt="Pregunta 17" class="question-image">
+
+            <div class="icfes-sheet">
+                <h3>Hoja de Respuestas:</h3>
+                <div class="ovals-group">
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">A</div>
+                        <input type="radio" name="q17_ans" value="A">
+                        <div class="oval">A</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">B</div>
+                        <input type="radio" name="q17_ans" value="B">
+                        <div class="oval">B</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">C</div>
+                        <input type="radio" name="q17_ans" value="C">
+                        <div class="oval">C</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">D</div>
+                        <input type="radio" name="q17_ans" value="D">
+                        <div class="oval">D</div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="eval-btn" onclick="evaluar('q17', 'C', '17', 'Distribución y orden de Porcentajes')">Confirmar Respuesta y Calificar</button>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 18 -->
+        <div class="question-card" id="q18">
+            <p style="font-size: 1.15rem; margin-bottom: 1rem;"><strong>Pregunta 18.</strong> Responde a partir de la siguiente imagen:</p>
+            
+            <img src="assets/pruebas/18.png" alt="Pregunta 18" class="question-image">
+
+            <div class="icfes-sheet">
+                <h3>Hoja de Respuestas:</h3>
+                <div class="ovals-group">
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">A</div>
+                        <input type="radio" name="q18_ans" value="A">
+                        <div class="oval">A</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">B</div>
+                        <input type="radio" name="q18_ans" value="B">
+                        <div class="oval">B</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">C</div>
+                        <input type="radio" name="q18_ans" value="C">
+                        <div class="oval">C</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">D</div>
+                        <input type="radio" name="q18_ans" value="D">
+                        <div class="oval">D</div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="eval-btn" onclick="evaluar('q18', 'C', '18', 'Comparación de proporciones basadas en Porcentajes')">Confirmar Respuesta y Calificar</button>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 19 -->
+        <div class="question-card" id="q19">
+            <p style="font-size: 1.15rem; margin-bottom: 1rem;"><strong>Pregunta 19.</strong> Responde a partir de la siguiente imagen:</p>
+            
+            <img src="assets/pruebas/19.png" alt="Pregunta 19" class="question-image">
+
+            <div class="icfes-sheet">
+                <h3>Hoja de Respuestas:</h3>
+                <div class="ovals-group">
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">A</div>
+                        <input type="radio" name="q19_ans" value="A">
+                        <div class="oval">A</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">B</div>
+                        <input type="radio" name="q19_ans" value="B">
+                        <div class="oval">B</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">C</div>
+                        <input type="radio" name="q19_ans" value="C">
+                        <div class="oval">C</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">D</div>
+                        <input type="radio" name="q19_ans" value="D">
+                        <div class="oval">D</div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="eval-btn" onclick="evaluar('q19', 'B', '19', 'Comparación de fracciones en contexto de Probabilidad')">Confirmar Respuesta y Calificar</button>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 20 -->
+        <div class="question-card" id="q20">
+            <p style="font-size: 1.15rem; margin-bottom: 1rem;"><strong>Pregunta 20.</strong> Responde a partir de la siguiente imagen:</p>
+            
+            <img src="assets/pruebas/20.png" alt="Pregunta 20" class="question-image">
+
+            <div class="icfes-sheet">
+                <h3>Hoja de Respuestas:</h3>
+                <div class="ovals-group">
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">A</div>
+                        <input type="radio" name="q20_ans" value="A">
+                        <div class="oval">A</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">B</div>
+                        <input type="radio" name="q20_ans" value="B">
+                        <div class="oval">B</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">C</div>
+                        <input type="radio" name="q20_ans" value="C">
+                        <div class="oval">C</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">D</div>
+                        <input type="radio" name="q20_ans" value="D">
+                        <div class="oval">D</div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="eval-btn" onclick="evaluar('q20', 'C', '20', 'Análisis e interpretación de gráficos de barras')">Confirmar Respuesta y Calificar</button>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 21 -->
+        <div class="question-card" id="q21">
+            <p style="font-size: 1.15rem; margin-bottom: 1rem;"><strong>Pregunta 21.</strong> Responde a partir de la siguiente imagen:</p>
+            
+            <img src="assets/pruebas/21.png" alt="Pregunta 21" class="question-image">
+
+            <div class="icfes-sheet">
+                <h3>Hoja de Respuestas:</h3>
+                <div class="ovals-group">
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">A</div>
+                        <input type="radio" name="q21_ans" value="A">
+                        <div class="oval">A</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">B</div>
+                        <input type="radio" name="q21_ans" value="B">
+                        <div class="oval">B</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">C</div>
+                        <input type="radio" name="q21_ans" value="C">
+                        <div class="oval">C</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">D</div>
+                        <input type="radio" name="q21_ans" value="D">
+                        <div class="oval">D</div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="eval-btn" onclick="evaluar('q21', 'A', '21', 'Cálculo directo de porcentajes')">Confirmar Respuesta y Calificar</button>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 22 -->
+        <div class="question-card" id="q22">
+            <p style="font-size: 1.15rem; margin-bottom: 1rem;"><strong>Pregunta 22.</strong> Responde a partir de la siguiente imagen:</p>
+            
+            <img src="assets/pruebas/22.png" alt="Pregunta 22" class="question-image">
+
+            <div class="icfes-sheet">
+                <h3>Hoja de Respuestas:</h3>
+                <div class="ovals-group">
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">A</div>
+                        <input type="radio" name="q22_ans" value="A">
+                        <div class="oval">A</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">B</div>
+                        <input type="radio" name="q22_ans" value="B">
+                        <div class="oval">B</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">C</div>
+                        <input type="radio" name="q22_ans" value="C">
+                        <div class="oval">C</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">D</div>
+                        <input type="radio" name="q22_ans" value="D">
+                        <div class="oval">D</div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="eval-btn" onclick="evaluar('q22', 'B', '22', 'Proporcionalidad directa y tasas de cambio constantes')">Confirmar Respuesta y Calificar</button>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 23 -->
+        <div class="question-card" id="q23">
+            <p style="font-size: 1.15rem; margin-bottom: 1rem;"><strong>Pregunta 23.</strong> Responde a partir de la siguiente imagen:</p>
+            
+            <img src="assets/pruebas/23.png" alt="Pregunta 23" class="question-image">
+
+            <div class="icfes-sheet">
+                <h3>Hoja de Respuestas:</h3>
+                <div class="ovals-group">
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">A</div>
+                        <input type="radio" name="q23_ans" value="A">
+                        <div class="oval">A</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">B</div>
+                        <input type="radio" name="q23_ans" value="B">
+                        <div class="oval">B</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">C</div>
+                        <input type="radio" name="q23_ans" value="C">
+                        <div class="oval">C</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">D</div>
+                        <input type="radio" name="q23_ans" value="D">
+                        <div class="oval">D</div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="eval-btn" onclick="evaluar('q23', 'B', '23', 'Área total de figuras geométricas compuestas')">Confirmar Respuesta y Calificar</button>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 24 -->
+        <div class="question-card" id="q24">
+            <p style="font-size: 1.15rem; margin-bottom: 1rem;"><strong>Pregunta 24.</strong> Responde a partir de la siguiente imagen:</p>
+            
+            <img src="assets/pruebas/24.png" alt="Pregunta 24" class="question-image">
+
+            <div class="icfes-sheet">
+                <h3>Hoja de Respuestas:</h3>
+                <div class="ovals-group">
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">A</div>
+                        <input type="radio" name="q24_ans" value="A">
+                        <div class="oval">A</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">B</div>
+                        <input type="radio" name="q24_ans" value="B">
+                        <div class="oval">B</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">C</div>
+                        <input type="radio" name="q24_ans" value="C">
+                        <div class="oval">C</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">D</div>
+                        <input type="radio" name="q24_ans" value="D">
+                        <div class="oval">D</div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="eval-btn" onclick="evaluar('q24', 'B', '24', 'Probabilidad frecuencial a partir de datos históricos')">Confirmar Respuesta y Calificar</button>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 25 -->
+        <div class="question-card" id="q25">
+            <p style="font-size: 1.15rem; margin-bottom: 1rem;"><strong>Pregunta 25.</strong> Responde a partir de la siguiente imagen:</p>
+            
+            <img src="assets/pruebas/25.png" alt="Pregunta 25" class="question-image">
+
+            <div class="icfes-sheet">
+                <h3>Hoja de Respuestas:</h3>
+                <div class="ovals-group">
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">A</div>
+                        <input type="radio" name="q25_ans" value="A">
+                        <div class="oval">A</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">B</div>
+                        <input type="radio" name="q25_ans" value="B">
+                        <div class="oval">B</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">C</div>
+                        <input type="radio" name="q25_ans" value="C">
+                        <div class="oval">C</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">D</div>
+                        <input type="radio" name="q25_ans" value="D">
+                        <div class="oval">D</div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="eval-btn" onclick="evaluar('q25', 'B', '25', 'Análisis estadístico y probabilidad frecuencial')">Confirmar Respuesta y Calificar</button>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 26 -->
+        <div class="question-card" id="q26">
+            <p style="font-size: 1.15rem; margin-bottom: 1rem;"><strong>Pregunta 26.</strong> Responde a partir de la siguiente imagen:</p>
+            
+            <img src="assets/pruebas/26.png" alt="Pregunta 26" class="question-image">
+
+            <div class="icfes-sheet">
+                <h3>Hoja de Respuestas:</h3>
+                <div class="ovals-group">
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">A</div>
+                        <input type="radio" name="q26_ans" value="A">
+                        <div class="oval">A</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">B</div>
+                        <input type="radio" name="q26_ans" value="B">
+                        <div class="oval">B</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">C</div>
+                        <input type="radio" name="q26_ans" value="C">
+                        <div class="oval">C</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">D</div>
+                        <input type="radio" name="q26_ans" value="D">
+                        <div class="oval">D</div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="eval-btn" onclick="evaluar('q26', 'D', '26', 'Regla de tres simple directa y proporciones')">Confirmar Respuesta y Calificar</button>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 27 -->
+        <div class="question-card" id="q27">
+            <p style="font-size: 1.15rem; margin-bottom: 1rem;"><strong>Pregunta 27.</strong> Responde a partir de la siguiente imagen:</p>
+            
+            <img src="assets/pruebas/27.png" alt="Pregunta 27" class="question-image">
+
+            <div class="icfes-sheet">
+                <h3>Hoja de Respuestas:</h3>
+                <div class="ovals-group">
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">A</div>
+                        <input type="radio" name="q27_ans" value="A">
+                        <div class="oval">A</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">B</div>
+                        <input type="radio" name="q27_ans" value="B">
+                        <div class="oval">B</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">C</div>
+                        <input type="radio" name="q27_ans" value="C">
+                        <div class="oval">C</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">D</div>
+                        <input type="radio" name="q27_ans" value="D">
+                        <div class="oval">D</div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="eval-btn" onclick="evaluar('q27', 'B', '27', 'Cambios de escala en el Volumen de un Cubo')">Confirmar Respuesta y Calificar</button>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 28 -->
+        <div class="question-card" id="q28">
+            <p style="font-size: 1.15rem; margin-bottom: 1rem;"><strong>Pregunta 28.</strong> Responde a partir de la siguiente imagen:</p>
+            
+            <img src="assets/pruebas/28.png" alt="Pregunta 28" class="question-image">
+
+            <div class="icfes-sheet">
+                <h3>Hoja de Respuestas:</h3>
+                <div class="ovals-group">
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">A</div>
+                        <input type="radio" name="q28_ans" value="A">
+                        <div class="oval">A</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">B</div>
+                        <input type="radio" name="q28_ans" value="B">
+                        <div class="oval">B</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">C</div>
+                        <input type="radio" name="q28_ans" value="C">
+                        <div class="oval">C</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">D</div>
+                        <input type="radio" name="q28_ans" value="D">
+                        <div class="oval">D</div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="eval-btn" onclick="evaluar('q28', 'A', '28', 'Propiedad distributiva de la multiplicación y formulación algebraica')">Confirmar Respuesta y Calificar</button>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 29 -->
+        <div class="question-card" id="q29">
+            <p style="font-size: 1.15rem; margin-bottom: 1rem;"><strong>Pregunta 29.</strong> Responde a partir de la siguiente imagen:</p>
+            
+            <img src="assets/pruebas/29.png" alt="Pregunta 29" class="question-image">
+
+            <div class="icfes-sheet">
+                <h3>Hoja de Respuestas:</h3>
+                <div class="ovals-group">
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">A</div>
+                        <input type="radio" name="q29_ans" value="A">
+                        <div class="oval">A</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">B</div>
+                        <input type="radio" name="q29_ans" value="B">
+                        <div class="oval">B</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">C</div>
+                        <input type="radio" name="q29_ans" value="C">
+                        <div class="oval">C</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">D</div>
+                        <input type="radio" name="q29_ans" value="D">
+                        <div class="oval">D</div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="eval-btn" onclick="evaluar('q29', 'B', '29', 'Figuras semejantes y correspondencia de ángulos internos')">Confirmar Respuesta y Calificar</button>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 30 -->
+        <div class="question-card" id="q30">
+            <p style="font-size: 1.15rem; margin-bottom: 1rem;"><strong>Pregunta 30.</strong> Responde a partir de la siguiente imagen:</p>
+            
+            <img src="assets/pruebas/30.png" alt="Pregunta 30" class="question-image">
+
+            <div class="icfes-sheet">
+                <h3>Hoja de Respuestas:</h3>
+                <div class="ovals-group">
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">A</div>
+                        <input type="radio" name="q30_ans" value="A">
+                        <div class="oval">A</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">B</div>
+                        <input type="radio" name="q30_ans" value="B">
+                        <div class="oval">B</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">C</div>
+                        <input type="radio" name="q30_ans" value="C">
+                        <div class="oval">C</div>
+                    </label>
+                    <label class="oval-label">
+                        <div style="font-size: 0.8rem; color: #64748b;">D</div>
+                        <input type="radio" name="q30_ans" value="D">
+                        <div class="oval">D</div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="eval-btn" onclick="evaluar('q30', 'C', '30', 'Cálculo de Volumen y Área de la base en prismas rectangulares')">Confirmar Respuesta y Calificar</button>
+            <div class="feedback"></div>
+        </div>
+
+    </div>
+
+    <!-- Scripts para Confeti y Evaluación -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+        // Menú contextual personalizado con opción Copilot
+        let ctxPrompt = '';
+        const ctxMenu = document.createElement('div');
+        ctxMenu.id = 'ctx-menu';
+        ctxMenu.style.cssText = `
+            display:none; position:fixed; z-index:9999;
+            background:rgba(15,23,42,0.97); border:1px solid rgba(255,255,255,0.1);
+            border-radius:10px; padding:0.5rem 0; min-width:220px;
+            box-shadow:0 10px 30px rgba(0,0,0,0.5); font-family:var(--font-body);
+        `;
+        ctxMenu.innerHTML = `
+            <div style="padding:0.5rem 1rem; font-size:0.75rem; color:#94A3B8; border-bottom:1px solid rgba(255,255,255,0.05); margin-bottom:0.3rem;">Abrir con IA</div>
+            <div onclick="openAI('copilot')" style="padding:0.7rem 1.2rem; cursor:pointer; display:flex; align-items:center; gap:0.7rem; color:#fff; transition:background 0.2s;"
+                onmouseover="this.style.background='rgba(6,182,212,0.1)'" onmouseout="this.style.background=''">
+                <img src="https://www.microsoft.com/favicon.ico" width="16" style="border-radius:3px;"> Abrir con Microsoft Copilot
+            </div>
+            <div onclick="openAI('gemini')" style="padding:0.7rem 1.2rem; cursor:pointer; display:flex; align-items:center; gap:0.7rem; color:#fff; transition:background 0.2s;"
+                onmouseover="this.style.background='rgba(6,182,212,0.1)'" onmouseout="this.style.background=''">
+                <i class="fas fa-brain" style="color:#9b72f3; width:16px;"></i> Abrir con Gemini
+            </div>
+            <div onclick="openAI('notebook')" style="padding:0.7rem 1.2rem; cursor:pointer; display:flex; align-items:center; gap:0.7rem; color:#fff; transition:background 0.2s;"
+                onmouseover="this.style.background='rgba(6,182,212,0.1)'" onmouseout="this.style.background=''">
+                <i class="fas fa-microchip" style="color:#06B6D4; width:16px;"></i> Abrir con NotebookLM
+            </div>
+        `;
+        document.body.appendChild(ctxMenu);
+
+        document.addEventListener('click', () => ctxMenu.style.display = 'none');
+        document.addEventListener('scroll', () => ctxMenu.style.display = 'none');
+
+        function showCtxMenu(e, promptText) {
+            e.preventDefault();
+            ctxPrompt = promptText;
+            ctxMenu.style.display = 'block';
+            ctxMenu.style.top = e.clientY + 'px';
+            ctxMenu.style.left = e.clientX + 'px';
+        }
+
+        function openAI(service) {
+            ctxMenu.style.display = 'none';
+            navigator.clipboard.writeText(ctxPrompt).catch(() => {});
+            const urls = {
+                gemini: 'https://gemini.google.com/app',
+                notebook: 'https://notebooklm.google.com/',
+                copilot: 'https://copilot.microsoft.com/'
+            };
+            window.open(urls[service], '_blank');
+        }
+
+        function evaluar(qId, correctAnswer, questionNumber, topic) {
+    console.log('Evaluar invoked for', qId, correctAnswer, questionNumber, topic);
+    try {
+        const questionDiv = document.getElementById(qId);
+        const radios = questionDiv.querySelectorAll('input[type="radio"]');
+        let selectedValue = null;
+        radios.forEach(r => { if(r.checked) selectedValue = r.value; });
+        if(!selectedValue) {
+            alert("Por favor, rellena uno de los óvalos de respuesta antes de confirmar.");
+            return;
+        }
+        radios.forEach(r => r.disabled = true);
+        const evalBtn = questionDiv.querySelector('.eval-btn');
+        if(evalBtn) evalBtn.disabled = true;
+        const feedbackDiv = questionDiv.querySelector('.feedback');
+        feedbackDiv.classList.add('show');
+        // Determine topic data
+        const topicData = {
+            "Probabilidad": {
+                steps: ["1️⃣ Identifica el espacio muestral (resultados totales posibles).", "2️⃣ Cuenta la cantidad de casos favorables a tu evento.", "3️⃣ Divide: Casos Favorables ÷ Resultados Totales.", "4️⃣ Convierte a porcentaje o simplifica la fracción."],
+                trick: "💡 Truco ICFES: Cuando te pidan un evento 'Y' el otro, multiplica las fracciones. Cuando pidan evento 'O', súmalas.",
+                python: "def prob(fav, total):\n    p = fav / total\n    return f'{p:.2%}'\n\nprint(prob(3, 10)) // Salida: 30.00%"
+            },
+            "Estadística": {
+                steps: ["1️⃣ Ordena siempre el conjunto de datos de menor a mayor.", "2️⃣ Para la media, suma todos y divide por la cantidad.", "3️⃣ Para la mediana, ubica exactamente el valor del medio.", "4️⃣ Para la moda, halla el que más repeticiones tenga."],
+                trick: "💡 Truco ICFES: Los valores atípicos distorsionan la 'Media', pero no la 'Mediana'.",
+                python: "import statistics\n\ndatos = [12, 15, 14, 15, 16]\nprint('Media:', statistics.mean(datos))\nprint('Mediana:', statistics.median(datos))\nprint('Moda:', statistics.mode(datos))"
+            },
+            "Álgebra": {
+                steps: ["1️⃣ Identifica variables y constantes separándolas visualmente.", "2️⃣ Aplica la ley distributiva para romper paréntesis.", "3️⃣ Agrupa términos semejantes usando suma/resta.", "4️⃣ Despeja la variable aislando con la operación inversa."],
+                trick: "💡 Truco ICFES: Si despejar te confunde, ¡NO despejes! Sustituye las opciones A, B, C y D en la ecuación original. La que cumpla, es la respuesta.",
+                python: "from sympy import symbols, Eq, solve\n\nx = symbols('x')\necuacion = Eq(2*x + 5, 13)\nprint(solve(ecuacion, x)) // Salida: [4]"
+            },
+            "Geometría": {
+                steps: ["1️⃣ Descompón la figura geométrica en piezas más simples.", "2️⃣ Verifica qué te piden: sumar bordes (perímetro) o rellenos (área).", "3️⃣ Aplica las fórmulas y reemplaza las dimensiones dadas.", "4️⃣ Verifica que no falten recortes ni pedazos del dibujo."],
+                trick: "💡 Truco ICFES: Rara vez te pedirán calcular con el valor exacto de π. Mira las opciones; si todas incluyen π, solo opera los números.",
+                python: "import math\n\ndef area_circulo(r):\n    return math.pi * (r**2)\n\nprint(f'{area_circulo(5):.2f}') // Area del radio 5"
+            },
+            "Funciones": {
+                steps: ["1️⃣ Busca los puntos limpios donde la gráfica corta una coordenada exacta.", "2️⃣ Evalúa en x=0 para ver dónde cruza el eje Y.", "3️⃣ Observa la inclinación para ver si la tasa es positiva o negativa.", "4️⃣ Descarta las gráficas que no hagan sentido físico con los datos."],
+                trick: "💡 Truco ICFES: En gráficas de movimiento, una curva horizontal no significa 'caída', significa 'se quedó quieto'.",
+                python: "def f(x):\n    return 2*x + 3\n\nfor x in [0,1,2]:\n    print(f'Y({x}) = {f(x)}')"
+            },
+            "Volumen": {
+                steps: ["1️⃣ Multiplica lado x lado para obtener el área de la Base.", "2️⃣ Multiplica la Base por la Profundidad para hallar el Volumen.", "3️⃣ Si la base varía, divídela en bloques rectangulares.", "4️⃣ Asegúrate que todas las medidas estén en la misma escala."],
+                trick: "💡 Truco ICFES: Usa el método de resta. Calcula el volumen de la 'caja' gigante y réstale el 'hueco' interno.",
+                python: "def volumen_prisma(base, altura, profundo):\n    return base * altura * profundo\n\nprint('Cúbicos =', volumen_prisma(10,5,2))"
+            },
+            "Razones": {
+                steps: ["1️⃣ Plantea la proporción formal: A es a B como C es a X.", "2️⃣ Revisa la lógica humana: ¿A más X le corresponde menos Y? (Inverso).", "3️⃣ Si es Directo: multiplica cruzado.", "4️⃣ Si es Inverso: multiplica en horizontal y divide."],
+                trick: "💡 Truco ICFES: Usa el sentido común; si contratan más obreros, la obra toma *menos* tiempo.",
+                python: "def regla_tres_inversa(o1, d1, o2):\n    return (o1 * d1) / o2\n\nprint('Días =', regla_tres_inversa(2,50,4))"
+            },
+            "Porcentajes": {
+                steps: ["1️⃣ Identifica el Valor Total como tu 100%.", "2️⃣ Reconoce si es Aumento (+%) o Descuento (-%).", "3️⃣ Multiplica el valor directamente por la fracción.", "4️⃣ Resta del inicio o obtiene la cuota exacta según pregunte."],
+                trick: "💡 Truco ICFES: Aplicar un 10% y luego 10% no significa restar 20%. Multiplica (Valor * 0.90) * 0.90.",
+                python: "def aplicar_descuento(precio, desc):\n    factor = 1 - (desc/100)\n    return precio * factor\n\nprint(aplicar_descuento(50000,20)) // $40000"
+            },
+            "default": {
+                steps: ["1️⃣ Lee atentamente la última línea del texto; allí está la verdadera pregunta.", "2️⃣ Extrae del enunciado las cifras clave (input).", "3️⃣ Conecta las variables con un operador matemático mental.", "4️⃣ Ejecuta sin saltarte el orden de los paréntesis."],
+                trick: "💡 Truco ICFES: El descarte directo es superior. Si analizas las unidades o descartas respuestas absurdas, subes tu acierto.",
+                python: "def resolver(datos):\n    return sum(datos) / len(datos)\n\nprint('R=', resolver([25,45,10]))"
+            }
+        };
+        let dataObj = topicData["default"];
+        for (const key of Object.keys(topicData)) {
+            if (topic.toLowerCase().includes(key.toLowerCase()) ||
+                (key === "Estadística" && topic.toLowerCase().includes("estadística")) ||
+                (key === "Álgebra" && topic.toLowerCase().includes("algebra")) ||
+                (key === "Razones" && topic.toLowerCase().includes("proporcional"))) {
+                dataObj = topicData[key];
+                break;
+            }
+        }
+        const stepList = dataObj.steps.map(s => `<li style="margin-bottom:0.5rem; line-height:1.5;">${s}</li>`).join('');
+        const explanationHTML = `
+            <div style="margin-top: 1.5rem; padding: 1.5rem; background: var(--panel-bg); border: 2px solid #334155; border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.2);">
+                <h4 style="color:#22d3ee; margin-bottom: 1.2rem; font-size: 1.2rem; display: flex; align-items: center; gap: 0.8rem;">
+                    <i class="fas fa-layer-group"></i> Algoritmo de Solución para: ${topic}
+                </h4>
+                
+                <div style="background: rgba(255,255,255,0.03); padding: 1.2rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 1.5rem;">
+                    <p style="font-weight: 700; color: #F1F5F9; margin-bottom: 0.8rem; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px;">Secuencia de Pasos Matemáticos:</p>
+                    <ul style="margin: 0; padding-left: 1.2rem; color: #E2E8F0; list-style: none;">${stepList}</ul>
+                </div>
+
+                <div style="padding: 1rem; background: rgba(236, 72, 153, 0.1); border-left: 4px solid #EC4899; margin-bottom: 1.5rem; border-radius: 4px;">
+                    <span style="color: #FDA4AF; font-weight: 600; font-size: 0.95rem;">${dataObj.trick}</span>
+                </div>
+                
+                <p style="font-weight: 700; color: #F1F5F9; margin-bottom: 0.6rem; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px;">Implementación Computacional (Python):</p>
+                <div style="background:#0F172A; padding:1.2rem; border-radius:8px; border:1px solid #334155; font-family:'Fira Code', monospace; color:#38BDF8; font-size:0.9rem; line-height:1.6; overflow-x:auto; position: relative;">
+                    <div style="position: absolute; top: 5px; right: 10px; font-size: 0.7rem; color: #475569;">python v3.x</div>
+                    <pre style="margin:0;"><code>${dataObj.python}</code></pre>
+                </div>
+            </div>
+        `;
+        if (selectedValue === correctAnswer) {
+            if (typeof confetti === 'function') confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+            feedbackDiv.innerHTML = `
+                <div class="feedback-success">
+                    <h4>¡Excelente razonamiento lógico! 🎉</h4>
+                    <p>Has dominado este desafío. Tu acierto valida tu compresión sobre <strong>${topic}</strong>.</p>
+                </div>
+                ${explanationHTML}
+            `;
+        } else {
+            const rawPrompt = `Actúa como un profesor de matemáticas experto en ICFES. Fallé un ejercicio de "${topic}". \nExplícame la trampa común de este tema, dame 3 pasos simples para atacar el problema, y luego muéstrame cómo modelar esa ecuación en un script corto de Python.`;
+            feedbackDiv.innerHTML = `
+                <div class="feedback-error">
+                    <h4>¡Aprender es descubrir el error! 💡</h4>
+                    <p>La respuesta marcada es incorrecta. El tema clave es <strong>${topic}</strong>. Revisa los pasos y el consejo abajo:</p>
+                </div>
+                ${explanationHTML}
+                <div style="margin-top:1.5rem; padding:1.5rem; background:#4C1D95; border-radius:12px; box-shadow: 0 4px 15px rgba(76, 29, 149, 0.3);">
+                    <p style="font-weight:800; color:#FFFFFF; margin-bottom:0.6rem; display:flex; align-items:center; gap:0.6rem; font-size:1rem; letter-spacing:0.5px;">
+                        <i class="fas fa-lightbulb" style="color:#FDE047;"></i> MÉTODO DE ESTUDIO RECOMENDADO
+                    </p>
+                    <p style="color:#F5F3FF; font-size:0.95rem; line-height:1.6; margin:0;">
+                        Practica con al menos 3 ejercicios similares y luego intenta explicar el proceso a otra persona. El <strong>método Feynman</strong> es la herramienta más potente para asegurar tu éxito en el ICFES.
+                    </p>
+                </div>
+
+                <div style="margin-top:1.5rem; padding:1.5rem; background:#0F172A; border-radius:12px; border: 1px solid #334155; box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);">
+                    <p style="font-size:0.85rem; color:#38BDF8; margin-bottom:1rem; font-weight:700; text-transform:uppercase; letter-spacing:1px;">
+                        <i class="fas fa-robot"></i> Prompt para Refuerzo con IA:
+                    </p>
+                    <div style="background:rgba(255,255,255,0.03); padding:1rem; border-radius:8px; font-size:0.9rem; color:#FDE047; margin-bottom:1rem; font-family:'Fira Code', monospace; line-height:1.6; border: 1px dashed rgba(56, 189, 248, 0.3);">
+                        "Actúa como tutor experto en ICFES. Fallé en el tema <strong>${topic}</strong>. Explícame el error conceptual más común, dame 3 pasos clave de resolución y una regla nemotécnica para no olvidarlo."
+                    </div>
+                    <div style="display:flex; gap:0.8rem; flex-wrap:wrap;">
+                        <button onclick="navigator.clipboard.writeText('Actúa como tutor experto en ICFES. Fallé en el tema ${topic}. Explícame el error conceptual más común, dame 3 pasos clave de resolución y una regla nemotécnica para no olvidarlo.').then(()=>window.open('https://notebooklm.google.com/','_blank'))" class="notebook-btn" style="flex:1; justify-content:center;"><i class="fas fa-microchip"></i> NotebookLM</button>
+                        <button onclick="navigator.clipboard.writeText('Actúa como tutor experto en ICFES. Fallé en el tema ${topic}. Explícame el error conceptual más común, dame 3 pasos clave de resolución y una regla nemotécnica para no olvidarlo.').then(()=>window.open('https://gemini.google.com/app','_blank'))" class="gemini-btn" style="flex:1; justify-content:center;"><i class="fas fa-brain"></i> Gemini</button>
+                    </div>
+                </div>
+            `;
+        }
+    } catch (e) {
+        console.error('Error in evaluar:', e);
+        alert('Error al evaluar. Abre la consola (F12) para ver el detalle.');
+    }
+}
+    </script>
+    <script src="app.js"></script>
+</body>
+</html>
+
