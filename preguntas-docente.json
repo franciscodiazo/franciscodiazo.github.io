@@ -1,102 +1,282 @@
 [
-    {
-        "id": 1,
-        "categoria": "Competencia Pedagógica",
-        "pregunta": "Un docente observa que un grupo de estudiantes presenta dificultades constantes para comprender textos científicos. Según el enfoque de la Enseñanza para la Comprensión (EpC), la acción más adecuada del docente para promover un desempeño de comprensión es:",
-        "opciones": {
-            "A": "Solicitar a los estudiantes que memoricen el vocabulario técnico antes de leer.",
-            "B": "Diseñar una actividad donde los estudiantes apliquen los conceptos del texto en un experimento práctico.",
-            "C": "Realizar un dictado de los párrafos más importantes para asegurar la atención.",
-            "D": "Asignar una lectura complementaria sobre el mismo tema para la casa."
-        },
-        "correcta": "B",
-        "explicacion": {
-            "tecnica": "La Enseñanza para la Comprensión define la comprensión como la capacidad de usar el conocimiento de formas flexibles y creativas en contextos nuevos.",
-            "pedagogica": "Al aplicar el concepto en un experimento, el estudiante realiza un 'desempeño de comprensión', superando la simple repetición de información.",
-            "pasos": [
-                "Identificar la meta de comprensión del texto.",
-                "Vincular el contenido teórico con una situación real o experimental.",
-                "Evaluar la capacidad de transferencia del conocimiento."
-            ],
-            "documentos": [
-                "Guía 34 del MEN: Mejoramiento Institucional",
-                "Marco de la Enseñanza para la Comprensión (Project Zero, Harvard)"
-            ]
+  {
+    "id": 1,
+    "modulo": "Competencias Blandas",
+    "categoria": "Gestión de Aula y Convivencia",
+    "enunciado": "Durante una clase, dos estudiantes comienzan a discutir fuertemente por el uso de un material pedagógico. La discusión escala a insultos personales y el resto del grupo se distrae, deteniendo el flujo de la lección. Ante esta situación, usted como docente debe:",
+    "opciones": [
+      {
+        "id": "A",
+        "texto": "Suspender la clase inmediatamente y llevar a ambos estudiantes a la oficina de coordinación para que se aplique el manual de convivencia.",
+        "es_correcta": false,
+        "retroalimentacion": {
+          "analisis": "Esta respuesta prioriza una medida punitiva e institucional antes que una intervención pedagógica en el aula.",
+          "por_que_no": [
+            "Interrumpe completamente el proceso de aprendizaje del grupo.",
+            "Desconoce el rol mediador del docente en la resolución de conflictos.",
+            "Escala innecesariamente la situación a instancias administrativas."
+          ],
+          "enfoque_correcto": "El docente debe agotar primero estrategias pedagógicas de mediación antes de remitir a coordinación, salvo casos graves."
         }
+      },
+      {
+        "id": "B",
+        "texto": "Pedir a los dos estudiantes que se calmen, asignar una actividad de trabajo autónomo al resto del grupo y dialogar brevemente con los implicados para buscar una solución concertada.",
+        "es_correcta": true,
+        "retroalimentacion": {
+          "analisis": "Esta es la respuesta correcta porque integra gestión de aula, regulación emocional y mediación pedagógica.",
+          "secuencia_pasos": [
+            "Intervenir de manera inmediata y calmada para detener la escalada del conflicto.",
+            "Regular el ambiente del aula, solicitando calma a los estudiantes involucrados.",
+            "Garantizar la continuidad del aprendizaje asignando una actividad autónoma al resto.",
+            "Realizar una mediación breve con los estudiantes implicados, promoviendo el diálogo.",
+            "Buscar acuerdos y soluciones concertadas que restauren la convivencia.",
+            "Retomar la clase asegurando un clima adecuado de aprendizaje."
+          ],
+          "razones_pedagogicas": [
+            "Promueve el desarrollo de competencias socioemocionales como la autorregulación y la empatía.",
+            "Fortalece la resolución pacífica de conflictos dentro del aula.",
+            "Mantiene el clima de aprendizaje sin afectar al grupo completo.",
+            "Reconoce al docente como mediador y formador integral."
+          ],
+          "razones_tecnicas": [
+            "Se alinea con el enfoque de convivencia escolar del MEN basado en prevención y mediación.",
+            "Aplica estrategias de gestión de aula efectiva (classroom management).",
+            "Evita la escalación del conflicto hacia rutas disciplinarias innecesarias.",
+            "Optimiza el tiempo pedagógico al no suspender completamente la clase."
+          ],
+          "conclusion": "La intervención pedagógica inmediata, mediadora y proporcional es la mejor práctica docente frente a conflictos en el aula."
+        }
+      },
+      {
+        "id": "C",
+        "texto": "Ignorar la discusión de los estudiantes para no darles protagonismo y continuar con la explicación, evaluando el comportamiento al final de la jornada.",
+        "es_correcta": false,
+        "retroalimentacion": {
+          "analisis": "Ignorar el conflicto implica omitir una situación que afecta directamente el ambiente de aprendizaje.",
+          "por_que_no": [
+            "Permite que el conflicto escale a mayores niveles de agresión.",
+            "Deteriora el clima de aula y la atención del grupo.",
+            "Debilita la autoridad pedagógica del docente.",
+            "No responde oportunamente a una situación de convivencia."
+          ],
+          "enfoque_correcto": "El docente debe intervenir de forma oportuna y pedagógica para garantizar la convivencia y el aprendizaje."
+        }
+      }
+    ],
+    "respuesta_correcta": "B",
+    "retroalimentacion_general": {
+      "mensaje": "El manejo de conflictos en el aula es una competencia clave del docente. La intervención debe ser oportuna, pedagógica y centrada en la mediación.",
+      "claves": [
+        "Intervenir sin escalar el conflicto.",
+        "Mantener el proceso de aprendizaje del grupo.",
+        "Promover el diálogo y acuerdos.",
+        "Aplicar estrategias restaurativas antes que punitivas."
+      ]
     },
-    {
-        "id": 2,
-        "categoria": "Aptitud Numérica",
-        "pregunta": "En una institución educativa, la relación entre el número de docentes de primaria y secundaria es de 3 a 5. Si en total hay 120 docentes, ¿cuántos docentes son de primaria?",
-        "opciones": {
-            "A": "45 docentes",
-            "B": "75 docentes",
-            "C": "40 docentes",
-            "D": "60 docentes"
-        },
-        "correcta": "A",
-        "explicacion": {
-            "tecnica": "Problema de razones y proporciones. La suma de las partes de la razón (3+5=8) representa el total de la unidad.",
-            "pedagogica": "Este tipo de razonamiento permite al docente gestionar proporciones en el aula, como la relación estudiante-docente o distribución de recursos.",
-            "pasos": [
-                "Sumar los términos de la razón: 3 + 5 = 8 partes totales.",
-                "Dividir el total de docentes por las partes: 120 / 8 = 15 (valor de cada parte).",
-                "Multiplicar por la parte solicitada (primaria): 15 * 3 = 45."
-            ],
-            "documentos": [
-                "Estándares Básicos de Competencias en Matemáticas - MEN",
-                "Guía de Aptitud Numérica para el Concurso Docente"
-            ]
+    "referencias_normativas": [
+      {
+        "nombre": "Ley 1620 de 2013",
+        "descripcion": "Sistema Nacional de Convivencia Escolar que promueve la resolución pacífica de conflictos.",
+        "aplicacion": "Establece la importancia de la mediación y prevención en el aula."
+      },
+      {
+        "nombre": "Decreto 1965 de 2013",
+        "descripcion": "Reglamenta rutas de atención integral para la convivencia escolar.",
+        "aplicacion": "Indica que las situaciones deben atenderse con estrategias pedagógicas primero."
+      },
+      {
+        "nombre": "Ley 115 de 1994",
+        "descripcion": "Ley General de Educación.",
+        "aplicacion": "Define la formación en valores, convivencia y ciudadanía como fines de la educación."
+      },
+      {
+        "nombre": "Guía 49 MEN",
+        "descripcion": "Guía pedagógica de convivencia escolar.",
+        "aplicacion": "Promueve estrategias de mediación, diálogo y resolución de conflictos en el aula."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "modulo": "Aptitud Numérica",
+    "categoria": "Razones y Proporciones",
+    "enunciado": "En una institución educativa, la relación entre el número de docentes de primaria y secundaria es de 3 a 5. Si en total hay 120 docentes, ¿cuántos docentes son de primaria?",
+    "opciones": [
+      {
+        "id": "A",
+        "texto": "45 docentes",
+        "es_correcta": true,
+        "retroalimentacion": {
+          "analisis": "Correcto. La suma de la razón es 3+5=8 partes. Cada parte equivale a 120/8=15 docentes. Primaria: 3×15=45.",
+          "secuencia_pasos": [
+            "Identificar los términos de la razón: 3 (primaria) y 5 (secundaria).",
+            "Sumar los términos: 3 + 5 = 8 partes totales.",
+            "Calcular el valor de cada parte: 120 ÷ 8 = 15.",
+            "Multiplicar la parte de primaria: 3 × 15 = 45."
+          ],
+          "conclusion": "45 docentes corresponden a primaria, lo que verifica la proporción: 45:75 = 3:5. ✓"
         }
+      },
+      {
+        "id": "B",
+        "texto": "75 docentes",
+        "es_correcta": false,
+        "retroalimentacion": {
+          "analisis": "Este valor corresponde a los docentes de SECUNDARIA, no de primaria.",
+          "por_que_no": [
+            "Se calculó correctamente 5 × 15 = 75, pero eso es la parte de secundaria.",
+            "La pregunta pide la parte de primaria, que corresponde al factor 3."
+          ],
+          "enfoque_correcto": "Siempre identifica qué parte de la razón se pide: 3 (primaria) o 5 (secundaria)."
+        }
+      },
+      {
+        "id": "C",
+        "texto": "40 docentes",
+        "es_correcta": false,
+        "retroalimentacion": {
+          "analisis": "Este valor es incorrecto. Posiblemente se calculó 120/3 = 40, lo cual es un error de concepto.",
+          "por_que_no": [
+            "Dividir el total solo por uno de los términos de la razón no respeta la proporción.",
+            "Hay que sumar los términos (3+5=8) antes de dividir."
+          ],
+          "enfoque_correcto": "La razón representa partes del total, no fracciones directas del número total."
+        }
+      },
+      {
+        "id": "D",
+        "texto": "60 docentes",
+        "es_correcta": false,
+        "retroalimentacion": {
+          "analisis": "Este valor sería la mitad del total (120/2=60), lo que corresponde a una distribución igualitaria, no proporcional.",
+          "por_que_no": [
+            "Una razón 3:5 no implica una distribución igual (50/50).",
+            "El valor 60 no satisface la razón 3:5 del enunciado."
+          ],
+          "enfoque_correcto": "Respeta la razón dada: las partes son 3 y 5, no 1 y 1."
+        }
+      }
+    ],
+    "respuesta_correcta": "A",
+    "retroalimentacion_general": {
+      "mensaje": "Los problemas de razón y proporción son frecuentes en el concurso docente. Dominar este concepto permite también planificar distribuciones de grupos, recursos y tiempos pedagógicos.",
+      "claves": [
+        "Suma los términos de la razón para obtener el total de partes.",
+        "Divide el total entre las partes para encontrar el valor unitario.",
+        "Multiplica por la parte solicitada.",
+        "Verifica comprobando que la suma de ambas partes dé el total."
+      ]
     },
-    {
-        "id": 3,
-        "categoria": "Ética y Gestión de Aula",
-        "pregunta": "Ante un conflicto persistente entre dos estudiantes que interrumpe la clase, el docente decide aplicar un proceso de mediación. El primer paso fundamental según el Manual de Convivencia (Ley 1620) es:",
-        "opciones": {
-            "A": "Sancionar a ambos estudiantes inmediatamente para mantener el orden.",
-            "B": "Escuchar a cada parte de manera neutral para identificar el interés detrás de la posición.",
-            "C": "Remitir el caso directamente a coordinación de convivencia sin intervenir.",
-            "D": "Llamar a los padres de familia antes de hablar con los estudiantes."
-        },
-        "correcta": "B",
-        "explicacion": {
-            "tecnica": "La Ley 1620 de Convivencia Escolar prioriza los mecanismos alternativos de resolución de conflictos y la justicia restaurativa.",
-            "pedagogica": "La mediación docente busca que los estudiantes desarrollen competencias ciudadanas y autonomía en la resolución de sus diferencias.",
-            "pasos": [
-                "Crear un espacio seguro y neutral.",
-                "Escucha activa de las versiones de cada estudiante.",
-                "Identificación de puntos en común y posibles acuerdos."
-            ],
-            "documentos": [
-                "Ley 1620 de 2013 (Convivencia Escolar)",
-                "Guía 49 del MEN: Guías pedagógicas para la convivencia escolar"
-            ]
+    "referencias_normativas": [
+      {
+        "nombre": "Estándares Básicos MEN - Matemáticas",
+        "descripcion": "Define las competencias matemáticas esperadas en los docentes.",
+        "aplicacion": "El pensamiento numérico y la proporcionalidad son competencias exigidas."
+      },
+      {
+        "nombre": "Guía de Orientación CNSC",
+        "descripcion": "Guía de la Comisión Nacional del Servicio Civil para el Concurso Docente.",
+        "aplicacion": "Incluye aptitud numérica como componente de evaluación."
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "modulo": "Competencias Pedagógicas",
+    "categoria": "Planificación y Evaluación",
+    "enunciado": "Una docente observa que, después de aplicar una evaluación formativa, el 70% del grupo no alcanzó el objetivo de aprendizaje planteado. La acción pedagógica más pertinente es:",
+    "opciones": [
+      {
+        "id": "A",
+        "texto": "Avanzar al siguiente tema del plan de estudios para no perder tiempo y recuperar el objetivo al final del período.",
+        "es_correcta": false,
+        "retroalimentacion": {
+          "analisis": "Avanzar sin atender la brecha de aprendizaje consolida el fracaso escolar.",
+          "por_que_no": [
+            "El 70% no alcanzó el objetivo, lo que indica un problema de comprensión generalizado.",
+            "Los contenidos siguientes dependen del objetivo no logrado.",
+            "Ignora el principio de evaluación formativa como herramienta de ajuste."
+          ],
+          "enfoque_correcto": "La evaluación formativa debe informar decisiones pedagógicas de mejora, no ignorarse."
         }
+      },
+      {
+        "id": "B",
+        "texto": "Rediseñar la estrategia de enseñanza, identificar las causas de la dificultad e implementar actividades de refuerzo diferenciadas antes de continuar.",
+        "es_correcta": true,
+        "retroalimentacion": {
+          "analisis": "Correcto. La evaluación formativa existe precisamente para ajustar la práctica pedagógica en tiempo real.",
+          "secuencia_pasos": [
+            "Analizar los resultados de la evaluación para identificar los conceptos no comprendidos.",
+            "Diagnosticar las causas: estrategia inadecuada, tiempo insuficiente, prerrequisitos ausentes.",
+            "Rediseñar la actividad usando un enfoque didáctico diferente (visual, práctico, colaborativo).",
+            "Implementar actividades de refuerzo diferenciadas según los niveles de dificultad.",
+            "Aplicar una nueva evaluación formativa para verificar el avance antes de continuar."
+          ],
+          "razones_pedagogicas": [
+            "Aplica el ciclo de mejora continua (Planear-Hacer-Verificar-Actuar) en el aula.",
+            "Reconoce la diversidad de ritmos y estilos de aprendizaje.",
+            "Prioriza el aprendizaje real sobre el avance curricular mecánico."
+          ],
+          "razones_tecnicas": [
+            "Cumple con el principio de evaluación formativa como retroalimentación para el aprendizaje.",
+            "Se alinea con el Decreto 1290 sobre evaluación de los estudiantes.",
+            "Aplica el enfoque de enseñanza para la comprensión (EpC)."
+          ],
+          "conclusion": "Un docente efectivo usa los resultados de evaluación para mejorar su práctica, no para avanzar sin aprendizaje real."
+        }
+      },
+      {
+        "id": "C",
+        "texto": "Calificar la evaluación con nota numérica, informar a los padres sobre el bajo rendimiento y citar a los estudiantes a refuerzo voluntario fuera del horario escolar.",
+        "es_correcta": false,
+        "retroalimentacion": {
+          "analisis": "Esta acción responde más a la evaluación sumativa y traslada la responsabilidad al estudiante y la familia.",
+          "por_que_no": [
+            "Convierte una evaluación formativa en sumativa, cambiando su propósito.",
+            "No implica un ajuste real de la estrategia pedagógica.",
+            "El refuerzo voluntario excluye a estudiantes que no pueden asistir fuera de horario."
+          ],
+          "enfoque_correcto": "El refuerzo debe ser parte del proceso de aula, no una carga adicional voluntaria."
+        }
+      },
+      {
+        "id": "D",
+        "texto": "Repetir exactamente la misma explicación del tema con más detalles y ejemplos adicionales.",
+        "es_correcta": false,
+        "retroalimentacion": {
+          "analisis": "Repetir el mismo método que no funcionó, con más de lo mismo, rara vez produce resultados diferentes.",
+          "por_que_no": [
+            "Si la estrategia inicial no fue efectiva para el 70%, repetirla amplificada no garantiza comprensión.",
+            "Ignora la necesidad de cambiar el enfoque didáctico.",
+            "No considera la diversidad de estilos de aprendizaje del grupo."
+          ],
+          "enfoque_correcto": "Cambiar la estrategia didáctica (de expositiva a práctica, visual o colaborativa) suele ser más efectivo."
+        }
+      }
+    ],
+    "respuesta_correcta": "B",
+    "retroalimentacion_general": {
+      "mensaje": "La evaluación formativa es una herramienta de reflexión y mejora para el docente, no solo un instrumento de medición del estudiante.",
+      "claves": [
+        "Diagnosticar causas antes de actuar.",
+        "Rediseñar la estrategia, no repetirla.",
+        "Diferenciar las actividades de refuerzo.",
+        "Verificar el aprendizaje antes de avanzar."
+      ]
     },
-    {
-        "id": 4,
-        "categoria": "Razonamiento Lógico",
-        "pregunta": "Si todos los docentes de matemáticas son ingenieros, y algunos ingenieros son músicos, ¿cuál de las siguientes afirmaciones es necesariamente verdadera?",
-        "opciones": {
-            "A": "Todos los músicos son docentes de matemáticas.",
-            "B": "Algunos docentes de matemáticas son músicos.",
-            "C": "No se puede asegurar que algún docente de matemáticas sea músico.",
-            "D": "Todos los ingenieros son docentes de matemáticas."
-        },
-        "correcta": "C",
-        "explicacion": {
-            "tecnica": "Silogismos categóricos. El hecho de que algunos miembros de un conjunto B (ingenieros) tengan la propiedad C (ser músicos) no garantiza que los miembros del subconjunto A (docentes de matemáticas) también la tengan.",
-            "pedagogica": "El razonamiento lógico-deductivo es vital para la estructuración de clases y la evaluación objetiva de evidencias de aprendizaje.",
-            "pasos": [
-                "Identificar los conjuntos: Docentes (A), Ingenieros (B), Músicos (C).",
-                "A es subconjunto de B. B tiene una intersección parcial con C.",
-                "Verificar si la intersección de B y C incluye necesariamente a A (No)."
-            ],
-            "documentos": [
-                "Introducción a la Lógica - Irving Copi",
-                "Módulo de Razonamiento Catastral y Lógico - Concurso Docente"
-            ]
-        }
-    }
+    "referencias_normativas": [
+      {
+        "nombre": "Decreto 1290 de 2009",
+        "descripcion": "Reglamenta la evaluación del aprendizaje y promoción de los estudiantes.",
+        "aplicacion": "Define la evaluación formativa como proceso de retroalimentación continua."
+      },
+      {
+        "nombre": "Guía 34 MEN",
+        "descripcion": "Guía para el mejoramiento institucional.",
+        "aplicacion": "Promueve ciclos de mejora continua basados en análisis de resultados."
+      }
+    ]
+  }
 ]
