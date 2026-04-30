@@ -1,0 +1,102 @@
+[
+    {
+        "id": 1,
+        "categoria": "Competencia Pedagógica",
+        "pregunta": "Un docente observa que un grupo de estudiantes presenta dificultades constantes para comprender textos científicos. Según el enfoque de la Enseñanza para la Comprensión (EpC), la acción más adecuada del docente para promover un desempeño de comprensión es:",
+        "opciones": {
+            "A": "Solicitar a los estudiantes que memoricen el vocabulario técnico antes de leer.",
+            "B": "Diseñar una actividad donde los estudiantes apliquen los conceptos del texto en un experimento práctico.",
+            "C": "Realizar un dictado de los párrafos más importantes para asegurar la atención.",
+            "D": "Asignar una lectura complementaria sobre el mismo tema para la casa."
+        },
+        "correcta": "B",
+        "explicacion": {
+            "tecnica": "La Enseñanza para la Comprensión define la comprensión como la capacidad de usar el conocimiento de formas flexibles y creativas en contextos nuevos.",
+            "pedagogica": "Al aplicar el concepto en un experimento, el estudiante realiza un 'desempeño de comprensión', superando la simple repetición de información.",
+            "pasos": [
+                "Identificar la meta de comprensión del texto.",
+                "Vincular el contenido teórico con una situación real o experimental.",
+                "Evaluar la capacidad de transferencia del conocimiento."
+            ],
+            "documentos": [
+                "Guía 34 del MEN: Mejoramiento Institucional",
+                "Marco de la Enseñanza para la Comprensión (Project Zero, Harvard)"
+            ]
+        }
+    },
+    {
+        "id": 2,
+        "categoria": "Aptitud Numérica",
+        "pregunta": "En una institución educativa, la relación entre el número de docentes de primaria y secundaria es de 3 a 5. Si en total hay 120 docentes, ¿cuántos docentes son de primaria?",
+        "opciones": {
+            "A": "45 docentes",
+            "B": "75 docentes",
+            "C": "40 docentes",
+            "D": "60 docentes"
+        },
+        "correcta": "A",
+        "explicacion": {
+            "tecnica": "Problema de razones y proporciones. La suma de las partes de la razón (3+5=8) representa el total de la unidad.",
+            "pedagogica": "Este tipo de razonamiento permite al docente gestionar proporciones en el aula, como la relación estudiante-docente o distribución de recursos.",
+            "pasos": [
+                "Sumar los términos de la razón: 3 + 5 = 8 partes totales.",
+                "Dividir el total de docentes por las partes: 120 / 8 = 15 (valor de cada parte).",
+                "Multiplicar por la parte solicitada (primaria): 15 * 3 = 45."
+            ],
+            "documentos": [
+                "Estándares Básicos de Competencias en Matemáticas - MEN",
+                "Guía de Aptitud Numérica para el Concurso Docente"
+            ]
+        }
+    },
+    {
+        "id": 3,
+        "categoria": "Ética y Gestión de Aula",
+        "pregunta": "Ante un conflicto persistente entre dos estudiantes que interrumpe la clase, el docente decide aplicar un proceso de mediación. El primer paso fundamental según el Manual de Convivencia (Ley 1620) es:",
+        "opciones": {
+            "A": "Sancionar a ambos estudiantes inmediatamente para mantener el orden.",
+            "B": "Escuchar a cada parte de manera neutral para identificar el interés detrás de la posición.",
+            "C": "Remitir el caso directamente a coordinación de convivencia sin intervenir.",
+            "D": "Llamar a los padres de familia antes de hablar con los estudiantes."
+        },
+        "correcta": "B",
+        "explicacion": {
+            "tecnica": "La Ley 1620 de Convivencia Escolar prioriza los mecanismos alternativos de resolución de conflictos y la justicia restaurativa.",
+            "pedagogica": "La mediación docente busca que los estudiantes desarrollen competencias ciudadanas y autonomía en la resolución de sus diferencias.",
+            "pasos": [
+                "Crear un espacio seguro y neutral.",
+                "Escucha activa de las versiones de cada estudiante.",
+                "Identificación de puntos en común y posibles acuerdos."
+            ],
+            "documentos": [
+                "Ley 1620 de 2013 (Convivencia Escolar)",
+                "Guía 49 del MEN: Guías pedagógicas para la convivencia escolar"
+            ]
+        }
+    },
+    {
+        "id": 4,
+        "categoria": "Razonamiento Lógico",
+        "pregunta": "Si todos los docentes de matemáticas son ingenieros, y algunos ingenieros son músicos, ¿cuál de las siguientes afirmaciones es necesariamente verdadera?",
+        "opciones": {
+            "A": "Todos los músicos son docentes de matemáticas.",
+            "B": "Algunos docentes de matemáticas son músicos.",
+            "C": "No se puede asegurar que algún docente de matemáticas sea músico.",
+            "D": "Todos los ingenieros son docentes de matemáticas."
+        },
+        "correcta": "C",
+        "explicacion": {
+            "tecnica": "Silogismos categóricos. El hecho de que algunos miembros de un conjunto B (ingenieros) tengan la propiedad C (ser músicos) no garantiza que los miembros del subconjunto A (docentes de matemáticas) también la tengan.",
+            "pedagogica": "El razonamiento lógico-deductivo es vital para la estructuración de clases y la evaluación objetiva de evidencias de aprendizaje.",
+            "pasos": [
+                "Identificar los conjuntos: Docentes (A), Ingenieros (B), Músicos (C).",
+                "A es subconjunto de B. B tiene una intersección parcial con C.",
+                "Verificar si la intersección de B y C incluye necesariamente a A (No)."
+            ],
+            "documentos": [
+                "Introducción a la Lógica - Irving Copi",
+                "Módulo de Razonamiento Catastral y Lógico - Concurso Docente"
+            ]
+        }
+    }
+]
